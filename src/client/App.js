@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './app.css';
 import ReactImage from './react.png';
-import LoginBox from './components/LoginBox'
-
+import LoginBox from './components/LoginBox';
+import RegisterBox from './components/RegisterBox';
 export default class App extends Component {
   state = { username: null };
 
@@ -17,6 +17,7 @@ export default class App extends Component {
     return (
       <div>
         <LoginBox></LoginBox>
+        <RegisterBox></RegisterBox>
       </div>
     );
   }
