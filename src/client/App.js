@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './app.css';
 import ReactImage from './react.png';
+<<<<<<< HEAD
 
 import UserStore from './stores/UserStore'
 import LButton from './client/loginButton';
@@ -8,6 +9,10 @@ import LoginForm from './client/login';
 import InputFields from './client/fields';
 
 
+=======
+import LoginBox from './components/LoginBox';
+import RegisterBox from './components/RegisterBox';
+>>>>>>> origin
 export default class App extends Component {
   state = { username: null };
 
@@ -63,8 +68,8 @@ export default class App extends Component {
     const { username } = this.state;
     return (
       <div>
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
+        <LoginBox></LoginBox>
+        <RegisterBox></RegisterBox>
       </div>
     );
   }
