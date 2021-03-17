@@ -5,39 +5,32 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import './style.css';
-//import dataStreamHandler
+import ApiHandlerInstance from '../../helpers/ApiHandler';
 
-export default class LoginBox extends React.Component {
+export default class LoginBox extends React.Component  {
     constructor(props){
         super(props);
-        this.state = {
+        this.state = { //state to be sent for logging in
+            username: ' ',
             email: ' ',
             password: ' '
             }
+
         }
     
     render() {
         return (
             <form id="login-box">
-                <TextField id="outlined-basic" label="E-mail" type="email" variant="outlined"
-                onChange = {(event) => this.handleInput("email", event.target.value)}/><br/>
-                <TextField id="outlined-basic" label="Password" type="password" variant="outlined"
-                onChange = {(event) => this.handleInput("password", event.target.value)}/><br/>
-                <Button variant="contained" color="primary" onClick = {(event) => this.submitData(event)} >Login </Button>
+                <TextField id="outlined-basic" label="Username" type="username" variant="outlined" //textfields for updating state, API handler uses hash to convert 
+                onChange = {(event) => this.setState({"username" : ApiHandlerInstance.hash(event.target.value)})}/><br/>
+                <TextField id="outlined-basic" label="Password" type="password" variant="outlined" 
+                onChange = {(event) => this.setState({"password" : ApiHandlerInstance.hash(event.target.value)})}/><br/> 
+                <Button variant="contained" color="primary" onClick = {(event) => ApiHandlerInstance.updateDataBase("/api/login",this.state)} 
+                //sends state to database with login details
+                >Login </Button> 
                 
             </form>
         )
-    }
-    handleInput(name ,value){ //use an interface to enforce implementation of these methods for LoginBox and RegisterBox -> Proxy Design Pattern 
-        var parameter = {label: name, val: value}  
-        this.setState(parameter)  
-    }
-
-    submitData(event){
-        alert(this.state.email + "," + this.state.password)
-    }
-    setState(property){
-        this.state[property.label] = property.val
     }
 
 }
