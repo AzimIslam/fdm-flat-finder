@@ -15,6 +15,7 @@ export default class LoginBox extends React.Component {
         this.state = {  }
 
     }
+    //sends a request to the server 
     makeRequest(){
         fetch("/api/register", {
             method:"POST",
@@ -29,15 +30,6 @@ export default class LoginBox extends React.Component {
         ).then(
             res => console.log(res)
         )
-
-        //const xhr = new XMLHttpRequest();
-        //xhr.open("POST", "/api/register", true);
-        //xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        
-        //xhr.onload = () => {
-            //console.log(this.responseText);
-        //}
-        //xhr.send({message:"hello"})
     }
     render() {
         return (

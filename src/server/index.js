@@ -1,13 +1,10 @@
 var express = require('express');
 const os = require('os');
-//var bodyParser= require('body-parser')
 var app = express(); 
-//app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());  
 
-
+//sends LoginBox message to the console/backend server
 app.post('/api/register', (req, res) => {
-    //res.setHeader('Content-Type', 'application/json');
     var message = req.body.message;
     res.send({message: `${message}`});
    
