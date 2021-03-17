@@ -8,9 +8,8 @@ app.use(express.json());
 
 app.post('/api/register', (req, res) => {
     //res.setHeader('Content-Type', 'application/json');
-    var message = req.body.message;
-    res.send({message: `${message}`});
-   
+    var message = req.body;
+    res.send(message)
     console.log('Got body: ', message);
 }); 
 

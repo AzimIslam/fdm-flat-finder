@@ -17,7 +17,7 @@ export default class RegisterBox extends React.Component {
             email: '',
             //username: '',
             password: '',
-            usertype: ' '
+            usertype: ''
         };
 
        
