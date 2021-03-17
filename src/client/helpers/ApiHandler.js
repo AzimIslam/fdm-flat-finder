@@ -18,6 +18,19 @@ static updateDataBase(address,json) {
     xhr.send(json);
 }
 
+createRequest(address, json){
+    fetch(address, {
+        method:"POST",
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(json)
+    }).then(
+        response => response.json() 
+    ).then(
+        res => console.log(res)
+    )
+}
 
 
 //used to hash data before updating state json
