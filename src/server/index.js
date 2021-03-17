@@ -1,9 +1,17 @@
-const express = require('express');
+var express = require('express');
 const os = require('os');
+var bodyParser= require('body-parser')
+var app = express(); 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());  
 
-const app = express();
 
-app.use(express.static('dist'));
-app.get('/api/getUsername', (req, res) => res.send({ username: os.userInfo().username }));
+app.post('/api/register', (req, res) => {
+    //res.setHeader('Content-Type', 'application/json');
+    res.send({message:"bye", secondM: req.body});
+   
+    console.log('Got body: ', req.body.message);
+}); 
 
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
+
