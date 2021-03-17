@@ -18,6 +18,9 @@ export default class LoginBox extends React.Component {
     makeRequest(){
         fetch("/api/register", {
             method:"POST",
+            headers:{
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 message:"hello"
             })
