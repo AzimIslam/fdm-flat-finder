@@ -5,9 +5,9 @@ app.use(express.json());
 
 //sends LoginBox message to the console/backend server
 app.post('/api/register', (req, res) => {
-    var message = req.body.message;
-    res.send({message: `${message}`});
-   
+    //res.setHeader('Content-Type', 'application/json');
+    var message = req.body;
+    res.send(message)
     console.log('Got body: ', message);
 }); 
 
