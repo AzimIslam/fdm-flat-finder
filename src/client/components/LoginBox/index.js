@@ -12,8 +12,8 @@ export default class LoginBox extends React.Component  {
         super(props);
         this.state = { //state to be sent for logging in
             // username: ' '
-            email: ' ',
-            password: ' '
+            email: '',
+            password: ''
             }
 
         }
@@ -25,7 +25,7 @@ export default class LoginBox extends React.Component  {
                 onChange = {(event) => this.setState({"email" : event.target.value})}/><br/>
                 <TextField id="outlined-basic" label="Password" type="password" variant="outlined" 
                 onChange = {(event) => this.setState({"password" : ApiHandlerInstance.hash(event.target.value)})}/><br/> 
-                <Button variant="contained" color="primary" onClick = {(event) => ApiHandlerInstance.createRequest("/api/login",this.state)} 
+                <Button variant="contained" color="primary" onClick = {(event) => ApiHandlerInstance.createRequest("/api/user/login",this.state)} 
                 //sends state to database with login details
                 >Login </Button> 
                 

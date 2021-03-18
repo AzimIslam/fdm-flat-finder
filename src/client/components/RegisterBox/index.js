@@ -36,7 +36,7 @@ export default class RegisterBox extends React.Component {
                     <FormControlLabel value="member" control={<Radio />} label="Member" defaultChecked />
                     <FormControlLabel value="landlord" control={<Radio />} label="Landlord" />
                 </RadioGroup>
-                <Button onClick={this.createRequest} variant="contained" color="primary" onClick = {(event) => ApiHandlerInstance.createRequest("/api/register",this.state)}
+                <Button onClick={this.createRequest} variant="contained" color="primary" onClick = {(event) => ApiHandlerInstance.createRequest("/api/user/register",this.state)}
                 //sends state to database with register details
                 >Register</Button>
             </form>
