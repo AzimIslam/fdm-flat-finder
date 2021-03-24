@@ -47,7 +47,7 @@ export default class LoginBox extends React.Component  {
                 <Button variant="contained" color="primary" onClick = {(event) => landlord.createListing()} >CreateListing </Button> 
                 
             </form>
-        )
+        );
     }
 
  
