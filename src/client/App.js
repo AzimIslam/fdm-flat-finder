@@ -5,8 +5,8 @@ import ReactImage from './react.png';
 import LoginBox from './components/LoginBox';
 import RegisterBox from './components/RegisterBox';
 import ApiHandler from './helpers/ApiHandler';
-import Listings from './components/ListingsBox';
-import ListingsBox from './components/ListingsBox';
+//import Listings from './components/ListingsBox';
+//import ListingsBox from './components/ListingsBox';
 //import FrontPage from './components/FrontPage';
 
 
@@ -16,7 +16,7 @@ export default class App extends Component {
     this.toggleregister = this.toggleregister.bind(this);
     this.state = { username: null, 
       isregistered: true,
-      isloggedin: true,
+      //isloggedin: true,
       text: "Create an account"
     };
     this.ApiHandler = new ApiHandler();
