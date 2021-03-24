@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
 import './app.css';
 import ReactImage from './react.png';
 import LoginBox from './components/LoginBox';
 import RegisterBox from './components/RegisterBox';
-
+import ApiHandler from './helpers/ApiHandler';
 import Listings from './components/ListingsBox';
 import ListingsBox from './components/ListingsBox';
-import FrontPage from './components/FrontPage';
+//import FrontPage from './components/FrontPage';
 
-import ApiHandler from './helpers/ApiHandler';
 
 export default class App extends Component {
   constructor(props){
@@ -21,11 +21,15 @@ export default class App extends Component {
     };
     this.ApiHandler = new ApiHandler();
   }
+  
+ toggleregister(){
+  this.setState({isregistered: !this.state.isregistered})
+  if (this.state.isregistered){
+    this.setState({text: "Login"})
+  } else {
+   this.setState({text: "Create an account"})
+  }
 
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
   }
 
   render() {
@@ -43,7 +47,7 @@ export default class App extends Component {
       <div>
         
         
-        {(this.isloggedin) ?  <ListingsBox></ListingsBox>:  
+        {/*(this.isloggedin) ?  <ListingsBox></ListingsBox>:*/  
         //transitions from front page into ListingBox 
         //-> replace with <FrontPage> </FrontPage> later and use state with switch to access other pages or find an more 'OOP way'
             (this.state.isregistered) ? <LoginBox></LoginBox> :  <RegisterBox></RegisterBox>, <Button onClick= {this.toggleregister} variant="contained" color="primary">{this.state.text}</Button>}
