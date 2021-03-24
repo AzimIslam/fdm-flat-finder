@@ -5,6 +5,7 @@ import ReactImage from './react.png';
 import LoginBox from './components/LoginBox';
 import RegisterBox from './components/RegisterBox';
 import ApiHandler from './helpers/ApiHandler';
+
 export default class App extends Component {
   constructor(props){
     super(props)
