@@ -11,14 +11,8 @@ static getHashKey(){ //gets the haskey from
 }
 
 //submits register/login data, could find way to prevent use in LoginBox/RegisterBox 
-static updateDataBase(address,json) {
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-    xhr.open("POST", address, true);
-    xhr.send(json);
-}
 
-createRequest(address, json){
+static createRequest(address, json){
     fetch(address, {
         method:"POST",
         headers:{
@@ -33,13 +27,14 @@ createRequest(address, json){
 }
 
 
-//used to hash data before updating state json
+//used to hash data before updating state json -> fix hash function
 static hash(val, hashkey){
-    var sum = 0
-    for (var char in val){
-        sum += Number(char);
-    }
-    return sum % hashkey;
+    //var sum = 0
+    //for (var char in val){
+     //   sum += Number(char);
+    //}
+    //return sum % hashkey;
+    return val
 }
 
 }

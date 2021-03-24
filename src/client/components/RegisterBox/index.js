@@ -15,9 +15,9 @@ export default class RegisterBox extends React.Component {
             firstname: '',
             lastname: '',
             email: '',
-            username: '',
+            //username: '',
             password: '',
-            usertype: ' '
+            usertype: ''
         };
 
        
@@ -27,7 +27,8 @@ export default class RegisterBox extends React.Component {
         return( //text and radio fields for updating state, API handler uses hash to convert 
             <form id="register-box"> 
                 <TextField onChange={(event) => this.setState({"email" : ApiHandlerInstance.hash(event.target.value)})} id="outlined-basic" label="E-mail" type="email" variant="outlined" />
-                <TextField onChange={(event) => this.setState({"username" : ApiHandlerInstance.hash(event.target.value)})} id="outlined-basic" label="Username"  variant="outlined" />
+                {// <TextField onChange={(event) => this.setState({"username" : ApiHandlerInstance.hash(event.target.value)})} id="outlined-basic" label="Username"  variant="outlined" /> 
+                } 
                 <TextField onChange={(event) => this.setState({"firstname" : ApiHandlerInstance.hash(event.target.value)})} id="outlined-basic" label="First Name"  variant="outlined" />
                 <TextField onChange={(event) => this.setState({"lastname" : ApiHandlerInstance.hash(event.target.value)})} id="outlined-basic" label="Last Name" variant="outlined" />
                 <TextField onChange={(event) => this.setState({"password" : ApiHandlerInstance.hash(event.target.value)})} id="outlined-basic" label="Password" type="password" variant="outlined" />

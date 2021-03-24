@@ -11,7 +11,7 @@ export default class LoginBox extends React.Component  {
     constructor(props){
         super(props);
         this.state = { //state to be sent for logging in
-            username: ' ',
+            // username: ' '
             email: ' ',
             password: ' '
             }
@@ -21,8 +21,8 @@ export default class LoginBox extends React.Component  {
     render() {
         return (
             <form id="login-box">
-                <TextField id="outlined-basic" label="Username" type="username" variant="outlined" //textfields for updating state, API handler uses hash to convert 
-                onChange = {(event) => this.setState({"username" : ApiHandlerInstance.hash(event.target.value)})}/><br/>
+                <TextField id="outlined-basic" label="Email" type="email" variant="outlined" //textfields for updating state, API handler uses hash to convert 
+                onChange = {(event) => this.setState({"email" : event.target.value})}/><br/>
                 <TextField id="outlined-basic" label="Password" type="password" variant="outlined" 
                 onChange = {(event) => this.setState({"password" : ApiHandlerInstance.hash(event.target.value)})}/><br/> 
                 <Button variant="contained" color="primary" onClick = {(event) => ApiHandlerInstance.createRequest("/api/login",this.state)} 
