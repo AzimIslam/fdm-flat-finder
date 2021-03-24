@@ -1,17 +1,22 @@
-var express = require('express');
-const os = require('os');
-//var bodyParser= require('body-parser')
-var app = express(); 
-//app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.json());  
+const express = require('express');
+const UserService = require('./modules/user/index.js');
+const path = require('path')
+const app = express();
+const { connectDB } = require('./modules/db/index.js');
+const startUp = async () => {
 
+	const services = [
+		new UserService("/api/user")
+	]
+	await connectDB(path.resolve(__dirname, "./modules/db/database.db"))
+	app.use(express.json())
+	app.use(express.urlencoded({ extended: true }))
 
-app.post('/api/register', (req, res) => {
-    //res.setHeader('Content-Type', 'application/json');
-    var message = req.body;
-    res.send(message)
-    console.log('Got body: ', message);
-}); 
+	services.forEach((service) => {
+    	app.use(service.path, service.router);
+	});
 
-app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
+	await app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
+}
 
+startUp();
