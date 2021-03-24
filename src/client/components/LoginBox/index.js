@@ -13,23 +13,43 @@ export default class LoginBox extends React.Component  {
         this.state = { //state to be sent for logging in
             // username: ' '
             email: '',
-            password: ''
-            }
-
+            password: '',
+            showMessage: ''
         }
-    
+        this.loginRequest = this.loginRequest.bind(this)
+    }
+
+    loginRequest() {
+        fetch(`/api/user/login`, {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state)
+        })
+        .then(response => response.json())
+        .then(res => {
+            this.setState({showMessage : res.message})
+            console.log(res)
+        })
+    }
+
     render() {
         return (
-            <form id="login-box">
-                <TextField id="outlined-basic" label="Email" type="email" variant="outlined" //textfields for updating state, API handler uses hash to convert 
-                onChange = {(event) => this.setState({"email" : event.target.value})}/><br/>
-                <TextField id="outlined-basic" label="Password" type="password" variant="outlined" 
-                onChange = {(event) => this.setState({"password" : ApiHandlerInstance.hash(event.target.value)})}/><br/> 
-                <Button variant="contained" color="primary" onClick = {(event) => ApiHandlerInstance.createRequest("/api/user/login",this.state)} 
-                //sends state to database with login details
-                >Login </Button> 
-                
-            </form>
+            <div>
+            {
+                this.state.showMessage != '' ? <p>{this.state.showMessage}</p>
+                : <form id="login-box">
+                    <TextField id="outlined-basic" label="Email" type="email" variant="outlined" //textfields for updating state, API handler uses hash to convert 
+                    onChange = {(event) => this.setState({"email" : event.target.value})}/><br/>
+                    <TextField id="outlined-basic" label="Password" type="password" variant="outlined" 
+                    onChange = {(event) => this.setState({"password" : ApiHandlerInstance.hash(event.target.value)})}/><br/> 
+                    <Button variant="contained" color="primary" onClick = {this.loginRequest} 
+                    //sends state to database with login details
+                    >Login </Button> 
+                </form>
+            }
+            </div>
         )
     }
 
