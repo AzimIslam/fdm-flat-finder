@@ -5,46 +5,39 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import './style.css';
+import ApiHandlerInstance from '../../helpers/ApiHandler';
 
 export default class RegisterBox extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            firstName: '',
-            surname: '',
+        this.state = { //state to be sent for registering
+            firstname: '',
+            lastname: '',
             email: '',
             username: '',
             password: '',
-            isMember: true
+            usertype: ' '
         };
-        this.toggleIsMember = this.toggleIsMember.bind(this);
-        this.createRequest = this.createRequest.bind(this);
+
+       
     }
 
-    createRequest() {
-        const xhr = new XMLHttpRequest();
-        xhr.responseType = 'json';
-        xhr.open("POST", "/api/register", true);
-        xhr.send(this.state)
-    }
-
-    toggleIsMember() {
-        this.setState({isMember: !this.isMember});
-    }
     render() {
-        return(
-            <form id="register-box">
-                <TextField onChange={(e) => this.setState({email: e.target.value})} id="outlined-basic" label="E-mail" type="email" variant="outlined" />
-                <TextField onChange={(e) => this.setState({username: e.target.value})} id="outlined-basic" label="Username"  variant="outlined" />
-                <TextField onChange={(e) => this.setState({firstName: e.target.value})} id="outlined-basic" label="First Name"  variant="outlined" />
-                <TextField onChange={(e) => this.setState({surname: e.target.value})} id="outlined-basic" label="Last Name" variant="outlined" />
-                <TextField onChange={(e) => this.setState({password: e.target.value})} id="outlined-basic" label="Password" type="password" variant="outlined" />
-                <RadioGroup aria-label="userType" name="userType">
-                    <FormControlLabel value="member" onClick={this.toggleIsMember} control={<Radio />} label="Member" defaultChecked />
-                    <FormControlLabel value="landlord" onClick={this.toggleIsMember} control={<Radio />} label="Landlord" />
+        return( //text and radio fields for updating state, API handler uses hash to convert 
+            <form id="register-box"> 
+                <TextField onChange={(event) => this.setState({"email" : ApiHandlerInstance.hash(event.target.value)})} id="outlined-basic" label="E-mail" type="email" variant="outlined" />
+                <TextField onChange={(event) => this.setState({"username" : ApiHandlerInstance.hash(event.target.value)})} id="outlined-basic" label="Username"  variant="outlined" />
+                <TextField onChange={(event) => this.setState({"firstname" : ApiHandlerInstance.hash(event.target.value)})} id="outlined-basic" label="First Name"  variant="outlined" />
+                <TextField onChange={(event) => this.setState({"lastname" : ApiHandlerInstance.hash(event.target.value)})} id="outlined-basic" label="Last Name" variant="outlined" />
+                <TextField onChange={(event) => this.setState({"password" : ApiHandlerInstance.hash(event.target.value)})} id="outlined-basic" label="Password" type="password" variant="outlined" />
+                <RadioGroup aria-label="userType" name="userType" onChange = {(event) => this.setState({"usertype" : ApiHandlerInstance.hash(event.target.value)})} >
+                    <FormControlLabel value="member" control={<Radio />} label="Member" defaultChecked />
+                    <FormControlLabel value="landlord" control={<Radio />} label="Landlord" />
                 </RadioGroup>
-                <Button onClick={this.createRequest} variant="contained" color="primary">Register</Button>
+                <Button onClick={this.createRequest} variant="contained" color="primary" onClick = {(event) => ApiHandlerInstance.createRequest("/api/register",this.state)}
+                //sends state to database with register details
+                >Register</Button>
             </form>
         );
     }
