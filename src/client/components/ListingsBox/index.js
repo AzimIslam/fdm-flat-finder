@@ -31,7 +31,7 @@ export default class LoginBox extends React.Component  {
     testMethod(){
         this.state.landlord = new Landlord(agencyName = "you", username = "can", password ="do", email ="it@gmail.com", phoneNumber = 12344)
         listings = this.state.landlord.getListings();  
-        listings[0] = new Listing(title = "hello", address1 = "ayyy", address2 = "good luck",city = "with this",county = "you", postcode = "12can", landlord = this.state.landlord, rent = 50){
+        listings[0] = new Listing(title = "hello", address1 = "ayyy", address2 = "good luck",city = "with this",county = "you", postcode = "12can", landlord = this.state.landlord, rent = 50)
 
     }
     
