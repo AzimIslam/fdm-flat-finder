@@ -13,7 +13,8 @@ export default class App extends Component {
     this.toggleregister = this.toggleregister.bind(this);
     this.state = { username: null, 
       isregistered: true,
-      text: "Create an account"
+      text: "Create an account",
+      text2: "Don't have an account?"
     };
     this.ApiHandler = new ApiHandler();
   }
@@ -21,9 +22,9 @@ export default class App extends Component {
  toggleregister(){
    this.setState({isregistered: !this.state.isregistered})
    if (this.state.isregistered){
-     this.setState({text: "Login"})
+     this.setState({text: "Login", text2: "Already have an account?"})
    } else {
-    this.setState({text: "Create an account"})
+    this.setState({text: "Create an account", text2: "Don't have an account?"})
    }
 
  }
@@ -38,7 +39,7 @@ export default class App extends Component {
         {(this.state.isregistered) ?  <LoginBox></LoginBox> :  <RegisterBox></RegisterBox>}
         {
           <div id="registerBox">
-            <Typography>Don't have an account?</Typography>
+            <Typography id="text">{this.state.text2}</Typography>
             <Button onClick= {this.toggleregister} variant="contained" color="primary">{this.state.text}</Button>
           </div>
         }

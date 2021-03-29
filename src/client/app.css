@@ -23,3 +23,7 @@ body {
   padding: 10px;
   opacity: 0.9;
 }
+
+#registerBox #text {
+  margin-bottom: 10px;
+}

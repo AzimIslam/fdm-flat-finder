@@ -11,7 +11,7 @@ class Header extends React.Component {
             textTransform: "uppercase",
             color: "#333",
             padding: "20px",
-            fontWeight: "lighter"
+            fontWeight: "bolder"
         };
         return <Typography style={style} variant="h4">FDM Flat Finder</Typography>
     }
