@@ -39,6 +39,7 @@ module.exports = class UserService{
 
 		return {'message': "Login successful"}
 	}
+	
 
 	async registerUser(registerDetails) {
 		var salt = bcrypt.genSaltSync(10);
