@@ -5,4 +5,8 @@ h1 {
 body {
   text-align: center;
   margin: auto;
+  background-image: url(./images/login-back.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
 }

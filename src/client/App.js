@@ -4,6 +4,8 @@ import './app.css';
 import ReactImage from './react.png';
 import LoginBox from './components/LoginBox';
 import RegisterBox from './components/RegisterBox';
+import Header from './components/Header';
+
 import ApiHandler from './helpers/ApiHandler';
 export default class App extends Component {
   constructor(props){
@@ -37,11 +39,14 @@ export default class App extends Component {
     
     
     return (
-      
       <div>
-        
+        <Header/>
         {(this.state.isregistered) ?  <LoginBox></LoginBox> :  <RegisterBox></RegisterBox>}
-        <Button onClick= {this.toggleregister} variant="contained" color="primary">{this.state.text}</Button>
+        {
+          /*
+          <Button onClick= {this.toggleregister} variant="contained" color="primary">{this.state.text}</Button>
+          */
+        }
       </div>
     );
   }

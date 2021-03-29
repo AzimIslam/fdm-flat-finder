@@ -36,17 +36,25 @@ export default class LoginBox extends React.Component  {
 
     render() {
         return (
-            <div>
+            <div id="container">
             {
                 this.state.showMessage != '' ? <p>{this.state.showMessage}</p>
                 : <form id="login-box">
-                    <TextField id="outlined-basic" label="Email" type="email" variant="outlined" //textfields for updating state, API handler uses hash to convert 
-                    onChange = {(event) => this.setState({"email" : event.target.value})}/><br/>
-                    <TextField id="outlined-basic" label="Password" type="password" variant="outlined" 
-                    onChange = {(event) => this.setState({"password" : ApiHandlerInstance.hash(event.target.value)})}/><br/> 
-                    <Button variant="contained" color="primary" onClick = {this.loginRequest} 
-                    //sends state to database with login details
-                    >Login </Button> 
+                    <div className="formItem">
+                        <TextField style={{width: "60%"}} className="formItem" id="outlined-basic" label="Email" type="email" variant="outlined" //textfields for updating state, API handler uses hash to convert 
+                        onChange = {(event) => this.setState({"email" : event.target.value})}/><br/>
+                    </div>
+
+                    <div className="formItem">
+                        <TextField style={{width: "60%"}} className="formItem" id="outlined-basic" label="Password" type="password" variant="outlined" 
+                        onChange = {(event) => this.setState({"password" : ApiHandlerInstance.hash(event.target.value)})}/><br/> 
+                    </div>
+
+                    <div className="formItem">
+                        <Button style={{width: "40%"}} className="formItem" variant="contained" color="primary" onClick = {this.loginRequest} 
+                        //sends state to database with login details
+                        >Login </Button> 
+                    </div>
                 </form>
             }
             </div>
