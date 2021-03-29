@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import './app.css';
-import ReactImage from './react.png';
+import Typography from '@material-ui/core/Typography';
 import LoginBox from './components/LoginBox';
 import RegisterBox from './components/RegisterBox';
 import Header from './components/Header';
@@ -16,12 +16,6 @@ export default class App extends Component {
       text: "Create an account"
     };
     this.ApiHandler = new ApiHandler();
-  }
-
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
   }
 
  toggleregister(){
@@ -43,9 +37,10 @@ export default class App extends Component {
         <Header/>
         {(this.state.isregistered) ?  <LoginBox></LoginBox> :  <RegisterBox></RegisterBox>}
         {
-          /*
-          <Button onClick= {this.toggleregister} variant="contained" color="primary">{this.state.text}</Button>
-          */
+          <div id="registerBox">
+            <Typography>Don't have an account?</Typography>
+            <Button onClick= {this.toggleregister} variant="contained" color="primary">{this.state.text}</Button>
+          </div>
         }
       </div>
     );

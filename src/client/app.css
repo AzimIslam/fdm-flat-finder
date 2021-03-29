@@ -10,3 +10,16 @@ body {
   background-repeat: no-repeat;
   height: 100%;
 }
+
+#registerBox {
+  display: block;
+  background-color: white;
+  width: 10%;
+  margin: 0 auto;
+  overflow: auto;
+  border: 1px solid #eee;
+  border-radius: 1em;
+  margin-top: 40px;
+  padding: 10px;
+  opacity: 0.9;
+}
