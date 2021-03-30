@@ -33,6 +33,22 @@ class Database{
 		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])
 		return result.UserType;
 	}
+
+	async getFirstname(UserID) {
+		let result = await this.instance.get("SELECT FirstName FROM Users WHERE UserID = ?", [UserID])
+		return result.FirstName;
+	}
+
+	async getLastname(UserID) {
+		let result = await this.instance.get("SELECT LastName FROM Users WHERE UserID = ?", [UserID])
+		return result.Lastname;
+	}
+
+	async getEmail(UserID) {
+		let result = await this.instance.get("SELECT Email FROM Users WHERE UserID = ?", [UserID])
+		return result.Email;
+	}
+
 }
 
 module.exports.connectDB = async (path) => {
