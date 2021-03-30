@@ -41,28 +41,31 @@ const startUp = async () => {
 			unset: 'destroy', 
 			name: 'session cookie name',
 			genid: function(req) {
+				var ID = genuuid();
 				//returns a random stirng to be used as a session ID
 				console.log('Session ID created');
+				console.log(ID);
 				return genuuid();
+
 			},
 			//saveUninitialized: true,
 			//resave: true
 			cookie:{
-				path: '/login',
+				//path: '/login',
 				secure: false,
 				expires: 1000*60*60 //one hour till timeout when session created	
 			}
 		}
 	));
 	
+
 	app.post('/login', async (req, res) => {
 		try {
 			
-			let user = await db.users.findOne({email: req.body.email});
+			let user = await getDB().getUserID(loginDetails.email);
 			if(user !== null) {
 				req.session.user = {
-					email: user.email,
-					name: user.name
+					ID: user.UserID,
 				};
 				res.redirect('/account');
 			}
