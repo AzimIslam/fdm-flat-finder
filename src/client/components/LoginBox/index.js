@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import {Redirect} from 'react-router-dom';
 import './style.css';
 import ApiHandlerInstance from '../../helpers/ApiHandler';
 
@@ -29,14 +27,14 @@ export default class LoginBox extends React.Component  {
         })
         .then(response => response.json())
         .then(res => {
-            this.setState({showMessage : res.message})
-            // Creates the user session
-
             if (res['success']) {
                 sessionStorage.setItem('loggedIn', true);
                 sessionStorage.setItem('user_id', res['user_id'])
+                sessionStorage.setItem('userType', res['userType'])
             }
-            console.log(res)
+
+            if (res['userType'] == 'landlord') window.location = '/landlord';
+            else console.log("Unidentified user");
         })
     }
 
