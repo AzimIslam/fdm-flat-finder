@@ -20,12 +20,12 @@ class Database{
 	async getUserPasswordHash(email) {
 		return await this.instance.get("SELECT Password from 'Users' WHERE Email = ?", [email])
 	}
-	async registerUser({ firstname, lastname, email, password, usertype }) {
+	async registerUser({ firstname, lastname, email, password, usertype, employeeNo, agencyName }) {
 		let user = await this.instance.get("SELECT * from Users WHERE Email = ?", [email])
 		if(user != undefined){
 			return{'error': "User already registered"}
 		}
-		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType) Values(?,?,?,?,?)", firstname, lastname, email, password, usertype)
+		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType, EmployeeNo, AgencyName) Values(?,?,?,?,?,?,?)", firstname, lastname, email, password, usertype, employeeNo, agencyName)
 		return {'message': "User registered"}
 	}
 	async getUserID(email) {

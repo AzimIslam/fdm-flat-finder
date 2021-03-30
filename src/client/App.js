@@ -1,49 +1,17 @@
-import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import './app.css';
-import ReactImage from './react.png';
-import LoginBox from './components/LoginBox';
-import RegisterBox from './components/RegisterBox';
-import ApiHandler from './helpers/ApiHandler';
+import React from 'react';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
 
-export default class App extends Component {
-  constructor(props){
-    super(props)
-    this.toggleregister = this.toggleregister.bind(this);
-    this.state = { username: null, 
-      isregistered: true,
-      text: "Create an account"
-    };
-    this.ApiHandler = new ApiHandler();
-  }
 
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
-  }
+import Home from './routes/Home'
 
- toggleregister(){
-   this.setState({isregistered: !this.state.isregistered})
-   if (this.state.isregistered){
-     this.setState({text: "Login"})
-   } else {
-    this.setState({text: "Create an account"})
-   }
-
- }
-
+export default class App extends React.Component {
   render() {
-    const { username } = this.state;
-    
-    
     return (
-      
-      <div>
-        
-        {(this.state.isregistered) ?  <LoginBox></LoginBox> :  <RegisterBox></RegisterBox>}
-        <Button onClick= {this.toggleregister} variant="contained" color="primary">{this.state.text}</Button>
-      </div>
-    );
+      <Router>
+        <Route path="/" >
+          <Home/>
+        </Route>
+      </Router>
+    )
   }
 }
