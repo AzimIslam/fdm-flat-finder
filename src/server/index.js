@@ -2,11 +2,11 @@ const express = require('express');
 const UserService = require('./modules/user/index.js');
 const path = require('path')
 const app = express();
-const { connectDB } = require('./modules/db/index.js');
 
-var genuuid=require('uuid');
+//const { connectDB } = require('./modules/db/index.js');
+//var genuuid=require('uuid');
 //const router = express.Router();
-const session = require('express-session');
+//const session = require('express-session');
 //const bodyParser = require('body-parser');
 
 
@@ -27,7 +27,7 @@ router.get('/', (req,res) => {
 
 
 const startUp = async () => {
-
+/*
 	function genuuid() {
 		
 	};
@@ -55,14 +55,13 @@ const startUp = async () => {
 		}
 	));
 	
-	app.post('/login', async (req, res) => {
+	app.get('/login', async (req, res) => {
 		try {
 			
-			let user = await db.users.findOne({email: req.body.email});
+			let user = await getDB().getUserID(loginDetails.email);
 			if(user !== null) {
 				req.session.user = {
-					email: user.email,
-					name: user.name
+					userID: user.UserID,
 				};
 				res.redirect('/account');
 			}
@@ -91,7 +90,7 @@ const startUp = async () => {
 			res.redirect('/');
 		}
 	});
-
+*/
 	const services = [
 		new UserService("/api/user")
 	]
