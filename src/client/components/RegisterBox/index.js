@@ -60,7 +60,7 @@ export default class RegisterBox extends React.Component {
                 }
                 </div>
                 <div className="formItem">
-                <Button onClick={this.createRequest} variant="contained" color="primary" onClick = {(event) => ApiHandlerInstance.createRequest("/api/user/register",this.state)}
+                <Button onClick={this.createRequest} variant="contained" color="primary" onClick = {() => ApiHandlerInstance.createRequest("/api/user/register",this.state)}
                 //sends state to database with register details
                 >Register</Button>
                 </div>
