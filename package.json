@@ -11,7 +11,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "proxy": "http://localhost:8080",
-  "author": "Sandeep Raveesh",
+  "author": "Group5",
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
@@ -20,6 +20,7 @@
     "body-parser": "^1.19.0",
     "body-passer": "^1.0.0",
     "express": "^4.16.3",
+    "express-session": "^1.17.1",
     "express-validator": "^6.10.0",
     "material-ui": "^0.20.2",
     "react": "^16.5.2",
@@ -27,7 +28,8 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "sqlite": "^4.0.19",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

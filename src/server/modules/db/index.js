@@ -3,6 +3,7 @@ const { open } = require('sqlite')
 
 let _instance
 
+
 class Database{
 	constructor(path) {
 		this.path = path;
@@ -26,6 +27,9 @@ class Database{
 		}
 		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType, EmployeeNo, AgencyName) Values(?,?,?,?,?,?,?)", firstname, lastname, email, password, usertype, employeeNo, agencyName)
 		return {'message': "User registered"}
+	}
+	async getUserID(email) {
+		return await this.instance.get("SELECT UserID from 'Users' WHERE Email = ?", [email])
 	}
 }
 
