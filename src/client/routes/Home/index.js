@@ -32,7 +32,7 @@ export default class Home extends Component {
   render() {
     const { username } = this.state;
     return (
-      <div>
+      <div id="homeBack">
         <Header/>
         {(this.state.isregistered) ?  <LoginBox></LoginBox> :  <RegisterBox></RegisterBox>}
         {

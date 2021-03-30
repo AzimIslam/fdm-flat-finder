@@ -1,12 +1,11 @@
-
-  
-  body {
+#homeBack {
     text-align: center;
     margin: auto;
-    background-image: url(../../images/login-back.jpg);
+    background-image: url('../../images/login-back.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
+    width: 100%;
   }
   
   #registerBox {
