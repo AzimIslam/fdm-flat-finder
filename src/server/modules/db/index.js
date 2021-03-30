@@ -28,16 +28,32 @@ class Database{
 		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType, EmployeeNo, AgencyName) Values(?,?,?,?,?,?,?)", firstname, lastname, email, password, usertype, employeeNo, agencyName)
 		return {'message': "User registered"}
 	}
-<<<<<<< HEAD
-	async getUserID(email) {
-		return await this.instance.get("SELECT UserID from 'Users' WHERE Email = ?", [email])
-=======
 
 	async getUserType(UserID) {
 		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])
 		return result.UserType;
->>>>>>> origin/master
 	}
+
+	async getAgencyName(UserID){
+		let result = await this.instance.get("SELECT AgencyName FROM Users WHERE UserID = ?", [UserID])
+		return result.AgencyName;
+	}
+
+	async getEmployeeNo(UserID){
+		let result = await this.instance.get("SELECT EmployeeNo FROM Users WHERE UserID = ?", [UserID])
+		return result.EmployeeNo;
+	}
+
+	async getUserType(UserID){
+		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])
+		return result.UserType;
+	}
+
+	async getPassword(UserID){
+		let result = await this.instance.get("SELECT Password FROM Users WHERE UserID = ?", [UserID])
+		return result.Password;
+	}
+
 }
 
 module.exports.connectDB = async (path) => {
