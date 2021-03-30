@@ -11,7 +11,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "proxy": "http://localhost:8080",
-  "author": "Sandeep Raveesh",
+  "author": "Group 18",
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
@@ -21,6 +21,7 @@
     "body-passer": "^1.0.0",
     "express": "^4.16.3",
     "express-validator": "^6.10.0",
+    "fontsource-roboto": "^4.0.0",
     "material-ui": "^0.20.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
