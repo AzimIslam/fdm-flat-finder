@@ -48,6 +48,26 @@ class Database{
 		let result = await this.instance.get("SELECT Email FROM Users WHERE UserID = ?", [UserID])
 		return result.Email;
 	}
+		
+	async getAgencyName(UserID){
+		let result = await this.instance.get("SELECT AgencyName FROM Users WHERE UserID = ?", [UserID])
+		return result.AgencyName;
+	}
+
+	async getEmployeeNo(UserID){
+		let result = await this.instance.get("SELECT EmployeeNo FROM Users WHERE UserID = ?", [UserID])
+		return result.EmployeeNo;
+	}
+
+	async getUserType(UserID){
+		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])
+		return result.UserType;
+	}
+
+	async getPassword(UserID){
+		let result = await this.instance.get("SELECT Password FROM Users WHERE UserID = ?", [UserID])
+		return result.Password;
+	}
 
 }
 
