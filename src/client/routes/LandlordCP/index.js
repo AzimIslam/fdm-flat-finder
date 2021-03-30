@@ -17,8 +17,8 @@ export default class LandlordCP extends React.Component {
             <div>
                 {
                     this.state.userType != 'landlord'? <p>You are not a landlord</p>:
-                    this.state.loggedIn == 'true' ? <p>You are now logged in</p>:
-                    <p>You are not logged in</p>
+                    this.state.loggedIn != 'true' ? <p>You are not logged in</p>:
+                    <p>Test</p>
                 }
             </div>
         )
