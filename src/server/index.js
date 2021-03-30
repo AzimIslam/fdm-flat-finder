@@ -3,7 +3,7 @@ const UserService = require('./modules/user/index.js');
 const path = require('path')
 const app = express();
 
-//const { connectDB } = require('./modules/db/index.js');
+const { connectDB } = require('./modules/db/index.js');
 //var genuuid=require('uuid');
 //const router = express.Router();
 //const session = require('express-session');
