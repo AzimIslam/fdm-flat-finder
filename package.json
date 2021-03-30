@@ -26,7 +26,8 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "sqlite": "^4.0.19",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

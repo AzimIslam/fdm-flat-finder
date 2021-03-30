@@ -4,37 +4,98 @@ const path = require('path')
 const app = express();
 const { connectDB } = require('./modules/db/index.js');
 
-var session = require('express-session');
+var genuuid=require('uuid');
+//const router = express.Router();
+const session = require('express-session');
+//const bodyParser = require('body-parser');
+
+
+//create new login function passing event as parameter
+/*
+router.get('/', (req,res) => {
+	console.log("hello");
+	sess=req.session; //current assigned session
+
+	res.send("welcome to the page");
+	//session variables
+	sess.email;	
+	sess.userID = 1;
+	console.log(sess.userID); 
+	res.end('done');
+});
+*/
+
 
 const startUp = async () => {
 
+	function genuuid() {
+		
+	};
 
 	app.use(session(
 		{
+			
 			secret: 'cat',
+			resave: false,
+			saveUninitialized: true,
+			unset: 'destroy', 
+			name: 'session cookie name',
+			genid: function(req) {
+				//returns a random stirng to be used as a session ID
+				console.log('Session ID created');
+				return genuuid();
+			},
 			//saveUninitialized: true,
 			//resave: true
 			cookie:{
-				maxAge: 1000*60*60 //one hour till timeout when session created	
+				path: '/login',
+				secure: false,
+				expires: 1000*60*60 //one hour till timeout when session created	
 			}
 		}
 	));
-
-	var sess; //global session variable need to change later for multiple users
-
-	app.get('/', (req,res) => {
-		console.log("hello");
-		sess=req.session; //current assigned session
-
-		res.send("welcome to the page");
-		//session variables
-		sess.email;	
-		sess.userID; 
+	
+	app.post('/login', async (req, res) => {
+		try {
+			
+			let user = await db.users.findOne({email: req.body.email});
+			if(user !== null) {
+				req.session.user = {
+					email: user.email,
+					name: user.name
+				};
+				res.redirect('/account');
+			}
+			else {
+				res.send("Login error");
+			}
+		} catch (error) {
+			res.sendStatus(500);
+		}
+	});
+	
+	app.get('/account', (req, res) => {
+		if (!req.session.user) {
+			res.redirect('login');
+		}
+		else {
+			res.render('account', {user: req.session.user});
+		}
+	});
+	
+	app.get('/logout', (req, res) => {
+		if (req.session.user) {
+			delete req.session.user;
+			res.redirect('/login');
+		} else {
+			res.redirect('/');
+		}
 	});
 
 	const services = [
 		new UserService("/api/user")
 	]
+
 	await connectDB(path.resolve(__dirname, "./modules/db/database.db"))
 	app.use(express.json())
 	app.use(express.urlencoded({ extended: true }))

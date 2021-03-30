@@ -1,3 +1,4 @@
+/*
 var express = require('express');
 var session = require('express-session');
 
@@ -23,7 +24,7 @@ app.get('/', function(req,res){
 });
 
 app.listen(8081, console.log("Hello port 8080"))
-
+*/
 
 /*const IN_PROD = NODE_ENV === 'production'
 
