@@ -17,7 +17,7 @@ class Database{
 	}
 
 	async getUserPasswordHash(email) {
-		return await this.instance.get("SELECT Password from 'Users' WHERE Email = ?", [email])
+		return await this.instance.get("SELECT UserID, Password from 'Users' WHERE Email = ?", [email])
 	}
 	async registerUser({ firstname, lastname, email, password, usertype, employeeNo, agencyName }) {
 		let user = await this.instance.get("SELECT * from Users WHERE Email = ?", [email])
@@ -26,6 +26,11 @@ class Database{
 		}
 		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType, EmployeeNo, AgencyName) Values(?,?,?,?,?,?,?)", firstname, lastname, email, password, usertype, employeeNo, agencyName)
 		return {'message': "User registered"}
+	}
+
+	async getUserType(UserID) {
+		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])
+		return result.UserType;
 	}
 }
 
