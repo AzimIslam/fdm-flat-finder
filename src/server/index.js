@@ -3,8 +3,7 @@ const UserService = require('./modules/user/index.js');
 const path = require('path')
 const app = express();
 
-//const { connectDB } = require('./modules/db/index.js');
-//var genuuid=require('uuid');
+const { connectDB } = require('./modules/db/index.js');
 //const router = express.Router();
 //const session = require('express-session');
 //const bodyParser = require('body-parser');
@@ -27,34 +26,6 @@ router.get('/', (req,res) => {
 
 
 const startUp = async () => {
-/*
-	function genuuid() {
-		
-	};
-
-	app.use(session(
-		{
-			
-			secret: 'cat',
-			resave: false,
-			saveUninitialized: true,
-			unset: 'destroy', 
-			name: 'session cookie name',
-			genid: function(req) {
-				//returns a random stirng to be used as a session ID
-				console.log('Session ID created');
-				return genuuid();
-			},
-			//saveUninitialized: true,
-			//resave: true
-			cookie:{
-				path: '/login',
-				secure: false,
-				expires: 1000*60*60 //one hour till timeout when session created	
-			}
-		}
-	));
-	
 	app.get('/login', async (req, res) => {
 		try {
 			
@@ -90,7 +61,7 @@ const startUp = async () => {
 			res.redirect('/');
 		}
 	});
-*/
+	
 	const services = [
 		new UserService("/api/user")
 	]

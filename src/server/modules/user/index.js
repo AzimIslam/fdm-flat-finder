@@ -3,6 +3,7 @@ const { body, validationResult } = require('express-validator');
 var { getDB } = require('../db/index.js')
 var express = require('express');
 
+
 module.exports = class UserService{
 	constructor(path){
 		this.path = path
@@ -13,7 +14,7 @@ module.exports = class UserService{
 
 	initialiseRoutes() {
 
-		this.router.post('/register', body(['firstname', 'lastname', 'email', 'password', 'usertype']).not().isEmpty(), body('password').isLength({min: 5}), async (req, res) => {
+		this.router.post('/register', body(['firstname', 'lastname', 'email', 'password', 'usertype', 'employeeNo', 'agencyName']).not().isEmpty(), body('password').isLength({min: 5}), async (req, res) => {
 		    const errors = validationResult(req);
 		    if (!errors.isEmpty()) {
 		      return res.status(422).json({ errors: errors.array() })
@@ -37,12 +38,6 @@ module.exports = class UserService{
 		if (res == undefined)
 			return {'message': "Email not found"}
 		if(!bcrypt.compareSync(loginDetails.password, res.Password))
-<<<<<<< HEAD
-			return {'message': 'Wrong Password'}
-
-			
-		return {'message': "Login successful"}
-=======
 			return {'error': 'Wrong Password'}
 		else{
 			const userID = await getDB().getUserID(loginDetails.email)
@@ -50,7 +45,6 @@ module.exports = class UserService{
 					+ " Email:" + (loginDetails.email)}
 		}
 		
->>>>>>> origin/sammi
 	}
 
 	async registerUser(registerDetails) {
