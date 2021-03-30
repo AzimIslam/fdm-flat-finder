@@ -36,15 +36,12 @@ module.exports = class UserService{
 	async loginUser(loginDetails) {
 		var res = await getDB().getUserPasswordHash(loginDetails.email);
 		if (res == undefined)
-			return {'message': "Email not found"}
+			return {'success': false, 'user_id': null}
 		if(!bcrypt.compareSync(loginDetails.password, res.Password))
-			return {'error': 'Wrong Password'}
-		else{
-			const userID = await getDB().getUserID(loginDetails.email)
-			return {'message': "Login successful for User:" + userID.UserID
-					+ " Email:" + (loginDetails.email)}
-		}
-		
+			return {'success': false, 'user_id': null}
+
+		var userType = await getDB().getUserType(res.UserID)
+		return {'success': true, 'user_id': res.UserID, 'userType': userType }
 	}
 
 	async registerUser(registerDetails) {

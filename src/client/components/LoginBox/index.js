@@ -30,6 +30,12 @@ export default class LoginBox extends React.Component  {
         .then(response => response.json())
         .then(res => {
             this.setState({showMessage : res.message})
+            // Creates the user session
+
+            if (res['success']) {
+                sessionStorage.setItem('loggedIn', true);
+                sessionStorage.setItem('user_id', res['user_id'])
+            }
             console.log(res)
         })
     }
