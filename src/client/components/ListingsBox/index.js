@@ -60,7 +60,6 @@ export default class ListingsBox extends React.Component  {
    
                 
                 {this.renderListings()}
-                <Button variant="contained" color="primary" onClick = {(event) => landlord.createListing()} >CreateListing </Button> 
                 
             </form>
         )
