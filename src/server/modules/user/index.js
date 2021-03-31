@@ -32,7 +32,7 @@ module.exports = class UserService{
 		    return res.send(await this.loginUser(req.body))
 		});
 		
-		this.router.post('/createListing', body(['AddressLine1', 'AddressLine2', 'City', 'County', 'Postcode', 'LandlordID', 'Country']).not().isEmpty(), async (req, res) => {
+		this.router.post('/createListing', body(['AddressLine1', 'AddressLine2', 'City', 'County', 'Postcode', 'LandlordID', 'Country','isRoom']).not().isEmpty(), async (req, res) => {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()){
 				return res.status(422).json({ errors: errors.array() })
@@ -40,7 +40,7 @@ module.exports = class UserService{
 			return res.send(await this.createListing(req.body))
 		});
 
-		this.router.post('/deleteListing', body([ListingID]).not().isEmpty(), async (req,res) => {
+		this.router.post('/deleteListing', body(['ListingID']).not().isEmpty(), async (req,res) => {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()){
 				return res.status(422).json({ errors: errors.array() })
