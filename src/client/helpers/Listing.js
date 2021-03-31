@@ -1,5 +1,7 @@
 
 import React, { Component } from 'react';
+import './style.css';
+import Button from '@material-ui/core/Button';
 export default class Listing extends React.Component{ //must be stored in a list, must be rendered in a listing using keys on ListingBox 
     
 
@@ -26,6 +28,7 @@ export default class Listing extends React.Component{ //must be stored in a list
 
 
     render(){
+        console.log(this.title);
         return(
             <form id="listing"> 
                 <textarea value = {this.title}></textarea> 
@@ -45,12 +48,12 @@ export default class Listing extends React.Component{ //must be stored in a list
         //POPUP or nothing -> confirmation
         //update listing data from that
 
-        listingdata;
+        var listingdata;
         //create json of all parameters apart from landlord -> this is always loaded in from session
         //listing data is json
 
         
-        ApiHandlerInstance.createRequest("/api/'some name???' ",listingdata)
+        //ApiHandlerInstance.createRequest("/api/'some name???' ",listingdata)
     }
 
     //createListing method will be in ListingBox -> must add to the Listing array

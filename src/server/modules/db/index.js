@@ -28,27 +28,16 @@ class Database{
 		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType, EmployeeNo, AgencyName) Values(?,?,?,?,?,?,?)", firstname, lastname, email, password, usertype, employeeNo, agencyName)
 		return {'message': "User registered"}
 	}
+	async CreateListing({AddressLine1,AddressLine2,City,County,Postcode,LandlordID}){
+		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID) Values (?,?,?,?,?,?)", AddressLine1, AddressLine2, City, County, Postcode, LandlordID)
+		return {'message': "User Registered"}
+	}
 
 	async getUserType(UserID) {
 		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])
 		return result.UserType;
 	}
 
-	async getFirstname(UserID) {
-		let result = await this.instance.get("SELECT FirstName FROM Users WHERE UserID = ?", [UserID])
-		return result.FirstName;
-	}
-
-	async getLastname(UserID) {
-		let result = await this.instance.get("SELECT LastName FROM Users WHERE UserID = ?", [UserID])
-		return result.Lastname;
-	}
-
-	async getEmail(UserID) {
-		let result = await this.instance.get("SELECT Email FROM Users WHERE UserID = ?", [UserID])
-		return result.Email;
-	}
-		
 	async getAgencyName(UserID){
 		let result = await this.instance.get("SELECT AgencyName FROM Users WHERE UserID = ?", [UserID])
 		return result.AgencyName;
@@ -67,6 +56,21 @@ class Database{
 	async getPassword(UserID){
 		let result = await this.instance.get("SELECT Password FROM Users WHERE UserID = ?", [UserID])
 		return result.Password;
+	}
+
+	async getFirstname(UserID) {
+		let result = await this.instance.get("SELECT FirstName FROM Users WHERE UserID = ?", [UserID])
+		return result.FirstName;
+	}
+
+	async getLastname(UserID) {
+		let result = await this.instance.get("SELECT LastName FROM Users WHERE UserID = ?", [UserID])
+		return result.Lastname;
+	}
+
+	async getEmail(UserID) {
+		let result = await this.instance.get("SELECT Email FROM Users WHERE UserID = ?", [UserID])
+		return result.Email;
 	}
 
 }

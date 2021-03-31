@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import RegisterBox from './components/RegisterBox';
-import LandlordCP from './routes/LandlordCP'
-import Home from './routes/Home'
+import LandlordCP from './routes/LandlordCP';
+import Home from './routes/Home';
 
 export default class App extends React.Component {
   render() {

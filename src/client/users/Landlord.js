@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import Listing from './components/Listing'
+import Listing from '../helpers/Listing'
 
 export default class Landlord{  //single instance static class, same instance called when imported, all used for API interaction
 
