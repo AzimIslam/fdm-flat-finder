@@ -28,11 +28,11 @@ class Database{
 		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType, EmployeeNo, AgencyName) Values(?,?,?,?,?,?,?)", firstname, lastname, email, password, usertype, employeeNo, agencyName)
 		return {'message': "User registered"}
 	}
-	async CreateListing({AddressLine1,AddressLine2,City,County,Postcode,LandlordID}){
-		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID) Values (?,?,?,?,?,?)", AddressLine1, AddressLine2, City, County, Postcode, LandlordID)
+	async CreateListing({AddressLine1,AddressLine2,City,County,Postcode,LandlordID,Country}){
+		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country) Values (?,?,?,?,?,?,?)", AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country)
 		return {'message': "Listing Created"}
 	}
-
+	// User table getters 
 	async getUserType(UserID) {
 		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])
 		return result.UserType;
@@ -73,6 +73,36 @@ class Database{
 		return result.Email;
 	}
 
+	//Listing table getters
+	async getAddressLine1(ListingID) {
+		let result = await this.instance.get("SELECT AddressLine1 FROM Listings WHERE ListingID = ?", [ListingID])
+		return result.AddressLine1;
+	}
+
+	async getAddressLine2(ListingID) {
+		let result = await this.instance.get("SELECT AddressLine2 FROM Listings WHERE ListingID = ?", [ListingID])
+		return result.AddressLine2;
+	}
+
+	async getCity(ListingID) {
+		let result = await this.instance.get("SELECT City FROM Listings WHERE ListingID = ?", [ListingID])
+		return result.City;
+	}
+
+	async getCounty(ListingID) {
+		let result = await this.instance.get("SELECT County FROM Listings WHERE ListingID = ?", [ListingID])
+		return result.County;
+	}
+
+	async getPostcode(ListingID) {
+		let result = await this.instance.get("SELECT Postcode FROM Listings WHERE ListingID = ?", [ListingID])
+		return result.Postcode;
+	}
+
+	async getLandlordID(ListingID) {
+		let result = await this.instance.get("SELECT LandlordID FROM Listings WHERE ListingID = ?", [ListingID])
+		return result.LandlordID;
+	}
 }
 
 module.exports.connectDB = async (path) => {
