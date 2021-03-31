@@ -31,9 +31,6 @@ module.exports = class UserService{
 		    return res.send(await this.loginUser(req.body))
 		});
 		
-<<<<<<< HEAD
-		this.router.post('/createListing', body(['AddressLine1', 'AddressLine2', 'City', 'County', 'Postcode', 'LandlordID', 'Country','isRoom']).not().isEmpty(), async (req, res) => {
-=======
 		this.router.post('/getName', body(['userid']).not().isEmpty(), async(req, res) => {
 			let firstName = await getDB().getFirstname(req.body.UserID)
 			let surname = await getDB().getLastname(req.body.UserID)
@@ -41,7 +38,6 @@ module.exports = class UserService{
 		});
 		this.router.post('/createListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'landlordID', 'country', 'isRoom']), async (req, res) => {
 			console.log(req.body)
->>>>>>> origin/azim
 			const errors = validationResult(req);
 			if (!errors.isEmpty()){
 				return res.status(422).json({ errors: errors.array() })
@@ -72,6 +68,11 @@ module.exports = class UserService{
 			]
 			return res.send(address)
 		});
+
+		this.router.post('/editListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'landlordID', 'country', 'isRoom', 'ListingID']), async (req, res) => {
+			return res.send(await this.deleteListing(req.body))
+
+		});
 	}
 
 	async loginUser(loginDetails) {
@@ -99,5 +100,9 @@ module.exports = class UserService{
 
 	async deleteListing(ListingID){
 		return await getDB().deleteListing(ListingID)
+	}
+
+	async editListing(editDetails){
+		return await getDB().editListing(editDetails)
 	}
 }
