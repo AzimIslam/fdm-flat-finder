@@ -39,6 +39,14 @@ module.exports = class UserService{
 			}
 			return res.send(await this.createListing(req.body))
 		});
+
+		this.router.post('/deleteListing', body([ListingID]).not().isEmpty(), async (req,res) => {
+			const errors = validationResult(req);
+			if (!errors.isEmpty()){
+				return res.status(422).json({ errors: errors.array() })
+			}
+			return res.send(await this.deleteListing(req.body))
+		});
 	}
 
 	async loginUser(loginDetails) {
@@ -62,5 +70,9 @@ module.exports = class UserService{
 	async createListing(ListingDetails){
 		return await getDB().createListing(ListingDetails)
 
+	}
+
+	async deleteListing(ListingID){
+		return await getDB().deleteListing(ListingID)
 	}
 }
