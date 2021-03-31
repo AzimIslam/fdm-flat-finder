@@ -28,10 +28,15 @@ class Database{
 		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType, EmployeeNo, AgencyName) Values(?,?,?,?,?,?,?)", firstname, lastname, email, password, usertype, employeeNo, agencyName)
 		return {'message': "User registered"}
 	}
-	async createListing({AddressLine1,AddressLine2,City,County,Postcode,LandlordID,Country}){
-		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country) Values (?,?,?,?,?,?,?)", AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country)
+	async createListing({AddressLine1,AddressLine2,City,County,Postcode,LandlordID,Country,isRoom}){
+		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom) Values (?,?,?,?,?,?,?,?)", AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country,isRoom)
 		return {'message': "Listing Created"}
 	}
+	async deleteListing({ListingID}){
+		await this.instance.run("DELETE from Listings WHERE ListingID = ?", [ListingID])
+		return {'message': "Listing Deleted"}
+	}
+
 	// User table getters 
 	async getUserType(UserID) {
 		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])
@@ -102,6 +107,16 @@ class Database{
 	async getLandlordID(ListingID) {
 		let result = await this.instance.get("SELECT LandlordID FROM Listings WHERE ListingID = ?", [ListingID])
 		return result.LandlordID;
+	}
+
+	async getCountry(ListingID) {
+		let result = await this.instance.get("SELECT Country FROM Listings WHERE ListingID = ?", [ListingID])
+		return result.Country;
+	}
+
+	async getIsRoom(ListingID) {
+		let result = await this.instance.get("SELECT IsRoom FROM Listings WHERE ListingID = ?", [ListingID])
+		return result.IsRoom
 	}
 }
 
