@@ -37,6 +37,10 @@ class Database{
 		return {'message': "Listing Deleted"}
 	}
 
+	async editListing({ListingID}){
+		await this.instance.run("UPDATE Listings SET (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom) Values (?,?,?,?,?,?,?,?) WHERE ListingID = ?", [address1, address2, city, county, postcode, landlordID, country, isRoom, ListingID])
+	}
+
 	// User table getters 
 	async getUserType(UserID) {
 		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])
