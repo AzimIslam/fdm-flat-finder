@@ -9,6 +9,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import 'fontsource-roboto';
 
+import ListingsBox from '../../components/ListingsBox';
+import Listing from '../../helpers/Listing';
+
 export default class Landlord extends React.Component {
     constructor() {
         super()
@@ -34,7 +37,7 @@ export default class Landlord extends React.Component {
                             Landlord Control Panel
                         </Typography>
 
-                        <div class="userTools">
+                        <div className="userTools">
                             <IconButton style={{color: "white"}} color="inherit">
                                 <Badge badgeContent={103} color="secondary">
                                     <MailIcon />
@@ -43,10 +46,19 @@ export default class Landlord extends React.Component {
                             <IconButton style={{color: "white"}} start="end" color="inherit">
                                 <AccountCircle />
                             </IconButton>
+
+                            
                         </div>
+
+                        
                     </Toolbar>
+
+                    
                     </div>
+
+                
                 }
+                <ListingsBox></ListingsBox>
             </div>
         )
     }

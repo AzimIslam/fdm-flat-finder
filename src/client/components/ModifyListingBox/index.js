@@ -5,18 +5,17 @@ import {Redirect} from 'react-router-dom';
 import './style.css';
 import ApiHandlerInstance from '../../helpers/ApiHandler';
 
-export default class LoginBox extends React.Component  {
+export default class ModifyListingBox extends React.Component  {
     constructor(props){
         super(props);
-        this.state = { //state to be sent for logging in
+        this.state = { //state to be sent for listingbox, must be generalisable! 
             // username: ' '
-            email: '',
-            password: '',
-            showMessage: ''
+
         }
-        this.loginRequest = this.loginRequest.bind(this)
+        this.loginModify; //= this.'fill in metohd name'.bind(this)
     }
 
+    /*
     loginRequest() {
         fetch(`/api/user/login`, { 
             method: 'POST',
@@ -37,13 +36,16 @@ export default class LoginBox extends React.Component  {
             else console.log("Unidentified user");
         })
     }
-
+*/ 
     render() {
         return (
             <div id="container">
             {
-                this.state.showMessage != '' ? <p>{this.state.showMessage}</p>
-                : <form id="login-box">
+                this.state.showMessage != '' ? <p>{this.state.showMessage}</p> //textfield for every field in Listing
+                //should use another map method!
+                : <form id="modify-listing-box">
+
+
                     <div className="formItem">
                         <TextField style={{width: "60%"}} className="formItem" id="outlined-basic" label="Email" type="email" variant="outlined" //textfields for updating state, API handler uses hash to convert 
                         onChange = {(event) => this.setState({"email" : event.target.value})}/><br/>
@@ -54,10 +56,13 @@ export default class LoginBox extends React.Component  {
                         onChange = {(event) => this.setState({"password" : ApiHandlerInstance.hash(event.target.value)})}/><br/> 
                     </div>
 
+
+                    {//single button for submitting all data
+    }
                     <div className="formItem">
-                        <Button style={{width: "40%"}} className="formItem" variant="contained" color="primary" onClick = {this.loginRequest} 
-                        //sends state to database with login details
-                        >Login </Button> 
+                        <Button style={{width: "40%"}} className="formItem" variant="contained" color="primary" onClick = {this.modifyRequest} 
+                        //creates OR edits data
+                        >Confirm </Button> 
                     </div>
                 </form>
             }
