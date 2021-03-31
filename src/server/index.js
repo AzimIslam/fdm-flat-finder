@@ -1,9 +1,22 @@
 const express = require('express');
-const os = require('os');
-
+const UserService = require('./modules/user/index.js');
+const path = require('path')
 const app = express();
+const { connectDB } = require('./modules/db/index.js');
+const startUp = async () => {
 
-app.use(express.static('dist'));
-app.get('/api/getUsername', (req, res) => res.send({ username: os.userInfo().username }));
+	const services = [
+		new UserService("/api/user")
+	]
+	await connectDB(path.resolve(__dirname, "./modules/db/database.db"))
+	app.use(express.json())
+	app.use(express.urlencoded({ extended: true }))
 
-app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
+	services.forEach((service) => {
+    	app.use(service.path, service.router);
+	});
+
+	await app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
+}
+
+startUp();
