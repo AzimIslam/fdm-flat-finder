@@ -52,6 +52,7 @@ module.exports = class UserService{
 			}
 			return res.send(await this.deleteListing(req.body))
 		});
+
 		this.router.post('/getListing', body(['ListingID']).not().isEmpty(), async (req,res) => {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()){
@@ -67,6 +68,14 @@ module.exports = class UserService{
 				await this.getIsRoom(req.body.ListingID)
 			]
 			return res.send(address)
+		});
+
+		this.router.post('/getAllListings', body(['UserID']).not().isEmpty(), async(req, res) => {
+			const errors = validationResult(req);
+			if (!errors.isEmpty()){
+				return res.status(422).json({ errors: errors.array() })
+			}
+			return res.send(await getDB().getAllListingsForUser(req.body.UserID))
 		});
 	}
 

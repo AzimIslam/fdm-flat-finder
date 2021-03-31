@@ -118,6 +118,11 @@ class Database{
 		let result = await this.instance.get("SELECT IsRoom FROM Listings WHERE ListingID = ?", [ListingID])
 		return result.IsRoom
 	}
+
+	async getAllListingsForUser(UserID) {
+		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom FROM Listings WHERE LandlordID = ?", [UserID])
+		return result;
+	}
 }
 
 module.exports.connectDB = async (path) => {
