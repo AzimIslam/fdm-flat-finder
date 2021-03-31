@@ -34,7 +34,6 @@ export default class LoginBox extends React.Component  {
             }
 
             if (res['userType'] == 'landlord') window.location = '/landlord';
-            else console.log("Unidentified user");
         })
     }
 

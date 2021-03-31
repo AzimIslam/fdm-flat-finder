@@ -65,7 +65,7 @@ class Database{
 
 	async getLastname(UserID) {
 		let result = await this.instance.get("SELECT LastName FROM Users WHERE UserID = ?", [UserID])
-		return result.Lastname;
+		return result.LastName;
 	}
 
 	async getEmail(UserID) {

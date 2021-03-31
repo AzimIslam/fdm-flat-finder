@@ -28,9 +28,14 @@ module.exports = class UserService{
 		    if (!errors.isEmpty()) {
 		      return res.status(422).json({ errors: errors.array() })
 		    }
-		    console.log(req.body)
 		    return res.send(await this.loginUser(req.body))
-		}); 			
+		});
+		
+		this.router.post('/getName', body(['userid']).not().isEmpty(), async(req, res) => {
+			let firstName = await getDB().getFirstname(req.body.UserID)
+			let surname = await getDB().getLastname(req.body.UserID)
+			return res.send({text: firstName + " " + surname})
+		});
 	}
 
 	async loginUser(loginDetails) {

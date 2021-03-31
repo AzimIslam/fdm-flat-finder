@@ -1,0 +1,16 @@
+.listingForm {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 1.5em;
+}
+
+#listingTitle {
+    text-align: center;
+    font-weight: bolder;
+}
+
+.listingRadios {
+    margin-top: 1em;
+}
