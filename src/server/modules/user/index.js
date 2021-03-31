@@ -30,7 +30,16 @@ module.exports = class UserService{
 		    }
 		    console.log(req.body)
 		    return res.send(await this.loginUser(req.body))
-		}); 			
+		}); 
+		
+		this.router.post('/delete', body(['userID']).not().isEmpty(),async (req, res) => {
+			const errors = validationResult(req);
+		    if (!errors.isEmpty()) {
+		      return res.status(422).json({ errors: errors.array() })
+		    }
+		    console.log(req.body)
+		    return res.send(await this.loginUser(req.body))
+		}); 
 	}
 
 	async loginUser(loginDetails) {
@@ -50,4 +59,5 @@ module.exports = class UserService{
 		registerDetails.password = hash
 		return await getDB().registerUser(registerDetails)
 	}
+
 }

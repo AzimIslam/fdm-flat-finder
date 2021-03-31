@@ -33,6 +33,12 @@ class Database{
 		return {'message': "Listing Created"}
 	}
 
+	//this should get all listings
+	async getAllListings(UserID){
+		let result = await this.instance.get("SELECT * FROM Listings WHERE LandlordID = ?", [UserID])
+		return {'messgae': result };
+	}
+
 	async getUserType(UserID) {
 		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])
 		return result.UserType;
@@ -58,14 +64,14 @@ class Database{
 		return result.Password;
 	}
 
-	async getFirstname(UserID) {
+	async getFirstName(UserID) {
 		let result = await this.instance.get("SELECT FirstName FROM Users WHERE UserID = ?", [UserID])
 		return result.FirstName;
 	}
 
-	async getLastname(UserID) {
+	async getLastName(UserID) {
 		let result = await this.instance.get("SELECT LastName FROM Users WHERE UserID = ?", [UserID])
-		return result.Lastname;
+		return result.LastName;
 	}
 
 	async getEmail(UserID) {

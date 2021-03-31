@@ -58,7 +58,9 @@ export default class Landlord extends React.Component {
 
                 
                 }
-                <ListingsBox></ListingsBox>
+                <ListingsBox>
+                    
+                </ListingsBox>
             </div>
         )
     }

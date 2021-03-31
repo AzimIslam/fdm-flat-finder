@@ -11,11 +11,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "proxy": "http://localhost:8080",
-<<<<<<< HEAD
-  "author": "Group18",
-=======
   "author": "Group 18",
->>>>>>> origin/azim
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.11.3",

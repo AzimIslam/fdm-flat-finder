@@ -35,6 +35,7 @@ export default class Listing extends React.Component{ //must be stored in a list
                 <Button variant="contained" color="primary" onClick = {(event) => this.editListingDetails()}> Edit Listing </Button> 
                 <Button variant="contained" color="primary" onClick = {(event) => this.showListingDetails()}> View Listing </Button> 
                 <Button variant="contained" color="primary" onClick = {(event) => this.deleteListing()}> Delete Listing </Button> 
+                <Button variant="contained" color="primary" onClick = {(event) => this.deleteListing()}> Create Listing </Button> 
             </form>
 
         ) 
@@ -48,6 +49,7 @@ export default class Listing extends React.Component{ //must be stored in a list
         //POPUP or nothing -> confirmation
         //update listing data from that
 
+        
         var listingdata;
         //create json of all parameters apart from landlord -> this is always loaded in from session
         //listing data is json
@@ -62,6 +64,7 @@ export default class Listing extends React.Component{ //must be stored in a list
         //popup or nothing -> confirmation
         //delete entry in database 
 
+
         //ApiHandlerInstance.createRequest("/api/'some name???' ",listingdata)
     }
 
@@ -69,8 +72,6 @@ export default class Listing extends React.Component{ //must be stored in a list
         //create Json??
 
         //POPUP or Page to show data from json?
-        
-
         /*
         details = "address 1: "+this.address1 //generalise -> use loop or have another method that creates string to allow for inheritance and extra features.
                 +"address 2: "+this.address2
@@ -84,6 +85,7 @@ export default class Listing extends React.Component{ //must be stored in a list
                 +"phone number:"+this.landlord.phoneNumber
         return details
         */
+
 
     
     }

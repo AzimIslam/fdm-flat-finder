@@ -50,6 +50,9 @@ export default class ListingsBox extends React.Component  {
         })
     }
 
+
+
+
     render() {
        
         return ( //requires landlord -> require gathering of listing array from database and updating to database, need some dynamic way of having listings boxes in a 'table' each with edit, view, delete option
