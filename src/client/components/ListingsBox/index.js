@@ -35,7 +35,6 @@ export default class ListingsBox extends React.Component  {
         var listings = this.state.landlord.getAllListings();  
         listings[0] = new Listing("hello","ayyy","good luck","with this","you","12can",this.state.landlord,50);
         listings[1] = new Listing("hello2","ayyy","good luck","with this","you","12can",this.state.landlord,50);
-
     }
     
    

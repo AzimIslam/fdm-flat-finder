@@ -2,6 +2,7 @@ const express = require('express');
 const UserService = require('./modules/user/index.js');
 const path = require('path')
 const app = express();
+
 const { connectDB } = require('./modules/db/index.js');
 const startUp = async () => {
 
