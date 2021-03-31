@@ -11,6 +11,7 @@ export default class App extends React.Component {
         <Switch>
           <Route path="/landlord"  component={LandlordCP} />
           <Route path="/"  component={Home} />
+  
         </Switch>
       </Router>
     )

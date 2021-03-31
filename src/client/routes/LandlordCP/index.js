@@ -10,6 +10,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import 'fontsource-roboto';
 import LandlordHomePage from "../../components/LandlordHomePage";
 
+import ListingsBox from '../../components/ListingsBox';
+import Listing from '../../helpers/Listing';
+
 export default class Landlord extends React.Component {
     constructor() {
         super()
@@ -44,11 +47,18 @@ export default class Landlord extends React.Component {
                             <IconButton style={{color: "white"}} start="end" color="inherit">
                                 <AccountCircle />
                             </IconButton>
+
+                            
                         </div>
+
+                        
                     </Toolbar>
                     <LandlordHomePage />
                     </div>
+
+                
                 }
+                <ListingsBox></ListingsBox>
             </div>
         )
     }
