@@ -28,9 +28,9 @@ class Database{
 		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType, EmployeeNo, AgencyName) Values(?,?,?,?,?,?,?)", firstname, lastname, email, password, usertype, employeeNo, agencyName)
 		return {'message': "User registered"}
 	}
-	async createListing({AddressLine1,AddressLine2,City,County,Postcode,LandlordID,Country,isRoom}){
-		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom) Values (?,?,?,?,?,?,?,?)", AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country,isRoom)
-		return {'message': "Listing Created"}
+	async createListing({address1,address2,city,county,postcode,landlordID,country,isRoom}){
+		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom) Values (?,?,?,?,?,?,?,?)", address1, address2, city, county, postcode, landlordID, country,isRoom)
+		return {success: true}
 	}
 	async deleteListing({ListingID}){
 		await this.instance.run("DELETE from Listings WHERE ListingID = ?", [ListingID])
