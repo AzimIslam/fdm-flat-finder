@@ -24,3 +24,8 @@
   #registerBox #text {
     margin-bottom: 10px;
   }
+
+  html, body, #root, .App {
+    height: 100%;
+    margin: 0
+  }
