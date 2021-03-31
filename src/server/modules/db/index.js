@@ -37,12 +37,6 @@ class Database{
 		return {'message': "Listing Deleted"}
 	}
 
-	//this should get all listings
-	async getAllListings(UserID){
-		let result = await this.instance.get("SELECT * FROM Listings WHERE LandlordID = ?", [UserID])
-		return {'messgae': result };
-	}
-
 	// User table getters 
 	async getUserType(UserID) {
 		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])

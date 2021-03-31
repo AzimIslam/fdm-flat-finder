@@ -8,9 +8,11 @@ export default class Listing extends React.Component{ //must be stored in a list
     address1;
     address2;
     city;
+    country;
     county;
     postcode;
     landlord;
+    isRoom;
     rent;
     title;
     constructor(props, title, address1, address2,city,county, postcode, landlord, rent){
@@ -22,8 +24,10 @@ export default class Listing extends React.Component{ //must be stored in a list
         this.address2 = address2
         this.city = city
         this.county = county
+        this.country = country
         this.postcode = postcode
         this.landlord = landlord //must find a way of loading this
+        this.isRoom = isRoom
     }
 
 
@@ -41,6 +45,7 @@ export default class Listing extends React.Component{ //must be stored in a list
         ) 
 
     }
+
 
     editListingDetails(){
 
@@ -71,6 +76,28 @@ export default class Listing extends React.Component{ //must be stored in a list
     showListingDetails(){ //directly displays 
         //create Json??
 
+        fetch(`/api/user/address`, {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state)
+        })
+        .then(response => response.json())
+        .then(req => {
+            this.setState({
+                address1: req.address.AddressLine1,
+                address2: req.address.AddressLine2,
+                county: req.address.County,
+                city: req.address.City,
+                country: req.address.Country,
+                postcode: req.address.Postcode,
+                isRoom: req.address.IsRoom,
+
+            })
+        }
+        )
+        
         //POPUP or Page to show data from json?
         /*
         details = "address 1: "+this.address1 //generalise -> use loop or have another method that creates string to allow for inheritance and extra features.

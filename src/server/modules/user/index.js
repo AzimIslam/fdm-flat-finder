@@ -47,6 +47,23 @@ module.exports = class UserService{
 			}
 			return res.send(await this.deleteListing(req.body))
 		});
+
+		this.router.post('/address', body([ListingID]).not().isEmpty(), async (req,res) => {
+			const errors = validationResult(req);
+			if (!errors.isEmpty()){
+				return res.status(422).json({ errors: errors.array() })
+			}
+			let address = 
+			await this.getAddressLine1(req.body.ListingID);
+			await this.getAddressLine2(req.body.ListingID);
+			await this.getCounty(req.body.ListingID);
+			await this.getCity(req.body.ListingID);
+			await this.getCountry(req.body.ListingID);
+			await this.getPostCode(req.body.ListingID);
+
+			return res.send(address)
+		});
+
 	}
 
 	async loginUser(loginDetails) {
