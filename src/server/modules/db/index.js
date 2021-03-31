@@ -30,7 +30,7 @@ class Database{
 	}
 	async CreateListing({AddressLine1,AddressLine2,City,County,Postcode,LandlordID}){
 		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID) Values (?,?,?,?,?,?)", AddressLine1, AddressLine2, City, County, Postcode, LandlordID)
-		return {'message': "User Registered"}
+		return {'message': "Listing Created"}
 	}
 
 	async getUserType(UserID) {
