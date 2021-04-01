@@ -14,7 +14,7 @@ module.exports = class UserService{
 
 	initialiseRoutes() {
 
-		this.router.post('/register', body(['firstname', 'lastname', 'email', 'password', 'usertype', 'employeeNo', 'agencyName']).not().isEmpty(), body('password').isLength({min: 5}), async (req, res) => {
+		this.router.post('/register', body(['firstname', 'lastname', 'email', 'password', 'usertype', 'employeeNo', 'agencyName']), body('password').isLength({min: 5}), async (req, res) => {
 		    const errors = validationResult(req);
 		    if (!errors.isEmpty()) {
 		      return res.status(422).json({ errors: errors.array() })
@@ -28,11 +28,16 @@ module.exports = class UserService{
 		    if (!errors.isEmpty()) {
 		      return res.status(422).json({ errors: errors.array() })
 		    }
-		    console.log(req.body)
 		    return res.send(await this.loginUser(req.body))
 		});
 		
-		this.router.post('/createListing', body(['AddressLine1', 'AddressLine2', 'City', 'County', 'Postcode', 'LandlordID', 'Country']).not().isEmpty(), async (req, res) => {
+		this.router.post('/getName', body(['userid']).not().isEmpty(), async(req, res) => {
+			let firstName = await getDB().getFirstname(req.body.UserID)
+			let surname = await getDB().getLastname(req.body.UserID)
+			return res.send({text: firstName + " " + surname})
+		});
+		this.router.post('/createListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'landlordID', 'country', 'isRoom']), async (req, res) => {
+			console.log(req.body)
 			const errors = validationResult(req);
 			if (!errors.isEmpty()){
 				return res.status(422).json({ errors: errors.array() })
@@ -40,7 +45,7 @@ module.exports = class UserService{
 			return res.send(await this.createListing(req.body))
 		});
 
-		this.router.post('/deleteListing', body(["ListingID"]).not().isEmpty(), async (req,res) => {
+		this.router.post('/deleteListing', body(['ListingID']).not().isEmpty(), async (req,res) => {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()){
 				return res.status(422).json({ errors: errors.array() })
@@ -48,22 +53,30 @@ module.exports = class UserService{
 			return res.send(await this.deleteListing(req.body))
 		});
 
-		this.router.post('/address', body(["ListingID"]).not().isEmpty(), async (req,res) => {
+		this.router.post('/getListing', body(['ListingID']).not().isEmpty(), async (req,res) => {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()){
 				return res.status(422).json({ errors: errors.array() })
 			}
-			let address = 
-			await this.getAddressLine1(req.body.ListingID);
-			await this.getAddressLine2(req.body.ListingID);
-			await this.getCounty(req.body.ListingID);
-			await this.getCity(req.body.ListingID);
-			await this.getCountry(req.body.ListingID);
-			await this.getPostCode(req.body.ListingID);
-
+			let address = [
+				await this.getAddressLine1(req.body.ListingID),
+				await this.getAddressLine2(req.body.ListingID),
+				await this.getCity(req.body.ListingID),
+				await this.getCounty(req.body.ListingID),
+				await this.getPostcode(req.body.ListingID),
+				await this.getCountry(req.body.ListingID),
+				await this.getIsRoom(req.body.ListingID)
+			]
 			return res.send(address)
 		});
 
+		this.router.post('/getAllListings', body(['UserID']).not().isEmpty(), async(req, res) => {
+			const errors = validationResult(req);
+			if (!errors.isEmpty()){
+				return res.status(422).json({ errors: errors.array() })
+			}
+			return res.send(await getDB().getAllListingsForUser(req.body.UserID))
+		});
 	}
 
 	async loginUser(loginDetails) {

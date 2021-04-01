@@ -9,19 +9,30 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import 'fontsource-roboto';
 import LandlordHomePage from "../../components/LandlordHomePage";
-
 import ListingsBox from '../../components/ListingsBox';
-import Listing from '../../helpers/Listing';
 
 export default class Landlord extends React.Component {
     constructor() {
         super()
         this.state = {
             loggedIn: sessionStorage.getItem('loggedIn'),
-            userType: sessionStorage.getItem('userType')
+            userType: sessionStorage.getItem('userType'),
+            userId: sessionStorage.getItem('user_id'),
+            fullName: ''
         }
     }
-    
+
+    componentDidMount() {
+        fetch(`/api/user/getName`, {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({UserID: this.state.userId})
+        })
+        .then(response => response.json())
+        .then(data => this.setState({fullName: data.text}))
+    }
 
     render() {
         return (
@@ -53,14 +64,9 @@ export default class Landlord extends React.Component {
 
                         
                     </Toolbar>
-                    <LandlordHomePage />
+                    <LandlordHomePage name={this.props.fullName} />
                     </div>
-
-                
                 }
-                <ListingsBox>
-                    
-                </ListingsBox>
             </div>
         )
     }
