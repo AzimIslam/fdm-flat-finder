@@ -14,7 +14,7 @@ module.exports = class UserService{
 
 	initialiseRoutes() {
 
-		this.router.post('/register', body(['firstname', 'lastname', 'email', 'password', 'usertype', 'employeeNo', 'agencyName']).not().isEmpty(), body('password').isLength({min: 5}), async (req, res) => {
+		this.router.post('/register', body(['firstname', 'lastname', 'email', 'password', 'usertype', 'employeeNo', 'agencyName']), body('password').isLength({min: 5}), async (req, res) => {
 		    const errors = validationResult(req);
 		    if (!errors.isEmpty()) {
 		      return res.status(422).json({ errors: errors.array() })
