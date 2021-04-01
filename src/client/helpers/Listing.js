@@ -95,9 +95,45 @@ export default class Listing extends React.Component{ //must be stored in a list
                 isRoom: req.address.IsRoom,
 
             })
+    
+            address.map(row => 
+                <div classname='row' >
+                    {
+                        row.map(col => 
+                            <div className='column'>
+                                { col }
+                            </div>)    
+                    }
+                </div>)
+              
+
+            renderRow = () => {
+                return this.state.address.map(function (val, i){
+                    return (
+                        <tr>
+                            <td key={i}>
+                                {val.address1},
+                                {val.address2},
+                                {val.county},
+                                {val.city},
+                                {val.country},
+                                {val.postcode},
+                                {val.isRoom},
+                            </td>    
+                        </tr>
+                    )
+                }) 
+            }
+
+            address.map()
+
         }
-        )
+    )
         
+        
+
+        
+
         //POPUP or Page to show data from json?
         /*
         details = "address 1: "+this.address1 //generalise -> use loop or have another method that creates string to allow for inheritance and extra features.
