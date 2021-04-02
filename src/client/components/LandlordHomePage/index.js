@@ -3,6 +3,8 @@ import React from "react";
 import AddListingForm from "../AddListingForm";
 import ListingBox from "./../ListingsBox/"
 import './style.css';
+import UploadBox from "./../UploadBox"
+
 
 export default class LandlordHomePage extends React.Component {
     constructor() {
@@ -34,6 +36,7 @@ export default class LandlordHomePage extends React.Component {
                 {/*<AddListingForm />*/}
                 <Typography id="listingsText" variant="h4">Your Listings:</Typography>
                 <ListingBox />
+                <UploadBox />
             </div>
         );
     }
