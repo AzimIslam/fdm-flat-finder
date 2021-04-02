@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import LoginBox from '../../components/LoginBox';
 import RegisterBox from '../../components/RegisterBox';
 import Header from '../../components/Header';
-import ApiHandler from '../../helpers/ApiHandler';
 
 export default class Home extends Component {
   constructor(props){
@@ -16,7 +15,6 @@ export default class Home extends Component {
       text: "Create an account",
       text2: "Don't have an account?"
     };
-    this.ApiHandler = new ApiHandler();
   }
 
  toggleregister(){
