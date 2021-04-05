@@ -69,6 +69,9 @@ export default class Member extends React.Component {
                         <Button id="searchBtn" variant="contained" color="primary">Search for Listing </Button> 
                     </div>
                 </div>
+                <Typography id="featuredTitle" variant="h4">
+                    Featured Listing
+                </Typography>
             </div>
         )
     }
