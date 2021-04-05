@@ -133,25 +133,25 @@ module.exports = class UserService{
 	async applySearchFilter(FilterDetails){
 		WhereStr = "SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom FROM Listings WHERE ListingID = ?"
 		if (FilterDetails.maxRent != null) {
-			whereStr = (whereStr + " AND RentPerMonth < " + FilterDetails.maxRent)
+			WhereStr = (WhereStr + " AND RentPerMonth < " + FilterDetails.maxRent)
 		}
 		if (FilterDetails.city != null){
-			whereStr = (whereStr + " AND City = " + FilterDetails.city)
+			WhereStr = (WhereStr + " AND City = " + FilterDetails.city)
 		}
 		if (FilterDetails.county != null){
-			whereStr = (whereStr + " AND County = "+ FilterDetails.county)
+			WhereStr = (WhereStr + " AND County = "+ FilterDetails.county)
 		}
 		if (FilterDetails.country != null){
-			whereStr = (whereStr + " AND Country = " + FilterDetails.country)
+			WhereStr = (WhereStr + " AND Country = " + FilterDetails.country)
 		}
 		if (FilterDetails.postcode != null){
-			whereStr = (whereStr + " AND Postcode LIKE " + FilterDetails.postcode)
+			WhereStr = (WhereStr + " AND Postcode LIKE " + FilterDetails.postcode)
 		}
 		if (FilterDetails.isRoom != null){
-			whereStr = (whereStr + " AND isRoom = " + FilterDetails.isRoom )
+			WhereStr = (WhereStr + " AND isRoom = " + FilterDetails.isRoom )
 		}
 		if (FilterDetails.sortByCheapest != false){
-			whereStr = (whereStr + " ORDER BY RentPerMonth DESCENDING")
+			WhereStr = (WhereStr + " ORDER BY RentPerMonth DESCENDING")
 		}
 		return await getDB().Search(WhereStr)
 	}
