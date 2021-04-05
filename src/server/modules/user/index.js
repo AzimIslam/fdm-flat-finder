@@ -14,13 +14,17 @@ module.exports = class UserService{
 
 	initialiseRoutes() {
 
-		this.router.post('/register', body(['firstname', 'lastname', 'email', 'password', 'usertype', 'employeeNo', 'agencyName']).not().isEmpty(), body('password').isLength({min: 5}), async (req, res) => {
+		this.router.post('/register', body(['firstname', 'lastname', 'email', 'password', 'usertype', 'employeeNo', 'agencyName']), body('password').isLength({min: 5}), async (req, res) => {
 		    const errors = validationResult(req);
 		    if (!errors.isEmpty()) {
 		      return res.status(422).json({ errors: errors.array() })
 		    }
 
-		    return res.send(await this.registerUser(req.body))
+			let query_exec = await this.registerUser(req.body);
+
+			// Returns 409 if user already exists
+			if(!query_exec['success']) return res.status(409).json(query_exec)
+			else return res.send(query_exec)
 		}); 
 
 		this.router.post('/login', body(['email', 'password']).not().isEmpty(),async (req, res) => {
@@ -28,7 +32,11 @@ module.exports = class UserService{
 		    if (!errors.isEmpty()) {
 		      return res.status(422).json({ errors: errors.array() })
 		    }
-		    return res.send(await this.loginUser(req.body))
+		    let query_exec = await this.loginUser(req.body);
+
+			// Returns 401 if the credentials are incorrect
+			if (!query_exec['success']) return res.status(401).json(query_exec)
+			else return res.send(query_exec)
 		});
 		
 		this.router.post('/getName', body(['userid']).not().isEmpty(), async(req, res) => {
@@ -52,6 +60,7 @@ module.exports = class UserService{
 			}
 			return res.send(await this.deleteListing(req.body))
 		});
+
 		this.router.post('/getListing', body(['ListingID']).not().isEmpty(), async (req,res) => {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()){
@@ -69,9 +78,18 @@ module.exports = class UserService{
 			return res.send(address)
 		});
 
+<<<<<<< HEAD
 		this.router.post('/editListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'landlordID', 'country', 'isRoom', 'ListingID']), async (req, res) => {
 			return res.send(await this.deleteListing(req.body))
 
+=======
+		this.router.post('/getAllListings', body(['UserID']).not().isEmpty(), async(req, res) => {
+			const errors = validationResult(req);
+			if (!errors.isEmpty()){
+				return res.status(422).json({ errors: errors.array() })
+			}
+			return res.send(await getDB().getAllListingsForUser(req.body.UserID))
+>>>>>>> origin/azim
 		});
 	}
 

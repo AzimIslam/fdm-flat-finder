@@ -23,10 +23,10 @@ class Database{
 	async registerUser({ firstname, lastname, email, password, usertype, employeeNo, agencyName }) {
 		let user = await this.instance.get("SELECT * from Users WHERE Email = ?", [email])
 		if(user != undefined){
-			return{'error': "User already registered"}
+			return{'message': "User already registered", 'success': false}
 		}
 		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType, EmployeeNo, AgencyName) Values(?,?,?,?,?,?,?)", firstname, lastname, email, password, usertype, employeeNo, agencyName)
-		return {'message': "User registered"}
+		return {'message': "User registered", 'success': true}
 	}
 	async createListing({address1,address2,city,county,postcode,landlordID,country,isRoom}){
 		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom) Values (?,?,?,?,?,?,?,?)", address1, address2, city, county, postcode, landlordID, country,isRoom)
@@ -121,6 +121,11 @@ class Database{
 	async getIsRoom(ListingID) {
 		let result = await this.instance.get("SELECT IsRoom FROM Listings WHERE ListingID = ?", [ListingID])
 		return result.IsRoom
+	}
+
+	async getAllListingsForUser(UserID) {
+		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom FROM Listings WHERE LandlordID = ?", [UserID])
+		return result;
 	}
 }
 

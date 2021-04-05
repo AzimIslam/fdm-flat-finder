@@ -32,8 +32,8 @@ export default class LandlordHomePage extends React.Component {
             <div>
                 <Typography id="welcomeMessage" variant="h4">Hello, {this.state.fullName}</Typography>
                 <AddListingForm />
-                {/* <Typography id="listingsText" variant="h4">Your Listings:</Typography>
-                <ListingBox /> */}
+                {/*<Typography id="listingsText" variant="h4">Your Listings:</Typography>*/}
+                {/*<ListingBox />*/}
             </div>
         );
     }
