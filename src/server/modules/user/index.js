@@ -131,7 +131,7 @@ module.exports = class UserService{
 	}
 
 	async applySearchFilter(FilterDetails){
-		WhereStr = "SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom FROM Listings WHERE ListingID = ?"
+		WhereStr = "SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom FROM Listings WHERE ListingID = *"
 		if (FilterDetails.maxRent != null) {
 			whereStr = (whereStr + " AND RentPerMonth < " + FilterDetails.maxRent)
 		}
