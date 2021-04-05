@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import {Redirect} from 'react-router-dom';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import './style.css';
-import ApiHandlerInstance from '../../helpers/ApiHandler';
 
 export default class LoginBox extends React.Component  {
     constructor(props){
@@ -12,9 +12,24 @@ export default class LoginBox extends React.Component  {
             // username: ' '
             email: '',
             password: '',
-            showMessage: ''
+            showMessage: '',
+            open: false
         }
         this.loginRequest = this.loginRequest.bind(this)
+        this.handleClick = this.handleClick.bind(this)
+        this.handleClose = this.handleClose.bind(this)
+    }
+
+    handleClick() {
+        this.setState({open: true})
+    }
+
+    handleClose(event, reason) {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        this.setState({open: false})
     }
 
     loginRequest() {
@@ -27,13 +42,15 @@ export default class LoginBox extends React.Component  {
         })
         .then(response => response.json())
         .then(res => {
+            console.log(res)
             if (res['success']) {
                 sessionStorage.setItem('loggedIn', true);
                 sessionStorage.setItem('user_id', res['user_id'])
                 sessionStorage.setItem('userType', res['userType'])
+                if (res['userType'] == 'landlord') window.location = '/landlord';
+            } else {
+                this.handleClick()
             }
-
-            if (res['userType'] == 'landlord') window.location = '/landlord';
         })
     }
 
@@ -58,6 +75,11 @@ export default class LoginBox extends React.Component  {
                         //sends state to database with login details
                         >Login </Button> 
                     </div>
+                    <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
+                        <Alert onClose={this.handleClose} severity="error">
+                            Incorrect e-mail and password
+                        </Alert>
+                    </Snackbar>
                 </form>
             }
             </div>

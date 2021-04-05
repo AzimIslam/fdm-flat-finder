@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import Table from '@material-ui/core/Table';
+/*import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper'
-import ApiHandlerInstance from '../../helpers/ApiHandler';
+import Paper from '@material-ui/core/Paper' */
+import clsx from 'clsx';
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import GridList from '@material-ui/core/GridList'
 import Landlord from '../../users/Landlord';
 import Listing from '../../helpers/Listing';
 import { makeStyles } from '@material-ui/core/styles';
@@ -77,7 +80,21 @@ export default class ListingsBox extends React.Component {
     render() {
         return ( //requires landlord -> require gathering of listing array from database and updating to database, need some dynamic way of having listings boxes in a 'table' each with edit, view, delete option
         //edit, delete, create must use parameters of listing to create a json and use the APIHandler to send data to DBS -> new database section for listings -> must be organised/grouped with users
-            
+         
+        
+        <GridList cellHeight={150} className={classes.gridList} cols={3}>
+            {listings.map((listing) => (
+            <GridListTile key={listing}> {//cols={tile.cols || 1}>
+    }
+                {//<img src={tile.img} alt={tile.title} />//
+    }
+                <Listing key = {listing}></Listing>
+            </GridListTile>
+            ))}
+        </GridList>
+
+
+        /*
             <TableContainer component={Paper}>
             <Table aria-label="simple table">
             <TableHead>
@@ -109,7 +126,7 @@ export default class ListingsBox extends React.Component {
                 ))}
             </TableBody>
             </Table>
-        </TableContainer>
+        </TableContainer> */
         )
     }
 
