@@ -1,0 +1,37 @@
+#header {
+    background-image: url('../../images/login-back.jpg');
+    background-size: cover;
+    height: 600px;
+    background-repeat: none;
+    padding-top: 20px;
+}
+
+.field {
+    display: flex;
+    margin: 0 auto;
+}
+
+#search {
+    padding: 4em;
+    margin-left: 5em;
+    width: 40%;
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: 1em;
+    opacity: 0.9;
+}
+
+#textboxes * {
+    width: 100%;
+}
+
+#searchBtn {
+    text-align: center;
+    display: block;
+    margin-bottom: -3em;
+}
+
+#logoutBtn {
+    float: right;
+    margin-right: 2em;
+}

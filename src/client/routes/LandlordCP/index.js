@@ -1,15 +1,12 @@
 import React, {Component} from "react";
 import './style.css';
 import Toolbar from '@material-ui/core/Toolbar';
-import Badge from '@material-ui/core/Badge';
-import MailIcon from '@material-ui/icons/Mail';
 import Typography from "@material-ui/core/typography";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import 'fontsource-roboto';
 import LandlordHomePage from "../../components/LandlordHomePage";
-import ListingsBox from '../../components/ListingsBox';
+import Button from '@material-ui/core/Button';
 
 export default class Landlord extends React.Component {
     constructor() {
@@ -20,6 +17,11 @@ export default class Landlord extends React.Component {
             userId: sessionStorage.getItem('user_id'),
             fullName: ''
         }
+    }
+
+    logout() {
+        sessionStorage.clear();
+        window.location = '/';
     }
 
     componentDidMount() {
@@ -50,19 +52,10 @@ export default class Landlord extends React.Component {
                         </Typography>
 
                         <div className="userTools">
-                            <IconButton style={{color: "white"}} color="inherit">
-                                <Badge badgeContent={103} color="secondary">
-                                    <MailIcon />
-                                </Badge>
-                            </IconButton>
-                            <IconButton style={{color: "white"}} start="end" color="inherit">
-                                <AccountCircle />
-                            </IconButton>
-
-                            
+                            <Button variant="contained" color="secondary" onClick={this.logout}>Logout</Button>
                         </div>
 
-                        
+            
                     </Toolbar>
                     <LandlordHomePage name={this.props.fullName} />
                     </div>
