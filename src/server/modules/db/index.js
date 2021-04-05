@@ -43,7 +43,7 @@ class Database{
 	}
 
 	async createTicket({title, description, UserID}){
-		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom , ImagePath, RentPerMonth) Values (?,?,?,?,?,?,?,?,?,?)", address1, address2, city, county, postcode, landlordID, country,isRoom,ImagePath,RentPerMonth)
+		await this.instance.run("INSERT into Listings (Title, Description, UserID) Values (?,?,?)", title, description, UserID)
 	}
 
 	// User table getters 
