@@ -90,6 +90,11 @@ module.exports = class UserService{
 			}
 			return res.send(await getDB().getAllListingsForUser(req.body.UserID))
 		});
+
+		this.router.post('/applySearchFilter', body(['maxRent','city','county','country','postcode','isRoom','sortByCheapest']), async (req,res) => {
+
+			return res.send(await getDB().applySearchFilter(req.body))
+		});
 	}
 
 	async loginUser(loginDetails) {
@@ -121,5 +126,31 @@ module.exports = class UserService{
 
 	async editListing(editDetails){
 		return await getDB().editListing(editDetails)
+	}
+
+	async applySearchFilter(FilterDetails){
+		WhereStr = "SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom FROM Listings WHERE ListingID = ?"
+		if (FilterDetails.maxRent != null) {
+			whereStr = (whereStr + " AND RentPerMonth < " + FilterDetails.maxRent)
+		}
+		if (FilterDetails.city != null){
+			whereStr = (whereStr + " AND City = " + FilterDetails.city)
+		}
+		if (FilterDetails.county != null){
+			whereStr = (whereStr + " AND County = "+ FilterDetails.county)
+		}
+		if (FilterDetails.country != null){
+			whereStr = (whereStr + " AND Country = " + FilterDetails.country)
+		}
+		if (FilterDetails.postcode != null){
+			whereStr = (whereStr + " AND Postcode LIKE " + FilterDetails.postcode)
+		}
+		if (FilterDetails.isRoom != null){
+			whereStr = (whereStr + " AND isRoom = " + FilterDetails.isRoom )
+		}
+		if (FilterDetails.sortByCheapest != false){
+			whereStr = (whereStr + " ORDER BY RentPerMonth DESCENDING")
+		}
+		return await getDB().Search(WhereStr)
 	}
 }

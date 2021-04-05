@@ -127,7 +127,14 @@ class Database{
 		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom FROM Listings WHERE LandlordID = ?", [UserID])
 		return result;
 	}
+
+	//member getters (AKA mostly search)
+	async Search(WhereStr){
+		let result = await this.instance.all(WhereStr)
+		return result;
+	}
 }
+
 
 module.exports.connectDB = async (path) => {
 	_instance = await (new Database(path)).instantiate();
