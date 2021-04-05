@@ -6,7 +6,7 @@ import Input from '@material-ui/core/Input';
 
 import {Redirect} from 'react-router-dom';
 import './style.css';
-import ApiHandlerInstance from '../../helpers/ApiHandler';
+//import ApiHandlerInstance from '../../helpers/ApiHandler';
 
 export default class UploadBox extends React.Component  {
     constructor(props){

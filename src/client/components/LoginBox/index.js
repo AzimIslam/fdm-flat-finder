@@ -67,7 +67,7 @@ export default class LoginBox extends React.Component  {
 
                     <div className="formItem">
                         <TextField style={{width: "60%"}} className="formItem" id="outlined-basic" label="Password" type="password" variant="outlined" 
-                        onChange = {(event) => this.setState({"password" : ApiHandlerInstance.hash(event.target.value)})}/><br/> 
+                        onChange = {(event) => this.setState({"password" : event.target.value})}/><br/> 
                     </div>
 
                     <div className="formItem">

@@ -7,9 +7,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper' */
 import clsx from 'clsx';
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
-import GridList from '@material-ui/core/GridList'
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 import Landlord from '../../users/Landlord';
 import Listing from '../../helpers/Listing';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,11 +28,39 @@ export default class ListingsBox extends React.Component {
             landlord: sessionStorage.getItem('user_id'), //this gets updated from database -> instance based on session -> front page should load the user instance based on login info
 
             //could remove?? and use landlord var
-            listings: [] //listing array taken from the data-base -> maybe users can each have listing array stored -> in landlord as variable???, etc. 
+            listings: null, //listing array taken from the data-base -> maybe users can each have listing array stored -> in landlord as variable???, etc. 
+            landlord_data: null
         }
 
-        this.ApiHandler = ApiHandlerInstance; //API handler for database handling!
+        this.state.landlord_data = new Landlord("you", "can","do","it@gmail.com",12344)
+        this.state.listings = this.state.landlord_data.getAllListings();  
+        this.state.listings[0] = new Listing(0,"hello","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+        this.state.listings[1] = new Listing(1,"hello2","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+        this.state.listings[2] = new Listing(2,"hello3","ayyy","good luck","with this","you","12can",this.state.landlord,50);
 
+        this.state.listings[3] = new Listing(3,"hello4","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+
+        this.state.listings[4] = new Listing(4,"hello5","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+
+        this.state.listings[5] = new Listing(5,"hello6","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+
+        this.state.listings[6] = new Listing(6,"hello7","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+
+        this.state.listings[7] = new Listing(7,"hello8","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+
+        this.state.listings[8] = new Listing(8,"hello9","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+
+        this.state.listings[9] = new Listing(9,"hello10","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+
+        this.state.listings[10] = new Listing(10,"hello11","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+
+        this.state.listings[11] = new Listing(11,"hello12","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+
+        this.state.listings[12] = new Listing(12,"hello13","ayyy","good luck","with this","you","12can",this.state.landlord,50);
+
+
+        //this.ApiHandler = ApiHandlerInstance; //API handler for database handling!
+        
         }
     componentDidMount() {
         fetch(`/api/user/getAllListings`, {
@@ -46,53 +73,41 @@ export default class ListingsBox extends React.Component {
         .then(response => response.json())
         .then(res => {
            console.log(res)
-           this.setState({listings: res})
+           //this.setState({listings: this.state.landlord.getAllListings()})
+           
         });
     }
     
-    testMethod(){
-        this.state.landlord = new Landlord("you", "can","do","it@gmail.com",12344)
-        var listings = this.state.landlord.getAllListings();  
-        listings[0] = new Listing("hello","ayyy","good luck","with this","you","12can",this.state.landlord,50);
-        listings[1] = new Listing("hello2","ayyy","good luck","with this","you","12can",this.state.landlord,50);
-    }
+ 
 
-    createData(id, address1, address2, city, county, postcode, country, isRoom) {
+    createData(id, title, address1, address2, city, county, postcode, country, isRoom) {
         let listing;
         if(isRoom == 1) listing = "Room";
         else listing = "Flat"
-        return { id, address1, address2, city, county, postcode, country, listing};
+        return { id, title, address1, address2, city, county, postcode, country, listing};
     }
     
    
-    renderListings = () => {
-        this.testMethod();
-        var listings = this.state.landlord.getAllListings()
-        return listings.map((listing) => {
-            return (
-                <Listing key = {listing}></Listing> //might need a unique id for key?
-            )
-
-
-        })
-    }
+    
 
     render() {
-        return ( //requires landlord -> require gathering of listing array from database and updating to database, need some dynamic way of having listings boxes in a 'table' each with edit, view, delete option
-        //edit, delete, create must use parameters of listing to create a json and use the APIHandler to send data to DBS -> new database section for listings -> must be organised/grouped with users
-         
         
-        <GridList cellHeight={150} className={classes.gridList} cols={3}>
-            {listings.map((listing) => (
-            <GridListTile key={listing}> {//cols={tile.cols || 1}>
+        return(
+            <GridList cellHeight={150} className= 'grid-list' cols={3}>
+            {this.state.listings.map((listing) => (
+            <GridListTile key={listing.state.id} cols={2 || 1}>
     }
-                {//<img src={tile.img} alt={tile.title} />//
+                
     }
-                <Listing key = {listing}></Listing>
+               <Listing component = {listing}> </Listing>
+               
+
+               
+
             </GridListTile>
             ))}
         </GridList>
-
+        )
 
         /*
             <TableContainer component={Paper}>
@@ -127,7 +142,7 @@ export default class ListingsBox extends React.Component {
             </TableBody>
             </Table>
         </TableContainer> */
-        )
+        
     }
 
  

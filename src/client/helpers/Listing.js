@@ -2,47 +2,102 @@
 import React, { Component } from 'react';
 import './style.css';
 import Button from '@material-ui/core/Button';
-export default class Listing extends React.Component{ //must be stored in a list, must be rendered in a listing using keys on ListingBox 
-    
+import clsx from 'clsx';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+//import { red } from '@material-ui/core/colors';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 
-    address1;
-    address2;
-    city;
-    county;
-    postcode;
-    landlord;
-    rent;
-    title;
-    constructor(props, title, address1, address2,city,county, postcode, landlord, rent){
+export default class Listing extends React.Component{ //must be stored in a list, must be rendered in a listing using keys on ListingBox  
+
+
+    constructor(props, id, title, address1, address2,city,county, postcode, landlord, rent){
         super(props);
 
-        this.title = title //extra??
+        this.state = {
+            id: id,
+            title: title, //extra??
+            address1: address1,
+            address2: address2,
+            city: city,
+            county: county,
+            postcode: postcode,
+            landlord: landlord, //must find a way of loading this
+            rent: rent,
 
-        this.address1 = address1
-        this.address2 = address2
-        this.city = city
-        this.county = county
-        this.postcode = postcode
-        this.landlord = landlord //must find a way of loading this
+            expanded: false
+        };
     }
 
+ /*old style    display: flex;
+ flex-direction: column;
+ padding: 20px;
+ width: 40%;
+ margin: 0 auto;
+ overflow: auto;
+ background-color: white;
+ border: 1px solid #eee;
+ border-radius: 1em;
+ margin-top: 10px;
+ opacity: 0.9; */
 
     render(){
-        console.log(this.title);
+        console.log(this.state.title);
         return(
-            <form id="listing"> 
-                <textarea value = {this.title}></textarea> 
-                <Button variant="contained" color="primary" onClick = {(event) => this.editListingDetails()}> Edit Listing </Button> 
-                <Button variant="contained" color="primary" onClick = {(event) => this.showListingDetails()}> View Listing </Button> 
-                <Button variant="contained" color="primary" onClick = {(event) => this.deleteListing()}> Delete Listing </Button> 
-            </form>
+
+            
+            //create 
+
+            
+            <Card className = "listing"> 
+                <CardHeader
+                action = {
+                    <IconButton aria-label="settings">
+                    <MoreVertIcon />
+                    </IconButton>
+                }
+                title = {this.state.title} 
+
+                />
+
+                <CardMedia className = "card-media"
+
+                    /* image = source/ */ />
+                <CardActions> 
+                <IconButton className = "expand"
+                onClick = {this.viewListing()}/>
+                </CardActions>
+
+                <Collapse in={this.state.expanded} timeout="auto" unmountOnExit> 
+
+                <Typography variant="body2" color="textSecondary" component="p">
+
+                    bruhhhh
+                
+                </Typography>
+                
+                </Collapse>
+
+            </Card> 
+
+            
 
         ) 
 
     }
 
-    editListingDetails(){
-
+    editListing(){ //goes to edit
+ 
         //POPUP or Page to enter data
         //if page -> must use props or other to get data from that page to here
         //POPUP or nothing -> confirmation
@@ -58,33 +113,15 @@ export default class Listing extends React.Component{ //must be stored in a list
 
     //createListing method will be in ListingBox -> must add to the Listing array
 
-    deleteListingDetails(){
+    deleteListing(){ //sends  for baackend
+
         //popup or nothing -> confirmation
         //delete entry in database 
 
         //ApiHandlerInstance.createRequest("/api/'some name???' ",listingdata)
     }
 
-    showListingDetails(){ //directly displays 
-        //create Json??
-
-        //POPUP or Page to show data from json?
-        
-
-        /*
-        details = "address 1: "+this.address1 //generalise -> use loop or have another method that creates string to allow for inheritance and extra features.
-                +"address 2: "+this.address2
-                +"city: "+this.city
-                +"county: "+this.county
-                +"postcode: "+this.postcode
-                //constant factors
-                +"agency: "+this.landlord.agencyName
-                +"landlord username: "+this.landlord.username
-                +"email: "+this.landlord.email
-                +"phone number:"+this.landlord.phoneNumber
-        return details
-        */
-
-    
+    viewListing(){ //just sets expanded to true, card has the rest of the details
+        this.state.expanded = false;
     }
 }
