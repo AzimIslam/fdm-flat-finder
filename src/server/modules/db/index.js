@@ -43,6 +43,7 @@ class Database{
 	}
 
 	async createTicket({title, description, UserID}){
+		//this needs to be adjusted to db names
 		await this.instance.run("INSERT into Listings (Title, Description, UserID) Values (?,?,?)", title, description, UserID)
 	}
 
