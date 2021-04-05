@@ -2,10 +2,6 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import './style.css';
 import Typography from "@material-ui/core/Typography";
-import FormLabel from '@material-ui/core/FormLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from "@material-ui/core/Radio"
 import { Button } from "@material-ui/core";
 
 export default class AddListingForm extends React.Component {
@@ -14,32 +10,17 @@ export default class AddListingForm extends React.Component {
         this.state = {
             title: '',
             description: '',
+            userID: '',
         }
         this.submitRequest = this.submitRequest.bind(this)
-        this.selectFile = this.selectFile.bind(this)
-    }
-
-    selectFile(event) {
-        let file = event.target.files[0];
-        this.setState({fileName: file.name, file: file})
     }
 
     submitRequest() {
         let req = {
-            address1: this.state.address1,
-            address2: this.state.address2,
-            city: this.state.city,
-            county: this.state.county,
-            postcode: this.state.postcode,
-            country: this.state.country,
-            rent: this.state.rent,
-            isRoom: 0,
-            landlordID: sessionStorage.getItem('user_id'),
-            fileName: '',
-            file: ''
+            title: this.state.title,
+            desciprtion: this.state.description,
+            userID: sessionStorage.getItem('user_id'),
         }
-
-        req.isFlat = Number(this.state.radioValue)
 
         fetch(`/api/user/createListing`, {
             method: 'POST',
@@ -57,34 +38,10 @@ export default class AddListingForm extends React.Component {
 
     render() {
         return <form className="listingForm" onSubmit={e=> {console.log(e)}}>
-            <Typography id="listingTitle" variant="h4">Add a Listing</Typography>
-            <TextField id="standard-basic" onChange={(e) => this.setState({address1: e.target.value})} label="Address Line 1"></TextField>
-            <TextField id="standard-basic" onChange={(e) => this.setState({address2: e.target.value})} label="Address Line 2"></TextField>
-            <TextField id="standard-basic" onChange={(e) => this.setState({city: e.target.value})} label="City"></TextField>
-            <TextField id="standard-basic" onChange={(e) => this.setState({county: e.target.value})} label="County"></TextField>
-            <TextField id="standard-basic" onChange={(e) => this.setState({postcode: e.target.value})} label="Postcode"></TextField>
-            <TextField id="standard-basic" onChange={(e) => this.setState({country: e.target.value})} label="Country"></TextField>
-            <TextField id="standard-basic" type="number" label="Rent Per Month" onChange={(e) => this.setState({rent: e.target.value})}/>
-            <div className="listingRadios">
-                <FormLabel component="legend">Listing Type</FormLabel>
-                <RadioGroup aria-label="gender" name="listing" value={this.state.radioValue} onChange={this.handleChange}>
-                    <FormControlLabel value="0" control={<Radio />} label="Flat" />
-                    <FormControlLabel value="1" control={<Radio />} label="Room" />
-                </RadioGroup>
-            </div>
-            <div id="file-upload">
-                <div style={{ width: '100%', float: 'left' }}>
-                    <Typography style={{color: 'rgba(0, 0, 0, 0.54)'}}>Image Upload</Typography>
-                </div>
-                <input type="file" id="contained-button-file" accept="image/*" style={{ display: 'none' }} onChange={this.readFileName}/>
-                <label htmlFor="contained-button-file">
-                    <Button variant="contained" color="primary" component="span" style={{display: 'inline-block'}}>
-                        Upload
-                    </Button>
-                </label>
-                <Typography style={{float: 'right'}}>{this.state.fileName}</Typography>
-            </div>
-            <Button variant="contained" color="primary" onClick={this.submitRequest} style={{marginTop: '10px'}}>Add Listing</Button>
+            <Typography id="listingTitle" variant="h4">Create Support Ticket</Typography>
+            <TextField id="standard-basic" onChange={(e) => this.setState({title: e.target.value})} label="Title"></TextField>
+            <TextField id="standard-basic" onChange={(e) => this.setState({description: e.target.value})} label="Description"></TextField>
+            <Button variant="contained" color="primary" onClick={this.submitRequest} style={{marginTop: '10px'}}>Submit Ticket</Button>
         </form>
     }
 }

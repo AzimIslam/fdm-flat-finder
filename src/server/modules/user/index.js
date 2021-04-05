@@ -97,6 +97,15 @@ module.exports = class UserService{
 
 			return res.send(await getDB().applySearchFilter(req.body))
 		});
+
+		this.router.post('/createSupportTicket', body(['title', 'description', 'userID']), async (req, res) => {
+			return res.send(await this.supportTicket(req.body))
+		});
+	}
+
+
+	async supportTicket(ListingDetails){
+		return await getDB().createTicket(TicketDetails)
 	}
 
 	async loginUser(loginDetails) {
@@ -144,12 +153,6 @@ module.exports = class UserService{
 		if (FilterDetails.country != null){
 			WhereStr = (WhereStr + " AND Country = " + FilterDetails.country)
 		}
-<<<<<<< HEAD
-		if (FilterDetails.postcode != null){
-			WhereStr = (WhereStr + " AND Postcode LIKE " + FilterDetails.postcode)
-		}
-=======
->>>>>>> origin/alfie2
 		if (FilterDetails.isRoom != null){
 			WhereStr = (WhereStr + " AND isRoom = " + FilterDetails.isRoom )
 		}

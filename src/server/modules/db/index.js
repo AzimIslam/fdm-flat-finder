@@ -32,6 +32,7 @@ class Database{
 		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom , ImagePath, RentPerMonth) Values (?,?,?,?,?,?,?,?,?,?)", address1, address2, city, county, postcode, landlordID, country,isRoom,ImagePath,RentPerMonth)
 		return {success: true}
 	}
+
 	async deleteListing({ListingID}){
 		await this.instance.run("DELETE from Listings WHERE ListingID = ?", [ListingID])
 		return {'message': "Listing Deleted"}
@@ -39,6 +40,10 @@ class Database{
 
 	async editListing({ListingID}){
 		await this.instance.run("UPDATE Listings SET (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom ,ImagePath, RentPerMonth) Values (?,?,?,?,?,?,?,?,?,?) WHERE ListingID = ?", [address1, address2, city, county, postcode, landlordID, country, isRoom, ImagePath, RentPerMonth, ListingID])
+	}
+
+	async createTicket({title, description, UserID}){
+		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom , ImagePath, RentPerMonth) Values (?,?,?,?,?,?,?,?,?,?)", address1, address2, city, county, postcode, landlordID, country,isRoom,ImagePath,RentPerMonth)
 	}
 
 	// User table getters 
