@@ -22,7 +22,6 @@ export default class AddListingForm extends React.Component {
             rent: '',
             success: false,
             fileName: 'No file selected',
-            file: ''
         }
         this.handleChange = this.handleChange.bind(this)
         this.submitRequest = this.submitRequest.bind(this)
@@ -31,7 +30,7 @@ export default class AddListingForm extends React.Component {
 
     selectFile(event) {
         let file = event.target.files[0];
-        this.setState({fileName: file.name, file: file})
+        this.setState({fileName: file.name})
     }
 
     submitRequest() {
@@ -45,8 +44,6 @@ export default class AddListingForm extends React.Component {
             rent: this.state.rent,
             isRoom: 0,
             landlordID: sessionStorage.getItem('user_id'),
-            fileName: '',
-            file: ''
         }
 
         req.isFlat = Number(this.state.radioValue)
@@ -89,7 +86,7 @@ export default class AddListingForm extends React.Component {
                 <div style={{ width: '100%', float: 'left' }}>
                     <Typography style={{color: 'rgba(0, 0, 0, 0.54)'}}>Image Upload</Typography>
                 </div>
-                <input type="file" id="contained-button-file" accept="image/*" style={{ display: 'none' }} onChange={this.readFileName}/>
+                <input type="file" id="contained-button-file" accept="image/*" style={{ display: 'none' }} onChange={this.selectFile}/>
                 <label htmlFor="contained-button-file">
                     <Button variant="contained" color="primary" component="span" style={{display: 'inline-block'}}>
                         Upload

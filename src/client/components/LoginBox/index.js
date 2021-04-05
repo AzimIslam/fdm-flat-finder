@@ -48,6 +48,7 @@ export default class LoginBox extends React.Component  {
                 sessionStorage.setItem('user_id', res['user_id'])
                 sessionStorage.setItem('userType', res['userType'])
                 if (res['userType'] == 'landlord') window.location = '/landlord';
+                if (res['userType'] == 'member') window.location = '/member';
             } else {
                 this.handleClick()
             }
