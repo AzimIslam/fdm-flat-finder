@@ -19,10 +19,19 @@ export default class AddListingForm extends React.Component {
             county: '',
             postcode: '',
             country: '',
-            success: false
+            rent: '',
+            success: false,
+            fileName: 'No file selected',
+            file: ''
         }
         this.handleChange = this.handleChange.bind(this)
         this.submitRequest = this.submitRequest.bind(this)
+        this.selectFile = this.selectFile.bind(this)
+    }
+
+    selectFile(event) {
+        let file = event.target.files[0];
+        this.setState({fileName: file.name, file: file})
     }
 
     submitRequest() {
@@ -33,8 +42,11 @@ export default class AddListingForm extends React.Component {
             county: this.state.county,
             postcode: this.state.postcode,
             country: this.state.country,
+            rent: this.state.rent,
             isRoom: 0,
-            landlordID: sessionStorage.getItem('user_id')
+            landlordID: sessionStorage.getItem('user_id'),
+            fileName: '',
+            file: ''
         }
 
         req.isFlat = Number(this.state.radioValue)
@@ -65,6 +77,7 @@ export default class AddListingForm extends React.Component {
             <TextField id="standard-basic" onChange={(e) => this.setState({county: e.target.value})} label="County"></TextField>
             <TextField id="standard-basic" onChange={(e) => this.setState({postcode: e.target.value})} label="Postcode"></TextField>
             <TextField id="standard-basic" onChange={(e) => this.setState({country: e.target.value})} label="Country"></TextField>
+            <TextField id="standard-basic" type="number" label="Rent Per Month" onChange={(e) => this.setState({rent: e.target.value})}/>
             <div className="listingRadios">
                 <FormLabel component="legend">Listing Type</FormLabel>
                 <RadioGroup aria-label="gender" name="listing" value={this.state.radioValue} onChange={this.handleChange}>
@@ -72,7 +85,19 @@ export default class AddListingForm extends React.Component {
                     <FormControlLabel value="1" control={<Radio />} label="Room" />
                 </RadioGroup>
             </div>
-            <Button variant="contained" color="primary" onClick={this.submitRequest}>Add Listing</Button>
+            <div id="file-upload">
+                <div style={{ width: '100%', float: 'left' }}>
+                    <Typography style={{color: 'rgba(0, 0, 0, 0.54)'}}>Image Upload</Typography>
+                </div>
+                <input type="file" id="contained-button-file" accept="image/*" style={{ display: 'none' }} onChange={this.readFileName}/>
+                <label htmlFor="contained-button-file">
+                    <Button variant="contained" color="primary" component="span" style={{display: 'inline-block'}}>
+                        Upload
+                    </Button>
+                </label>
+                <Typography style={{float: 'right'}}>{this.state.fileName}</Typography>
+            </div>
+            <Button variant="contained" color="primary" onClick={this.submitRequest} style={{marginTop: '10px'}}>Add Listing</Button>
         </form>
     }
 }
