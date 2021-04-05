@@ -93,7 +93,7 @@ module.exports = class UserService{
 			return res.send(await getDB().getAllListingsForUser(req.body.UserID))
 		});
 
-		this.router.post('/applySearchFilter', body(['maxRent','city','county','country','postcode','isRoom','sortByCheapest']), async (req,res) => {
+		this.router.post('/applySearchFilter', body(['maxRent','city','county','country','isRoom','sortByCheapest']), async (req,res) => {
 
 			return res.send(await getDB().applySearchFilter(req.body))
 		});
@@ -143,9 +143,6 @@ module.exports = class UserService{
 		}
 		if (FilterDetails.country != null){
 			whereStr = (whereStr + " AND Country = " + FilterDetails.country)
-		}
-		if (FilterDetails.postcode != null){
-			whereStr = (whereStr + " AND Postcode LIKE " + FilterDetails.postcode)
 		}
 		if (FilterDetails.isRoom != null){
 			whereStr = (whereStr + " AND isRoom = " + FilterDetails.isRoom )
