@@ -1,16 +1,16 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import './style.css';
+//import './style.css';
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 
-export default class AddListingForm extends React.Component {
+export default class AddCreateTicketForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
             description: '',
-            userID: '',
+            userID: '0',
         }
         this.submitRequest = this.submitRequest.bind(this)
     }

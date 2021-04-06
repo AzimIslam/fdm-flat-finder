@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/typography";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import 'fontsource-roboto';
-import LandlordHomePage from "../../components/LandlordHomePage";
+import CreateSupportTicket from "../../components/CreateSupportTicket";
 import Button from '@material-ui/core/Button';
 
 export default class Landlord extends React.Component {
@@ -65,7 +65,7 @@ export default class Landlord extends React.Component {
 
             
                     </Toolbar>
-                    <LandlordHomePage name={this.props.fullName} />
+                    <CreateSupportTicket name={this.props.fullName} />
                     </div>
                 }
             </div>
