@@ -28,8 +28,6 @@ export default class ListingsBox extends React.Component {
             listings: [] //listing array taken from the data-base -> maybe users can each have listing array stored -> in landlord as variable???, etc. 
         }
 
-        this.ApiHandler = ApiHandlerInstance; //API handler for database handling!
-
         }
     componentDidMount() {
         fetch(`/api/user/getAllListings`, {

@@ -5,13 +5,17 @@ import ListingBox from "./../ListingsBox/"
 import './style.css';
 
 export default class LandlordHomePage extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             loggedIn: sessionStorage.getItem('loggedIn'),
             userType: sessionStorage.getItem('userType'),
             userId: sessionStorage.getItem('user_id'),
-            fullName: ''
+            fullName: '',
+            viewListing: this.props.viewListing,
+            addListing: this.props.addListing,
+            supportTicket: this.props.support,
+            accountSettings: this.props.account
         }
     }
 
@@ -30,10 +34,16 @@ export default class LandlordHomePage extends React.Component {
     render() {
         return (
             <div>
-                <Typography id="welcomeMessage" variant="h4">Hello, {this.state.fullName}</Typography>
-                <AddListingForm />
-                {/*<Typography id="listingsText" variant="h4">Your Listings:</Typography>*/}
-                {/*<ListingBox />*/}
+                {
+                    this.state.viewListing == true
+                    ? <div>
+                         <Typography id="welcomeMessage" variant="h4">Hello, {this.state.fullName}</Typography>
+                         <Typography id="listingsText" variant="h4">Your Listings:</Typography>
+                         <ListingBox />
+                    </div>
+                    :  <AddListingForm />
+                }
+
             </div>
         );
     }
