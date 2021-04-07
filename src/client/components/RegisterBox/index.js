@@ -136,9 +136,9 @@ export default class RegisterBox extends React.Component {
                 }
                 </div>
                 <div className="formItem">
-                <Button onClick={this.createRequest} variant="contained" color="primary"
-                //sends state to database with register details
-                >Register</Button>
+                    <Button onClick={this.createRequest} 
+                    //sends state to database with register details
+                    >Register</Button>
                 </div>
             </form>
         );
