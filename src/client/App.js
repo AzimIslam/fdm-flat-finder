@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import RegisterBox from './components/RegisterBox';
+import Member from './routes/Member';
 import LandlordCP from './routes/LandlordCP';
 import Home from './routes/Home';
 
@@ -9,6 +9,7 @@ export default class App extends React.Component {
     return (
       <Router>
         <Switch>
+          <Route path='/member' component={Member} />
           <Route path="/landlord"  component={LandlordCP} />
           <Route path="/"  component={Home} />
         </Switch>
