@@ -75,14 +75,14 @@ export default class Listing extends React.Component{ //must be stored in a list
                     /* image = source/ */ />
                 <CardActions> 
                 <IconButton className = "expand"
-                onClick = {this.viewListing()}/>
+                onClick = {this.expandView()}/>
                 </CardActions>
 
                 <Collapse in={this.state.expanded} timeout="auto" unmountOnExit> 
 
                 <Typography variant="body2" color="textSecondary" component="p">
 
-                    bruhhhh
+                  tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
                 
                 </Typography>
                 
@@ -96,32 +96,7 @@ export default class Listing extends React.Component{ //must be stored in a list
 
     }
 
-    editListing(){ //goes to edit
- 
-        //POPUP or Page to enter data
-        //if page -> must use props or other to get data from that page to here
-        //POPUP or nothing -> confirmation
-        //update listing data from that
-
-        var listingdata;
-        //create json of all parameters apart from landlord -> this is always loaded in from session
-        //listing data is json
-
-        
-        //ApiHandlerInstance.createRequest("/api/'some name???' ",listingdata)
-    }
-
-    //createListing method will be in ListingBox -> must add to the Listing array
-
-    deleteListing(){ //sends  for baackend
-
-        //popup or nothing -> confirmation
-        //delete entry in database 
-
-        //ApiHandlerInstance.createRequest("/api/'some name???' ",listingdata)
-    }
-
-    viewListing(){ //just sets expanded to true, card has the rest of the details
+    expandView(){ //just sets expanded to true, card has the rest of the details
         this.state.expanded = false;
     }
 }

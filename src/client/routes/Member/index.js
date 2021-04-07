@@ -7,6 +7,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import SupportIcon from "@material-ui/icons/ContactSupport";
 import IconButton from "@material-ui/core/IconButton";
+
+import MemberListingsBox from "../../components/MemberListingsBox"
+
+
 export default class Member extends React.Component {
     constructor() {
         super()
@@ -69,9 +73,12 @@ export default class Member extends React.Component {
                         <Button id="searchBtn" variant="contained" color="primary">Search for Listing </Button> 
                     </div>
                 </div>
+                <div id = "body">
                 <Typography id="featuredTitle" variant="h4">
                     Featured Listing
                 </Typography>
+                <MemberListingsBox></MemberListingsBox>
+                </div>
             </div>
         )
     }
