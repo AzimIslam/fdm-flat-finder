@@ -35,3 +35,8 @@
     float: right;
     margin-right: 2em;
 }
+
+#featuredTitle {
+    text-align: center;
+    margin-top: 20px;
+}
