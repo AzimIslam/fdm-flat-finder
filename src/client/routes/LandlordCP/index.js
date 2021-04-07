@@ -12,6 +12,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import AddListingForm from "../../components/AddListingForm";
 import ListingsBox from "../../components/ListingsBox";
+import CreateSupportTicket from "../../components/CreateSupportTicket";
+
 import AdminSupportTicket from "../../components/AdminSupportTicket";
 
 export default class Landlord extends React.Component {
@@ -88,10 +90,6 @@ export default class Landlord extends React.Component {
                             Landlord Control Panel
                         </Typography>
 
-                        <div className="suppBox">
-                            <Button variant="contained" color="secondary" onClick={this.supportTicket}>Support</Button>
-                        </div>
-
                         <div className="userTools">
                             <Button variant="contained" color="secondary" onClick={this.logout}>Logout</Button>
                         </div>
@@ -109,8 +107,7 @@ export default class Landlord extends React.Component {
                             <AddListingForm />    
                         </Route>
                         <Route exact path="/landlord/support">
-                            <h1>Create Support Ticket</h1>
-                            <AdminSupportTicket />    
+                            <CreateSupportTicket/>    
                         </Route>
                         <Route exact path="/landlord/settings">
                             <h1>Account Settings</h1>    

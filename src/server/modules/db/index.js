@@ -42,9 +42,10 @@ class Database{
 		await this.instance.run("UPDATE Listings SET (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom ,ImagePath, RentPerMonth) Values (?,?,?,?,?,?,?,?,?,?) WHERE ListingID = ?", [address1, address2, city, county, postcode, landlordID, country, isRoom, ImagePath, RentPerMonth, ListingID])
 	}
 
-	async createTicket({title, description, UserID}){
+	async createTicket({title, description, userID}){
 		//this needs to be adjusted to db names
-		await this.instance.run("INSERT into Listings (Title, Description, UserID) Values (?,?,?)", title, description, UserID)
+		await this.instance.run("INSERT into SupportTicket (Title, Description, UserID) Values (?,?,?)", [title, description, userID])
+		return {success: true}
 	}
 
 	// User table getters 
@@ -130,32 +131,13 @@ class Database{
 		return result.IsRoom
 	}
 
-<<<<<<< HEAD
-	async getImagePath(ListingID) {
-		let result = await this.instance.get("SELECT ImagePath FROM Listings WHERE ListingID = ?", [ListingID])
-		return result.ImagePath
-	}
-
-	async getRentPerMonth(ListingID) {
-=======
 	async getRent(ListingID) {
->>>>>>> origin/azim
 		let result = await this.instance.get("SELECT RentPerMonth FROM Listings WHERE ListingID = ?", [ListingID])
 		return result.RentPerMonth
 	}
 
 	async getAllListingsForUser(UserID) {
-<<<<<<< HEAD
-		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, ImagePath, RentPerMonth FROM Listings WHERE LandlordID = ?", [UserID])
-		return result;
-	}
-
-	//member getters (AKA mostly search)
-	async Search(WhereStr){
-		let result = await this.instance.all(WhereStr)
-=======
 		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, RentPerMonth FROM Listings WHERE LandlordID = ?", [UserID])
->>>>>>> origin/azim
 		return result;
 	}
 }

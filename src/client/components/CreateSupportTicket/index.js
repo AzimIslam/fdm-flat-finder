@@ -18,10 +18,11 @@ export default class AddCreateTicketForm extends React.Component {
     submitRequest() {
         let req = {
             title: this.state.title,
-            desciprtion: this.state.description,
+            description: this.state.description,
             userID: sessionStorage.getItem('user_id'),
         }
 
+        console.log(req)
         fetch(`/api/user/createSupportTicket`, {
             method: 'POST',
             headers:{

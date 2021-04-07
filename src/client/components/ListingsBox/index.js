@@ -36,16 +36,8 @@ export default class ListingsBox extends React.Component {
             console.log(data)
             this.setState({listings: data});
         })
-<<<<<<< HEAD
-    }
-
-
-
-
-=======
     } 
     
->>>>>>> origin/azim
     render() {
         return (
         <TableContainer component={Paper}>
