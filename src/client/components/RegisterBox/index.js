@@ -99,6 +99,16 @@ export default class RegisterBox extends React.Component {
     render() {
         return( //text and radio fields for updating state, API handler uses hash to convert 
             <form id="register-box">
+                <Snackbar open={this.state.greenBoxOpen} autoHideDuration={6000} onClose={this.handleGreenClose}>
+                    <Alert onClose={this.handleGreenClose} severity="success">
+                        Account successfully created
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={this.state.redBoxOpen} autoHideDuration={6000} onClose={this.handleRedClose}>
+                    <Alert onClose={this.handleRedClose} severity="error">
+                        {this.state.message}
+                    </Alert>
+                </Snackbar>
                 <div className="formItem">
                     <TextField  style={{width: "60%"}} onChange={(event) => this.setState({"email" : event.target.value})} id="outlined-basic" label="E-mail" type="email" variant="outlined" />
                 </div> 
@@ -129,16 +139,6 @@ export default class RegisterBox extends React.Component {
                 <Button onClick={this.createRequest} variant="contained" color="primary"
                 //sends state to database with register details
                 >Register</Button>
-                <Snackbar open={this.state.greenBoxOpen} autoHideDuration={6000} onClose={this.handleGreenClose}>
-                    <Alert onClose={this.handleGreenClose} severity="success">
-                        Account successfully created
-                    </Alert>
-                </Snackbar>
-                <Snackbar open={this.state.redBoxOpen} autoHideDuration={6000} onClose={this.handleRedClose}>
-                    <Alert onClose={this.handleRedClose} severity="error">
-                        {this.state.message}
-                    </Alert>
-                </Snackbar>
                 </div>
             </form>
         );

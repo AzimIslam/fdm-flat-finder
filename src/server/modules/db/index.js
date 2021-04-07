@@ -28,13 +28,13 @@ class Database{
 		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType, EmployeeNo, AgencyName) Values(?,?,?,?,?,?,?)", firstname, lastname, email, password, usertype, employeeNo, agencyName)
 		return {'message': "User registered", 'success': true}
 	}
-	async createListing({address1,address2,city,county,postcode,landlordID,country,isRoom}){
-		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom) Values (?,?,?,?,?,?,?,?)", address1, address2, city, county, postcode, landlordID, country,isRoom)
+	async createListing({address1,address2,city,county,postcode,landlordID,country,isRoom, rent}){
+		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom, RentPerMonth) Values (?,?,?,?,?,?,?,?,?)", address1, address2, city, county, postcode, landlordID, country,isRoom, rent)
 		return {success: true}
 	}
 	async deleteListing({ListingID}){
 		await this.instance.run("DELETE from Listings WHERE ListingID = ?", [ListingID])
-		return {'message': "Listing Deleted"}
+		return {'success': true}
 	}
 
 	// User table getters 
@@ -78,6 +78,7 @@ class Database{
 		return result.Email;
 	}
 
+
 	//Listing table getters
 	async getAddressLine1(ListingID) {
 		let result = await this.instance.get("SELECT AddressLine1 FROM Listings WHERE ListingID = ?", [ListingID])
@@ -119,8 +120,13 @@ class Database{
 		return result.IsRoom
 	}
 
+	async getRent(ListingID) {
+		let result = await this.instance.get("SELECT RentPerMonth FROM Listings WHERE ListingID = ?", [ListingID])
+		return result.RentPerMonth
+	}
+
 	async getAllListingsForUser(UserID) {
-		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom FROM Listings WHERE LandlordID = ?", [UserID])
+		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, RentPerMonth FROM Listings WHERE LandlordID = ?", [UserID])
 		return result;
 	}
 }

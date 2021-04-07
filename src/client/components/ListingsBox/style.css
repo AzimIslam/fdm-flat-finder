@@ -1,16 +1,11 @@
-#listing-box {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    width: 40%;
+
+.buttons {
     margin: 0 auto;
-    overflow: auto;
-    background-color: white;
-    border: 1px solid #eee;
-    border-radius: 1em;
-    margin-top: 10px;
-    opacity: 0.9;
+    overflow: none
 }
+<<<<<<< HEAD
 #grid-list {
 
 }
+=======
+>>>>>>> 0bf1b518c8bd27ecc0f36abf42371fa12215765e

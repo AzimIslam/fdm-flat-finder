@@ -44,7 +44,7 @@ module.exports = class UserService{
 			let surname = await getDB().getLastname(req.body.UserID)
 			return res.send({text: firstName + " " + surname})
 		});
-		this.router.post('/createListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'landlordID', 'country', 'isRoom']), async (req, res) => {
+		this.router.post('/createListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'landlordID', 'country', 'isRoom', 'rent']), async (req, res) => {
 			console.log(req.body)
 			const errors = validationResult(req);
 			if (!errors.isEmpty()){
