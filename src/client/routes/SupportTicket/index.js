@@ -8,7 +8,7 @@ import 'fontsource-roboto';
 import CreateSupportTicket from "../../components/CreateSupportTicket";
 import Button from '@material-ui/core/Button';
 
-export default class Landlord extends React.Component {
+export default class Support extends React.Component {
     constructor() {
         super()
         this.state = {

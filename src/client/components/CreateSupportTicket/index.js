@@ -1,6 +1,6 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-//import './style.css';
+import './style.css';
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 
@@ -22,7 +22,7 @@ export default class AddCreateTicketForm extends React.Component {
             userID: sessionStorage.getItem('user_id'),
         }
 
-        fetch(`/api/user/createListing`, {
+        fetch(`/api/user/createSupportTicket`, {
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json'
