@@ -5,11 +5,14 @@ import Typography from "@material-ui/core/typography";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import 'fontsource-roboto';
-import LandlordHomePage from "../../components/LandlordHomePage";
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import { List, ListItem } from "material-ui";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import AddListingForm from "../../components/AddListingForm";
+import ListingsBox from "../../components/ListingsBox";
+import AdminSupportTicket from "../../components/AdminSupportTicket";
 
 export default class Landlord extends React.Component {
     constructor() {
@@ -20,46 +23,19 @@ export default class Landlord extends React.Component {
             userId: sessionStorage.getItem('user_id'),
             fullName: '',
             toggle: false,
-            viewListing: true,
-            addListing: false,
-            support: false,
-            accountSettings: false
+            data: []
         }
 
         this.toggleDrawer = this.toggleDrawer.bind(this);
-        this.toggleViewListing = this.toggleViewListing.bind(this);
-        this.toggleAddListing = this.toggleAddListing.bind(this);
-        this.toggleSupport = this.toggleSupport.bind(this);
-        this.toggleAccountSettings = this.toggleAccountSettings.bind(this);
-    }
-
-    logout() {
-        sessionStorage.clear();
-        window.location = '/';
     }
 
     toggleDrawer(bool) {
         this.setState({toggle: bool})
     }
 
-    toggleViewListing() {
-        this.setState({viewListing: true, addListing: false, support: false, accountSettings: false})
-        this.toggleDrawer(false)
-    }
-
-    toggleAddListing() {
-        this.setState({addListing: true, viewListing: false, support: false, accountSettings: false})
-        this.toggleDrawer(false)
-    }
-
-    toggleSupport() {
-        this.setState({support: true, viewListing: false, addListing: false, accountSettings: false})
-        this.toggleDrawer(false)
-    }
-
-    toggleAccountSettings() {
-        this.setState({accountSettings: true, viewListing: false, addListing: false, support: false})
-        this.toggleDrawer(false)
+    logout() {
+        sessionStorage.clear();
+        window.location = '/';
     }
 
     componentDidMount() {
@@ -77,10 +53,18 @@ export default class Landlord extends React.Component {
     list() {
         return (
             <List style={{width: 250}}>
-                <ListItem onClick={this.toggleViewListing}>View Listings</ListItem>
-                <ListItem onClick={this.toggleAddListing}>Add a Listing</ListItem>
-                <ListItem onClick={this.toggleSupport}>Create a Support Ticket</ListItem>
-                <ListItem onClick={this.toggleAccountSettings}>Account Settings</ListItem>
+                <ListItem onClick={() => this.toggleDrawer(false)}>
+                    <Link style={{textDecoration: "none", color: "black"}} to="/landlord">View Listings</Link>
+                </ListItem>
+                <ListItem onClick={() => this.toggleDrawer(false)}>
+                    <Link style={{textDecoration: "none", color: "black"}} to="/landlord/addlisting">Add a Listing</Link>
+                </ListItem>
+                <ListItem onClick={() => this.toggleDrawer(false)}>
+                    <Link style={{textDecoration: "none", color: "black"}} to="/landlord/support">Create a Support Ticket</Link>
+                </ListItem>
+                <ListItem onClick={() => this.toggleDrawer(false)}>
+                    <Link style={{textDecoration: "none", color: "black"}} to="/landlord/settings">Account Settings</Link>
+                </ListItem>
             </List>
         )
     }
@@ -108,6 +92,21 @@ export default class Landlord extends React.Component {
                         <Drawer anchor={'left'} open={this.state.toggle} onClose={() => this.toggleDrawer(false)}>
                             {this.list()}
                         </Drawer>
+                        <Route exact path="/landlord">
+                            <Typography style={{paddingTop: '20px', textAlign: 'center'}} variant="h4">Hello, {this.state.fullName}</Typography> 
+                            <Typography style={{paddingTop: '20px', paddingBottom: '20px', textAlign: 'center'}} variant="h5">Your Listings</Typography>
+                            <ListingsBox />
+                        </Route>
+                        <Route exact path="/landlord/addlisting">
+                            <AddListingForm />    
+                        </Route>
+                        <Route exact path="/landlord/support">
+                            <h1>Create Support Ticket</h1>
+                            <AdminSupportTicket />    
+                        </Route>
+                        <Route exact path="/landlord/settings">
+                            <h1>Account Settings</h1>    
+                        </Route>
                     </div>
                 }
             </MuiThemeProvider>

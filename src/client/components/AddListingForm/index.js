@@ -41,9 +41,9 @@ export default class AddListingForm extends React.Component {
             county: this.state.county,
             postcode: this.state.postcode,
             country: this.state.country,
-            rent: this.state.rent,
-            isRoom: 0,
-            landlordID: sessionStorage.getItem('user_id'),
+            rent: Number(this.state.rent),
+            isRoom: Number(this.state.radioValue),
+            landlordID: sessionStorage.getItem('user_id')
         }
 
         req.isFlat = Number(this.state.radioValue)
