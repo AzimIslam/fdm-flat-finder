@@ -129,6 +129,11 @@ class Database{
 		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, RentPerMonth FROM Listings WHERE LandlordID = ?", [UserID])
 		return result;
 	}
+
+	async getAllListingsFromSystem() {
+		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, RentPerMonth, Email, AgencyName FROM Advertisements");
+		return result;
+	}
 }
 
 module.exports.connectDB = async (path) => {

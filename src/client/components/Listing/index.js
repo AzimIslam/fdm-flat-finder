@@ -5,31 +5,56 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button'
 
 export default class Listing extends React.Component {
     
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.state = {
+            thumbnails: [
+                require('./assets/flat1.jpg'),
+                require('./assets/flat2.jpg'),
+                require('./assets/flat3.jpg'),
+                require('./assets/flat4.jpg'),
+                require('./assets/flat5.jpg'),
+                require('./assets/flat6.jpg'),
+                require('./assets/flat7.jpg'),
+                require('./assets/flat8.jpg'),
+                require('./assets/flat9.jpg'),
+                require('./assets/flat10.jpg'),
+            ],
+            randomIndex: Math.round(Math.random() * 9)
+        }
     }
 
     render() {
-        return(
-        <div>            
-        <Card style={{minWidth: 275, display: 'inline-block'}}>
-        <CardMedia style={{height: 140}} image={require('./assets/flat1.jpg')} />
+        return(          
+        <Card style={{margin: "1em", minWidth: 275, display: 'inline-block'}}>
+        <CardMedia style={{height: 140}} image={this.state.thumbnails[this.state.randomIndex]} />
             <CardContent>
                 <Typography variant="h5">
-                    £1000 PCM
+                    £{this.props.rent} PCM
                 </Typography>
                 <Typography variant="body2">
-                    Flat to Rent
+                    {this.props.isRoom == 1 ? "Room to Rent": "Flat to Rent"}
                 </Typography>
                 <Typography variant="body2">
-                    Ashmore Road, Maida Vale, London W9
+                    {this.props.address}, {this.props.city}, {this.props.postcode}
+                </Typography>
+                <Typography>
+                    {this.props.country}
                 </Typography>
             </CardContent>
+            <CardActions>
+                <Button onClick={() => window.open(`mailto:${this.props.email}`)} size="small" color="primary">
+                    Contact     
+                </Button>
+                <Button size="small" color="primary">
+                    View Listing
+                </Button>
+            </CardActions>
         </Card>
-        </div>
         );
     }
 }

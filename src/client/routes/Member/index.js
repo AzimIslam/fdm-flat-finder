@@ -9,15 +9,18 @@ import SupportIcon from "@material-ui/icons/ContactSupport";
 import IconButton from "@material-ui/core/IconButton";
 import Listing from "../../components/Listing/";
 export default class Member extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
+
         this.state = {
             userId: sessionStorage.getItem('user_id'),
-            fullName: '',
             room: false,
             flat: false,
-            cheapest: false
+            cheapest: false,
+            listings: []
         }
+
+
         this.handleRoomChange = this.handleRoomChange.bind(this)
         this.handleFlatChange = this.handleFlatChange.bind(this)
         this.handleCheapestChange = this.handleCheapestChange.bind(this)
@@ -25,6 +28,7 @@ export default class Member extends React.Component {
 
     handleRoomChange(event) {
         this.setState({room: !this.state.room})
+        console.log(this.state.listings);
     }
 
     handleFlatChange(event) {
@@ -38,6 +42,16 @@ export default class Member extends React.Component {
     logout() {
         sessionStorage.clear()
         window.location = "/"
+    }
+
+    async componentDidMount() {
+        await fetch(`/api/user/getAllListingsFromSystem`)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({listings: data})
+            });
+
+        console.log(this.state.listings)
     }
 
     render() {
@@ -70,11 +84,18 @@ export default class Member extends React.Component {
                         <Button id="searchBtn" variant="contained" color="primary">Search for Listing </Button> 
                     </div>
                 </div>
-                <Typography id="featuredTitle" variant="h4">
+                <Typography style={{paddingBottom: "20px"}} id="featuredTitle" variant="h4">
                     Featured Listing
                 </Typography>
+                <div id="listings">                {
+                    this.state.listings.map((listing) => {
+                        return(
+                            <Listing style={{display: 'inline-block'}} id={listing.ListingID} rent={listing.rent} isRoom={listing.IsRoom} address={listing.AddressLine1} city={listing.City} postcode={listing.Postcode} country={listing.Country} rent={listing.RentPerMonth} email={listing.Email} agency={listing.AgencyName} />
+                        )
+                    })
+                }
+                </div>
 
-                <Listing></Listing>
             </div>
         )
     }
