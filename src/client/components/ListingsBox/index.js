@@ -39,7 +39,15 @@ export default class ListingsBox extends React.Component {
             listings: [],
             greenBoxOpen: false,
             modalOpen: false,
-            fileName: 'No file selected'
+            fileName: 'No file selected',
+            id: 0,
+            address1: '',
+            address2: '',
+            county: '',
+            postcode: '',
+            country: '',
+            popupMessage : '',
+            RentPerMonth: 0
         }
 
         this.deleteListing = this.deleteListing.bind(this);
@@ -47,6 +55,7 @@ export default class ListingsBox extends React.Component {
         this.handleGreenOpen = this.handleGreenOpen.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.selectFile = this.selectFile.bind(this);
+        this.submitEdit = this.submitEdit.bind(this);
     }
 
     selectFile(event) {
@@ -77,7 +86,6 @@ export default class ListingsBox extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             this.setState({listings: data});
         });
         
@@ -112,10 +120,50 @@ export default class ListingsBox extends React.Component {
         .then(response => response.json())
         .then(data => {
             console.log(data)
-            this.setState({listings: data});
+            this.setState({listings: data, popupMessage: 'Listing Successfully Deleted!'});
+            this.handleGreenOpen();
+        });
+    }
+
+    openEditBox(id) {
+        fetch('/api/user/getListing', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ListingID: id})
+        })
+        .then(response => response.json())
+        .then(data => {
+            this.setState({id: id, address1: data['address1'], address2: data['address2'], city: data['city'], county: data['county'], postcode: data['postcode'], country: data['country'], rent: data['rent'], modalOpen: true})
+        })
+    }
+
+    submitEdit(id) {
+        fetch('/api/user/editListing', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ListingID: id, address1: this.state.address1, address2: this.state.address2, city: this.state.city, county: this.state.county, postcode: this.state.postcode, country: this.state.country, RentPerMonth: this.state.rent,})
+        })
+        .then(response => response.json())
+        .then(data => {
+            ;
         });
 
-        this.handleGreenOpen();
+        fetch(`/api/user/getAllListings`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({UserID: this.state.landlord})
+        })
+        .then(response => response.json())
+        .then(data => {
+            this.setState({modalOpen: 'true', popupMessage: 'Listing successfuly edited', listings: data})
+            this.handleGreenOpen();
+        });
     }
 
     render() {
@@ -131,13 +179,13 @@ export default class ListingsBox extends React.Component {
                 </DialogTitle>
                 <DialogContent>
                 <div id="editForm">
-                    <TextField id="standard-basic" onChange={(e) => this.setState({address1: e.target.value})} label="Address Line 1"></TextField>
-                    <TextField id="standard-basic" onChange={(e) => this.setState({address2: e.target.value})} label="Address Line 2"></TextField>
-                    <TextField id="standard-basic" onChange={(e) => this.setState({city: e.target.value})} label="City"></TextField>
-                    <TextField id="standard-basic" onChange={(e) => this.setState({county: e.target.value})} label="County"></TextField>
-                    <TextField id="standard-basic" onChange={(e) => this.setState({postcode: e.target.value})} label="Postcode"></TextField>
-                    <TextField id="standard-basic" onChange={(e) => this.setState({country: e.target.value})} label="Country"></TextField>
-                    <TextField id="standard-basic" type="number" label="Rent Per Month" onChange={(e) => this.setState({rent: e.target.value})}/>
+                    <TextField value={this.state.address1} id="standard-basic" onChange={(e) => this.setState({address1: e.target.value})} label="Address Line 1"></TextField>
+                    <TextField value={this.state.address2} id="standard-basic" onChange={(e) => this.setState({address2: e.target.value})} label="Address Line 2"></TextField>
+                    <TextField value={this.state.city} id="standard-basic" onChange={(e) => this.setState({city: e.target.value})} label="City"></TextField>
+                    <TextField value={this.state.county} id="standard-basic" onChange={(e) => this.setState({county: e.target.value})} label="County"></TextField>
+                    <TextField value={this.state.postcode} id="standard-basic" onChange={(e) => this.setState({postcode: e.target.value})} label="Postcode"></TextField>
+                    <TextField value={this.state.country} id="standard-basic" onChange={(e) => this.setState({country: e.target.value})} label="Country"></TextField>
+                    <TextField value={this.state.rent} id="standard-basic" type="number" label="Rent Per Month" onChange={(e) => this.setState({rent: e.target.value})}/>
                     <div id="file-upload">
                         <div style={{ width: '100%'}}>
                             <Typography style={{color: 'rgba(0, 0, 0, 0.54)'}}>Image Upload</Typography>
@@ -156,14 +204,14 @@ export default class ListingsBox extends React.Component {
                 <Button autoFocus onClick={this.closeModal} color="primary">
                     Cancel
                 </Button>
-                <Button onClick={this.submitTicket} color="primary">
-                    Submit
+                <Button onClick={() => this.submitEdit(this.state.id)} color="primary">
+                    Edit
                 </Button>
                 </DialogActions>
             </Dialog>
             <Snackbar open={this.state.greenBoxOpen} autoHideDuration={6000} onClose={this.handleGreenClose}>
                     <Alert onClose={this.handleGreenClose} severity="success">
-                        Listing successfully deleted
+                        {this.state.popupMessage}
                     </Alert>
                 </Snackbar>
             <TableContainer component={Paper}>
@@ -195,7 +243,7 @@ export default class ListingsBox extends React.Component {
                     <TableCell align="left" style={{overflow: 'none'}}>
                         <div className="buttons">
                             <Button variant="contained" color="primary">View</Button>
-                            <Button onClick={() => this.setState({modalOpen: true})} style={{marginLeft: "10px"}} variant="contained" color="primary">Edit</Button>
+                            <Button onClick={() => this.openEditBox(row.ListingID)} style={{marginLeft: "10px"}} variant="contained" color="primary">Edit</Button>
                             <Button onClick={() => this.deleteListing(row.ListingID)} style={{marginLeft: "10px"}} variant="contained" color="primary">Delete</Button>
                         </div>
                     </TableCell>
