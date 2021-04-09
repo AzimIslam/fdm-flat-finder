@@ -37,7 +37,7 @@ export default class ListingsBox extends React.Component {
     }
 
 
-    componentDidMount() {
+    async componentDidMount() {
         fetch(`/api/user/getAllListings`, {
             method: 'POST',
             headers: {
