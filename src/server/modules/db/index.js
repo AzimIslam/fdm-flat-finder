@@ -28,6 +28,11 @@ class Database{
 		await this.instance.run("INSERT into Users (FirstName, LastName, Email, Password, UserType, EmployeeNo, AgencyName) Values(?,?,?,?,?,?,?)", firstname, lastname, email, password, usertype, employeeNo, agencyName)
 		return {'message': "User registered", 'success': true}
 	}
+
+	async updateUser({firstname, lastname, password,agencyName,UserID}){
+		await this.instance.run("UPDATE Users SET (FirstName, LastName, Password, AgencyName ) Values (?,?,?,?) WHERE UserID = ?", firstname,lastname,password,agencyName,UserID)
+	}
+
 	async createListing({address1,address2,city,county,postcode,landlordID,country,isRoom, rent}){
 		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom, RentPerMonth) Values (?,?,?,?,?,?,?,?,?)", address1, address2, city, county, postcode, landlordID, country,isRoom, rent)
 		return {success: true}
@@ -39,7 +44,7 @@ class Database{
 	}
 
 	async editListing({ListingID}){
-		await this.instance.run("UPDATE Listings SET (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom ,ImagePath, RentPerMonth) Values (?,?,?,?,?,?,?,?,?,?) WHERE ListingID = ?", [address1, address2, city, county, postcode, landlordID, country, isRoom, ImagePath, RentPerMonth, ListingID])
+		await this.instance.run("UPDATE Listings SET (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom ,ImagePath, RentPerMonth) Values (?,?,?,?,?,?,?,?,?,?) WHERE ListingID = ?", address1, address2, city, county, postcode, landlordID, country, isRoom, ImagePath, RentPerMonth, ListingID)
 	}
 
 	async createTicket({title, description, UserID}){
@@ -47,6 +52,10 @@ class Database{
 	}
 
 	// User table getters 
+	async getUpdatedUser(UserID){
+		let result = await this.instance.get("SELECT FirstName, LastName, Password, AgencyName FROM Users WHERE UserID = ?", [UserID])
+		return result.UpdatedUser;
+	}
 	async getUserType(UserID) {
 		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])
 		return result.UserType;
@@ -139,9 +148,7 @@ class Database{
 		return result;
 	}
 
-<<<<<<< HEAD
 	//member getters (AKA mostly search)
-=======
 	async getAllListingsFromSystem() {
 		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, RentPerMonth, Email, AgencyName FROM Advertisements");
 		return result;
@@ -153,7 +160,6 @@ class Database{
 		return {success: true}
 	}
 
->>>>>>> origin/azim
 	async Search(WhereStr){
 		let result = await this.instance.all(WhereStr)
 		return result;
