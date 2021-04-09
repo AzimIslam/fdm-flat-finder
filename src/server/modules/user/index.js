@@ -78,12 +78,31 @@ module.exports = class UserService{
 			return res.send(address)
 		});
 
+		this.router.post('/createSupportTicket', body(['title', 'description', 'userID']), async (req, res) => {
+			console.log(req.body)
+			const errors = validationResult(req);
+			if (!errors.isEmpty()){
+				return res.status(422).json({ errors: errors.array() })
+			}
+			return res.send(await getDB().createTicket(req.body))
+		});
+
+		
+		this.router.post('/applySearchFilter', body(['maxRent','city','county','country','isRoom','isFlat', 'sortByCheapest']), async (req,res) => {
+			return res.send(await this.applySearchFilter(req.body))
+		});
+
 		this.router.post('/getAllListings', body(['UserID']).not().isEmpty(), async(req, res) => {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()){
 				return res.status(422).json({ errors: errors.array() })
 			}
 			return res.send(await getDB().getAllListingsForUser(req.body.UserID))
+		});
+
+		this.router.get('/getAllListingsFromSystem', async(req, res) => {
+			console.log("GET request recieved")
+			return res.send(await getDB().getAllListingsFromSystem())
 		});
 	}
 
@@ -112,5 +131,32 @@ module.exports = class UserService{
 
 	async deleteListing(ListingID){
 		return await getDB().deleteListing(ListingID)
+	}
+
+	async applySearchFilter(FilterDetails){
+		let WhereStr = "SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, Email, RentPerMonth, AgencyName FROM Advertisements WHERE ListingID IS NOT NULL"
+		if (FilterDetails.maxRent != null && FilterDetails.maxRent != "") {
+			WhereStr = (WhereStr + " AND RentPerMonth < " + FilterDetails.maxRent)
+		}
+		if (FilterDetails.city != null && FilterDetails.city != ""){
+			WhereStr = (WhereStr + " AND City = '" + FilterDetails.city + "'")
+		}
+		if (FilterDetails.county != null && FilterDetails.county != ""){
+			WhereStr = (WhereStr + " AND County = '"+ FilterDetails.county + "'")
+		}
+		if (FilterDetails.country != null && FilterDetails.country != "") {
+			WhereStr = (WhereStr + " AND Country = '" + FilterDetails.country + "'")
+		}
+		if (FilterDetails.isRoom == true && FilterDetails.isFlat != true){
+			WhereStr = (WhereStr + " AND isRoom = 1")
+		} 
+		if (FilterDetails.isFlat == true && FilterDetails.isRoom != true){
+			WhereStr = (WhereStr + " AND isRoom = 0")
+		} 
+		if (FilterDetails.sortByCheapest != false){
+			WhereStr = (WhereStr + " ORDER BY RentPerMonth ASC")
+		}
+
+		return await getDB().Search(WhereStr)
 	}
 }

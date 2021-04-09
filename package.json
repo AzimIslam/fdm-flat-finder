@@ -28,7 +28,9 @@
     "net": "^1.0.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-draggable": "^4.4.3",
     "react-router-dom": "^5.2.0",
+    "react-spring": "^9.1.0",
     "request": "^2.88.2",
     "sqlite": "^4.0.19",
     "sqlite3": "^5.0.2"

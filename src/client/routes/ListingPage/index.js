@@ -12,9 +12,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import AddListingForm from "../../components/AddListingForm";
 import ListingsBox from "../../components/ListingsBox";
-import LLSupportTicket from "../../components/LLSupportTicket";
+import AdminSupportTicket from "../../components/AdminSupportTicket";
 
-export default class Landlord extends React.Component {
+export default class ListingPage extends React.Component {
     constructor() {
         super()
         this.state = {
@@ -23,9 +23,19 @@ export default class Landlord extends React.Component {
             userId: sessionStorage.getItem('user_id'),
             fullName: '',
             toggle: false,
-            data: []
+            data: [],
+
+            mainPage: null,
+
         }
 
+        if (this.state.userType == "member"){
+            this.state.mainPage = "/member"
+        }
+        else if (this.state.userType == "landlord"){
+            this.state.mainPage = "/landlord"
+        
+        }
         this.toggleDrawer = this.toggleDrawer.bind(this);
     }
 
@@ -51,38 +61,27 @@ export default class Landlord extends React.Component {
     }
 
     list() {
-        return (
+        return ( 
             <List style={{width: 250}}>
-                <Link style={{textDecoration: "none", color: "black"}} to="/landlord">
-                    <ListItem onClick={() => this.toggleDrawer(false)}>
-                        View Listings
-                    </ListItem>
-                </Link>
-                <Link style={{textDecoration: "none", color: "black"}} to="/landlord/addlisting">
-                    <ListItem onClick={() => this.toggleDrawer(false)}>
-                        Add a Listing
-                    </ListItem>
-                </Link>
-
-                <Link style={{textDecoration: "none", color: "black"}} to="/landlord/support">
-                    <ListItem onClick={() => this.toggleDrawer(false)}>
-                        Create a Support Ticket
-                    </ListItem>
-                </Link>
-                <Link style={{textDecoration: "none", color: "black"}} to="/landlord/settings">
-                    <ListItem onClick={() => this.toggleDrawer(false)}>
-                    Account Settings
-                    </ListItem>
-                </Link>
+                <ListItem onClick={() => this.toggleDrawer(false)}>
+                    <Link style={{textDecoration: "none", color: "black"}} to={"/"+ this.state.userType + "/"}>Home </Link> {/* could just label this back for now?*/}
+                </ListItem>
+                <ListItem onClick={() => this.toggleDrawer(false)}>
+                    <Link style={{textDecoration: "none", color: "black"}} to={"/"+ this.state.userType +"/support"}>Create a Support Ticket</Link>
+                </ListItem>
+                <ListItem onClick={() => this.toggleDrawer(false)}>
+                    <Link style={{textDecoration: "none", color: "black"}} to={"/"+ this.state.userType +"/settings"}>Account Settings</Link>
+                </ListItem>
+                
             </List>
         )
     }
 
     render() {
-        return (
+        return ( //listing --->
             <MuiThemeProvider>
                 {
-                    this.state.userType != 'landlord'? <p>You are not a landlord</p>:
+                    //this.state.userType != 'landlord'? <p>You are not a landlord</p>:
                     this.state.loggedIn != 'true' ? <p>You are not logged in</p>:
                     <div>
                     <Toolbar style={{backgroundColor: "#3f51b5"}} variant="dense">
@@ -90,14 +89,18 @@ export default class Landlord extends React.Component {
                             <MenuIcon />
                         </IconButton>
                         <Typography style={{fontWeight: "lighter", color: "white"}}variant="h6">
-                            Landlord Control Panel
+                            Listing view
                         </Typography>
 
                         <div className="userTools">
                             <Button variant="contained" color="secondary" onClick={this.logout}>Logout</Button>
                         </div>
-
+                    
                     </Toolbar>
+
+                    {/* here is where the listing stuff actually goes*/}
+
+
                         <Drawer anchor={'left'} open={this.state.toggle} onClose={() => this.toggleDrawer(false)}>
                             {this.list()}
                         </Drawer>
@@ -106,11 +109,9 @@ export default class Landlord extends React.Component {
                             <Typography style={{paddingTop: '20px', paddingBottom: '20px', textAlign: 'center'}} variant="h5">Your Listings</Typography>
                             <ListingsBox />
                         </Route>
-                        <Route exact path="/landlord/addlisting">
-                            <AddListingForm />    
-                        </Route>
                         <Route exact path="/landlord/support">
-                            <LLSupportTicket />    
+                            <h1>Create Support Ticket</h1>
+                            <AdminSupportTicket />    
                         </Route>
                         <Route exact path="/landlord/settings">
                             <h1>Account Settings</h1>    
