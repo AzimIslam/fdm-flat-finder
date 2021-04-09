@@ -44,11 +44,7 @@ module.exports = class UserService{
 			let surname = await getDB().getLastname(req.body.UserID)
 			return res.send({text: firstName + " " + surname})
 		});
-<<<<<<< HEAD
-		this.router.post('/createListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'landlordID', 'country', 'isRoom','ImagePath','RentPerMonth']), async (req, res) => {
-=======
 		this.router.post('/createListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'landlordID', 'country', 'isRoom', 'rent']), async (req, res) => {
->>>>>>> origin/azim
 			console.log(req.body)
 			const errors = validationResult(req);
 			if (!errors.isEmpty()){
@@ -86,7 +82,20 @@ module.exports = class UserService{
 
 		this.router.post('/editListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'landlordID', 'country', 'isRoom','ImagePath','RentPerMonth', 'ListingID']), async (req, res) => {
 			return res.send(await this.deleteListing(req.body))
+		}
 
+		this.router.post('/createSupportTicket', body(['title', 'description', 'userID']), async (req, res) => {
+			console.log(req.body)
+			const errors = validationResult(req);
+			if (!errors.isEmpty()){
+				return res.status(422).json({ errors: errors.array() })
+			}
+			return res.send(await getDB().createTicket(req.body))
+		});
+
+		
+		this.router.post('/applySearchFilter', body(['maxRent','city','county','country','isRoom','isFlat', 'sortByCheapest']), async (req,res) => {
+			return res.send(await this.applySearchFilter(req.body))
 		});
 
 		this.router.post('/getAllListings', body(['UserID']).not().isEmpty(), async(req, res) => {
@@ -110,6 +119,10 @@ module.exports = class UserService{
 
 	async supportTicket(ListingDetails){
 		return await getDB().createTicket(TicketDetails)
+		this.router.get('/getAllListingsFromSystem', async(req, res) => {
+			console.log("GET request recieved")
+			return res.send(await getDB().getAllListingsFromSystem())
+		});
 	}
 
 	async loginUser(loginDetails) {
@@ -142,27 +155,31 @@ module.exports = class UserService{
 	async editListing(editDetails){
 		return await getDB().editListing(editDetails)
 	}
-
+	
 	async applySearchFilter(FilterDetails){
-		WhereStr = "SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom FROM Listings WHERE ListingID = *"
-		if (FilterDetails.maxRent != null) {
+		let WhereStr = "SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, Email, RentPerMonth, AgencyName FROM Advertisements WHERE ListingID IS NOT NULL"
+		if (FilterDetails.maxRent != null && FilterDetails.maxRent != "") {
 			WhereStr = (WhereStr + " AND RentPerMonth < " + FilterDetails.maxRent)
 		}
-		if (FilterDetails.city != null){
-			WhereStr = (WhereStr + " AND City = " + FilterDetails.city)
+		if (FilterDetails.city != null && FilterDetails.city != ""){
+			WhereStr = (WhereStr + " AND City = '" + FilterDetails.city + "'")
 		}
-		if (FilterDetails.county != null){
-			WhereStr = (WhereStr + " AND County = "+ FilterDetails.county)
+		if (FilterDetails.county != null && FilterDetails.county != ""){
+			WhereStr = (WhereStr + " AND County = '"+ FilterDetails.county + "'")
 		}
-		if (FilterDetails.country != null){
-			WhereStr = (WhereStr + " AND Country = " + FilterDetails.country)
+		if (FilterDetails.country != null && FilterDetails.country != "") {
+			WhereStr = (WhereStr + " AND Country = '" + FilterDetails.country + "'")
 		}
-		if (FilterDetails.isRoom != null){
-			WhereStr = (WhereStr + " AND isRoom = " + FilterDetails.isRoom )
-		}
+		if (FilterDetails.isRoom == true && FilterDetails.isFlat != true){
+			WhereStr = (WhereStr + " AND isRoom = 1")
+		} 
+		if (FilterDetails.isFlat == true && FilterDetails.isRoom != true){
+			WhereStr = (WhereStr + " AND isRoom = 0")
+		} 
 		if (FilterDetails.sortByCheapest != false){
-			WhereStr = (WhereStr + " ORDER BY RentPerMonth DESCENDING")
+			WhereStr = (WhereStr + " ORDER BY RentPerMonth ASC")
 		}
+
 		return await getDB().Search(WhereStr)
 	}
 }

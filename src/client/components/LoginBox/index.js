@@ -61,6 +61,11 @@ export default class LoginBox extends React.Component  {
             {
                 this.state.showMessage != '' ? <p>{this.state.showMessage}</p>
                 : <form id="login-box">
+                    <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
+                        <Alert onClose={this.handleClose} severity="error">
+                            Incorrect e-mail and password
+                        </Alert>
+                    </Snackbar>                    
                     <div className="formItem">
                         <TextField style={{width: "60%"}} className="formItem" id="outlined-basic" label="Email" type="email" variant="outlined" //textfields for updating state, API handler uses hash to convert 
                         onChange = {(event) => this.setState({"email" : event.target.value})}/><br/>
@@ -76,11 +81,6 @@ export default class LoginBox extends React.Component  {
                         //sends state to database with login details
                         >Login </Button> 
                     </div>
-                    <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
-                        <Alert onClose={this.handleClose} severity="error">
-                            Incorrect e-mail and password
-                        </Alert>
-                    </Snackbar>
                 </form>
             }
             </div>

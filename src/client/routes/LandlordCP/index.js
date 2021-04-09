@@ -12,7 +12,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import AddListingForm from "../../components/AddListingForm";
 import ListingsBox from "../../components/ListingsBox";
-import AdminSupportTicket from "../../components/AdminSupportTicket";
+import LLSupportTicket from "../../components/LLSupportTicket";
 
 export default class Landlord extends React.Component {
     constructor() {
@@ -53,18 +53,27 @@ export default class Landlord extends React.Component {
     list() {
         return (
             <List style={{width: 250}}>
-                <ListItem onClick={() => this.toggleDrawer(false)}>
-                    <Link style={{textDecoration: "none", color: "black"}} to="/landlord">View Listings</Link>
-                </ListItem>
-                <ListItem onClick={() => this.toggleDrawer(false)}>
-                    <Link style={{textDecoration: "none", color: "black"}} to="/landlord/addlisting">Add a Listing</Link>
-                </ListItem>
-                <ListItem onClick={() => this.toggleDrawer(false)}>
-                    <Link style={{textDecoration: "none", color: "black"}} to="/landlord/support">Create a Support Ticket</Link>
-                </ListItem>
-                <ListItem onClick={() => this.toggleDrawer(false)}>
-                    <Link style={{textDecoration: "none", color: "black"}} to="/landlord/settings">Account Settings</Link>
-                </ListItem>
+                <Link style={{textDecoration: "none", color: "black"}} to="/landlord">
+                    <ListItem onClick={() => this.toggleDrawer(false)}>
+                        View Listings
+                    </ListItem>
+                </Link>
+                <Link style={{textDecoration: "none", color: "black"}} to="/landlord/addlisting">
+                    <ListItem onClick={() => this.toggleDrawer(false)}>
+                        Add a Listing
+                    </ListItem>
+                </Link>
+
+                <Link style={{textDecoration: "none", color: "black"}} to="/landlord/support">
+                    <ListItem onClick={() => this.toggleDrawer(false)}>
+                        Create a Support Ticket
+                    </ListItem>
+                </Link>
+                <Link style={{textDecoration: "none", color: "black"}} to="/landlord/settings">
+                    <ListItem onClick={() => this.toggleDrawer(false)}>
+                    Account Settings
+                    </ListItem>
+                </Link>
             </List>
         )
     }
@@ -101,8 +110,7 @@ export default class Landlord extends React.Component {
                             <AddListingForm />    
                         </Route>
                         <Route exact path="/landlord/support">
-                            <h1>Create Support Ticket</h1>
-                            <AdminSupportTicket />    
+                            <LLSupportTicket />    
                         </Route>
                         <Route exact path="/landlord/settings">
                             <h1>Account Settings</h1>    
