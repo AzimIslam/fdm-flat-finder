@@ -17,7 +17,7 @@ import Listing from "../../components/Listing";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ImageGallery from 'react-image-gallery';
+
 export default class ListingPage extends React.Component {
     constructor(props) {
         super(props)
@@ -95,7 +95,13 @@ export default class ListingPage extends React.Component {
 
 
         return (
-            <ImageGallery items = {this.state.thumbnails} showThumbnails = {false}></ImageGallery>
+            <GridList cellHeight={160} className={classes.gridList} cols={3}>
+                {this.state.images.map((images) => (
+                    <GridListTile key={tile.img} cols={5 || 1}>
+                    <img src={img} />
+                    </GridListTile>
+                    ))}
+            </GridList>
         )
     }
 
@@ -124,7 +130,7 @@ export default class ListingPage extends React.Component {
                     <div id="container">
                         {this.gallery()}
                         <Typography style={{fontWeight: "lighter", color: "white"}}variant="h6">
-                            {this.state.listing_data.id}
+                            PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME
                         </Typography>
                     </div>
 
