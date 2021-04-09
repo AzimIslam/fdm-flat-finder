@@ -6,7 +6,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from "@material-ui/core/Radio"
-import { Button } from "@material-ui/core";
+import { Button, Snackbar } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 
 export default class AddListingForm extends React.Component {
     constructor(props) {
@@ -22,10 +23,12 @@ export default class AddListingForm extends React.Component {
             rent: '',
             success: false,
             fileName: 'No file selected',
+            greenBoxOpen: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.submitRequest = this.submitRequest.bind(this)
         this.selectFile = this.selectFile.bind(this)
+        this.handleGreenClose = this.handleGreenClose.bind(this)
     }
 
     selectFile(event) {
@@ -57,8 +60,12 @@ export default class AddListingForm extends React.Component {
         })
         .then(response => response.json())
         .then(res => {
-            console.log(res)
+            this.setState({greenBoxOpen: true})
         })
+    }
+
+    handleGreenClose() {
+        this.setState({greenBoxOpen: false})
     }
 
 
@@ -66,7 +73,13 @@ export default class AddListingForm extends React.Component {
         this.setState({radioValue: event.target.value})
     }
     render() {
+        
         return <form className="listingForm" onSubmit={e=> {console.log(e)}}>
+                <Snackbar open={this.state.greenBoxOpen} autoHideDuration={6000} onClose={this.handleGreenClose}>
+                    <Alert onClose={this.handleGreenClose} severity="success">
+                        Listing successfully created
+                    </Alert>
+                </Snackbar>
             <Typography id="listingTitle" variant="h4">Add a Listing</Typography>
             <TextField id="standard-basic" onChange={(e) => this.setState({address1: e.target.value})} label="Address Line 1"></TextField>
             <TextField id="standard-basic" onChange={(e) => this.setState({address2: e.target.value})} label="Address Line 2"></TextField>
