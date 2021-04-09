@@ -84,6 +84,10 @@ module.exports = class UserService{
 			return res.send(await this.deleteListing(req.body))
 		});
 
+		this.router.post('/editUser', body(['firstname', 'lastname', 'password', 'agencyName', 'UserID']), async(req,res) => {
+			return res.send(await this.editUser(req.body))
+		});
+
 		this.router.post('/createSupportTicket', body(['title', 'description', 'userID']), async (req, res) => {
 			console.log(req.body)
 			const errors = validationResult(req);
@@ -143,6 +147,13 @@ module.exports = class UserService{
 		return {'success': true, 'user_id': res.UserID, 'userType': userType }
 	}
 
+	async editUser(editDetails){
+		var salt = bcrypt.genSaltSync(10);
+		var hash = bcrypt.hashSync(editDetails.password, salt);
+		editDetails.password = hash
+		return await getDB().updateUser(editDetails)
+	}
+
 	async registerUser(registerDetails) {
 		var salt = bcrypt.genSaltSync(10);
 		var hash = bcrypt.hashSync(registerDetails.password, salt);
@@ -162,7 +173,7 @@ module.exports = class UserService{
 	async editListing(editDetails){
 		return await getDB().editListing(editDetails)
 	}
-	
+
 	async applySearchFilter(FilterDetails){
 		let WhereStr = "SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, Email, RentPerMonth, AgencyName FROM Advertisements WHERE ListingID IS NOT NULL"
 		if (FilterDetails.maxRent != null && FilterDetails.maxRent != "") {
