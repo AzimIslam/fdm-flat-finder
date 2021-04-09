@@ -37,7 +37,7 @@ export default class AddListingForm extends React.Component {
 
 
     render() {
-        return <form className="listingForm" onSubmit={e=> {console.log(e)}}>
+        return <form className="listingForm" onSubmit={e => {console.log(e)}}>
             <Typography id="listingTitle" variant="h4">Create Support Ticket</Typography>
             <TextField id="standard-basic" onChange={(e) => this.setState({title: e.target.value})} label="Title"></TextField>
             <TextField id="standard-basic" onChange={(e) => this.setState({description: e.target.value})} label="Description"></TextField>

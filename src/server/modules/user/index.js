@@ -40,8 +40,8 @@ module.exports = class UserService{
 		});
 		
 		this.router.post('/getName', body(['userid']).not().isEmpty(), async(req, res) => {
-			let firstName = await getDB().getFirstname(req.body.UserID)
-			let surname = await getDB().getLastname(req.body.UserID)
+			let firstName = await getDB().getFirstName(req.body.UserID)
+			let surname = await getDB().getLastName(req.body.UserID)
 			return res.send({text: firstName + " " + surname})
 		});
 		this.router.post('/createListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'landlordID', 'country', 'isRoom', 'rent']), async (req, res) => {
@@ -75,7 +75,6 @@ module.exports = class UserService{
 				await this.getCountry(req.body.ListingID),
 				await this.getIsRoom(req.body.ListingID),
 				await this.getImagePath(req.body.ListingID),
-				await this.getImagePath(req.body.RentPerMonth)
 			]
 			return res.send(address)
 		});
@@ -87,16 +86,6 @@ module.exports = class UserService{
 		this.router.post('/editUser', body(['firstname', 'lastname', 'password', 'agencyName', 'UserID']), async(req,res) => {
 			return res.send(await this.editUser(req.body))
 		});
-
-		this.router.post('/createSupportTicket', body(['title', 'description', 'userID']), async (req, res) => {
-			console.log(req.body)
-			const errors = validationResult(req);
-			if (!errors.isEmpty()){
-				return res.status(422).json({ errors: errors.array() })
-			}
-			return res.send(await getDB().createTicket(req.body))
-		});
-
 		
 		this.router.post('/applySearchFilter', body(['maxRent','city','county','country','isRoom','isFlat', 'sortByCheapest']), async (req,res) => {
 			return res.send(await this.applySearchFilter(req.body))
@@ -118,15 +107,17 @@ module.exports = class UserService{
 		this.router.post('/createSupportTicket', body(['title', 'description', 'userID']), async (req, res) => {
 			return res.send(await this.supportTicket(req.body))
 		});
-	}
 
-
-	async supportTicket(ListingDetails){
-		return await getDB().createTicket(TicketDetails)
 		this.router.get('/getAllListingsFromSystem', async(req, res) => {
 			console.log("GET request recieved")
 			return res.send(await getDB().getAllListingsFromSystem())
 		});
+	}
+
+
+
+	async supportTicket(ListingDetails){
+		return await getDB().createTicket(TicketDetails)
 	}
 
 	async loginUser(loginDetails) {

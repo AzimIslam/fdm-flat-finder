@@ -3,7 +3,7 @@
     overflow: none
 }
 
-#form * {
-    display: block;
+#editForm * {
     overflow: auto;
+    display: block;
 }

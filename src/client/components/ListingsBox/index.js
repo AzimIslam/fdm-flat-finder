@@ -130,7 +130,7 @@ export default class ListingsBox extends React.Component {
                     Edit Listing
                 </DialogTitle>
                 <DialogContent>
-                <div id="form">
+                <div id="editForm">
                     <TextField id="standard-basic" onChange={(e) => this.setState({address1: e.target.value})} label="Address Line 1"></TextField>
                     <TextField id="standard-basic" onChange={(e) => this.setState({address2: e.target.value})} label="Address Line 2"></TextField>
                     <TextField id="standard-basic" onChange={(e) => this.setState({city: e.target.value})} label="City"></TextField>
