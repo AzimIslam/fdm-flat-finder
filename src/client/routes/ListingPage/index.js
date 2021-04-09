@@ -12,7 +12,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import AddListingForm from "../../components/AddListingForm";
 import ListingsBox from "../../components/ListingsBox";
-import AdminSupportTicket from "../../components/AdminSupportTicket";
+import LLSupportTicket from "../../components/LLSupportTicket";
 
 export default class ListingPage extends React.Component {
     constructor() {
@@ -29,6 +29,7 @@ export default class ListingPage extends React.Component {
 
         }
 
+        console.log(this.state.userType);
         if (this.state.userType == "member"){
             this.state.mainPage = "/member"
         }
@@ -47,7 +48,7 @@ export default class ListingPage extends React.Component {
         sessionStorage.clear();
         window.location = '/';
     }
-
+    /*
     componentDidMount() {
         fetch(`/api/user/getName`, {
             method: 'POST',
@@ -58,19 +59,13 @@ export default class ListingPage extends React.Component {
         })
         .then(response => response.json())
         .then(data => this.setState({fullName: data.text}))
-    }
+    } */
 
     list() {
         return ( 
             <List style={{width: 250}}>
                 <ListItem onClick={() => this.toggleDrawer(false)}>
-                    <Link style={{textDecoration: "none", color: "black"}} to={"/"+ this.state.userType + "/"}>Home </Link> {/* could just label this back for now?*/}
-                </ListItem>
-                <ListItem onClick={() => this.toggleDrawer(false)}>
-                    <Link style={{textDecoration: "none", color: "black"}} to={"/"+ this.state.userType +"/support"}>Create a Support Ticket</Link>
-                </ListItem>
-                <ListItem onClick={() => this.toggleDrawer(false)}>
-                    <Link style={{textDecoration: "none", color: "black"}} to={"/"+ this.state.userType +"/settings"}>Account Settings</Link>
+                    <Link style={{textDecoration: "none", color: "black"}} to={"/"+ this.state.userType + "/"}>Back </Link> {/* could just label this back for now?*/}
                 </ListItem>
                 
             </List>
@@ -85,6 +80,7 @@ export default class ListingPage extends React.Component {
                     this.state.loggedIn != 'true' ? <p>You are not logged in</p>:
                     <div>
                     <Toolbar style={{backgroundColor: "#3f51b5"}} variant="dense">
+
                         <IconButton onClick={() => this.toggleDrawer(true)} style={{color: "white"}} edge="start" color="inherit" aria-label="open drawer">
                             <MenuIcon />
                         </IconButton>
@@ -104,18 +100,7 @@ export default class ListingPage extends React.Component {
                         <Drawer anchor={'left'} open={this.state.toggle} onClose={() => this.toggleDrawer(false)}>
                             {this.list()}
                         </Drawer>
-                        <Route exact path="/landlord">
-                            <Typography style={{paddingTop: '20px', textAlign: 'center'}} variant="h4">Hello, {this.state.fullName}</Typography> 
-                            <Typography style={{paddingTop: '20px', paddingBottom: '20px', textAlign: 'center'}} variant="h5">Your Listings</Typography>
-                            <ListingsBox />
-                        </Route>
-                        <Route exact path="/landlord/support">
-                            <h1>Create Support Ticket</h1>
-                            <AdminSupportTicket />    
-                        </Route>
-                        <Route exact path="/landlord/settings">
-                            <h1>Account Settings</h1>    
-                        </Route>
+
                     </div>
                 }
             </MuiThemeProvider>
