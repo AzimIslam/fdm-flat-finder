@@ -134,6 +134,17 @@ class Database{
 		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, RentPerMonth, Email, AgencyName FROM Advertisements");
 		return result;
 	}
+
+	async createTicket({title, description, userID}){
+		//this needs to be adjusted to db names
+		await this.instance.run("INSERT into SupportTickets (Title, Description, UserID) Values (?,?,?)", [title, description, userID])
+		return {success: true}
+	}
+
+	async Search(WhereStr){
+		let result = await this.instance.all(WhereStr)
+		return result;
+	}
 }
 
 module.exports.connectDB = async (path) => {
