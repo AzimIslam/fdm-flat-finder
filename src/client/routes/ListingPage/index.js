@@ -13,10 +13,14 @@ import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import AddListingForm from "../../components/AddListingForm";
 import ListingsBox from "../../components/ListingsBox";
 import LLSupportTicket from "../../components/LLSupportTicket";
-
+import Listing from "../../components/Listing";
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ImageGallery from 'react-image-gallery';
 export default class ListingPage extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             loggedIn: sessionStorage.getItem('loggedIn'),
             userType: sessionStorage.getItem('userType'),
@@ -25,17 +29,29 @@ export default class ListingPage extends React.Component {
             toggle: false,
             data: [],
 
+            listing_data: this.props.location.aboutProps.listing_data,
             mainPage: null,
-
+            
+            thumbnails: [
+                {original: '../src/client/components/Listing/assets/flat1.jpg'}, //should be generalised using a map
+                {original: '../src/client/components/Listing/assets/flat2.jpg'},
+                {original: '../src/client/components/Listing/assets/flat3.jpg'},
+                {original: '../src/client/components/Listing/assets/flat5.jpg'},
+                {original: '../src/client/components/Listing/assets/flat6.jpg'},
+                {original: '../src/client/components/Listing/assets/flat7.jpg'},
+                {original: '../src/client/components/Listing/assets/flat8.jpg'},
+                {original: '../src/client/components/Listing/assets/flat9.jpg'},
+                {original: '../src/client/components/Listing/assets/flat10.jpg'}, 
+            ],
+            randomIndex: Math.round(Math.random() * 9)  
         }
-
         console.log(this.state.userType);
+        console.log(this.state.listing_data);
         if (this.state.userType == "member"){
             this.state.mainPage = "/member"
         }
         else if (this.state.userType == "landlord"){
             this.state.mainPage = "/landlord"
-        
         }
         this.toggleDrawer = this.toggleDrawer.bind(this);
     }
@@ -48,7 +64,8 @@ export default class ListingPage extends React.Component {
         sessionStorage.clear();
         window.location = '/';
     }
-    /*
+
+    /* //fetch needs to be implemented
     componentDidMount() {
         fetch(`/api/user/getName`, {
             method: 'POST',
@@ -61,6 +78,7 @@ export default class ListingPage extends React.Component {
         .then(data => this.setState({fullName: data.text}))
     } */
 
+
     list() {
         return ( 
             <List style={{width: 250}}>
@@ -72,15 +90,24 @@ export default class ListingPage extends React.Component {
         )
     }
 
+    gallery() { //gallery component used to show images
+
+
+
+        return (
+            <ImageGallery items = {this.state.thumbnails} showThumbnails = {false}></ImageGallery>
+        )
+    }
+
     render() {
-        return ( //listing --->
-            <MuiThemeProvider>
+        return ( //Rendering the page
+             <MuiThemeProvider> 
                 {
                     //this.state.userType != 'landlord'? <p>You are not a landlord</p>:
                     this.state.loggedIn != 'true' ? <p>You are not logged in</p>:
+                    
                     <div>
                     <Toolbar style={{backgroundColor: "#3f51b5"}} variant="dense">
-
                         <IconButton onClick={() => this.toggleDrawer(true)} style={{color: "white"}} edge="start" color="inherit" aria-label="open drawer">
                             <MenuIcon />
                         </IconButton>
@@ -91,14 +118,18 @@ export default class ListingPage extends React.Component {
                         <div className="userTools">
                             <Button variant="contained" color="secondary" onClick={this.logout}>Logout</Button>
                         </div>
-                    
                     </Toolbar>
-
+                    
                     {/* here is where the listing stuff actually goes*/}
-
+                    <div id="container">
+                        {this.gallery()}
+                        <Typography style={{fontWeight: "lighter", color: "white"}}variant="h6">
+                            {this.state.listing_data.id}
+                        </Typography>
+                    </div>
 
                         <Drawer anchor={'left'} open={this.state.toggle} onClose={() => this.toggleDrawer(false)}>
-                            {this.list()}
+                        {this.list()}
                         </Drawer>
 
                     </div>
