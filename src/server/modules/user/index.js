@@ -73,9 +73,19 @@ module.exports = class UserService{
 				await this.getCounty(req.body.ListingID),
 				await this.getPostcode(req.body.ListingID),
 				await this.getCountry(req.body.ListingID),
-				await this.getIsRoom(req.body.ListingID)
+				await this.getIsRoom(req.body.ListingID),
+				await this.getImagePath(req.body.ListingID),
+				await this.getImagePath(req.body.RentPerMonth)
 			]
 			return res.send(address)
+		});
+
+		this.router.post('/editListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'landlordID', 'country', 'isRoom','ImagePath','RentPerMonth', 'ListingID']), async (req, res) => {
+			return res.send(await this.deleteListing(req.body))
+		});
+
+		this.router.post('/editUser', body(['firstname', 'lastname', 'password', 'agencyName', 'UserID']), async(req,res) => {
+			return res.send(await this.editUser(req.body))
 		});
 
 		this.router.post('/createSupportTicket', body(['title', 'description', 'userID']), async (req, res) => {
@@ -100,6 +110,19 @@ module.exports = class UserService{
 			return res.send(await getDB().getAllListingsForUser(req.body.UserID))
 		});
 
+		this.router.post('/applySearchFilter', body(['maxRent','city','county','country','isRoom','sortByCheapest']), async (req,res) => {
+
+			return res.send(await getDB().applySearchFilter(req.body))
+		});
+
+		this.router.post('/createSupportTicket', body(['title', 'description', 'userID']), async (req, res) => {
+			return res.send(await this.supportTicket(req.body))
+		});
+	}
+
+
+	async supportTicket(ListingDetails){
+		return await getDB().createTicket(TicketDetails)
 		this.router.get('/getAllListingsFromSystem', async(req, res) => {
 			console.log("GET request recieved")
 			return res.send(await getDB().getAllListingsFromSystem())
@@ -117,6 +140,13 @@ module.exports = class UserService{
 		return {'success': true, 'user_id': res.UserID, 'userType': userType }
 	}
 
+	async editUser(editDetails){
+		var salt = bcrypt.genSaltSync(10);
+		var hash = bcrypt.hashSync(editDetails.password, salt);
+		editDetails.password = hash
+		return await getDB().updateUser(editDetails)
+	}
+
 	async registerUser(registerDetails) {
 		var salt = bcrypt.genSaltSync(10);
 		var hash = bcrypt.hashSync(registerDetails.password, salt);
@@ -131,6 +161,10 @@ module.exports = class UserService{
 
 	async deleteListing(ListingID){
 		return await getDB().deleteListing(ListingID)
+	}
+
+	async editListing(editDetails){
+		return await getDB().editListing(editDetails)
 	}
 
 	async applySearchFilter(FilterDetails){
