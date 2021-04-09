@@ -37,7 +37,7 @@ export default class ListingsBox extends React.Component {
     }
 
 
-    async componentDidMount() {
+    componentDidMount() {
         fetch(`/api/user/getAllListings`, {
             method: 'POST',
             headers: {
@@ -65,7 +65,6 @@ export default class ListingsBox extends React.Component {
             },
             body: JSON.stringify({ListingID: id})
         })
-
         .then(response => response.json())
         .then(data => {
             if (data['success'] == true) {
@@ -88,7 +87,7 @@ export default class ListingsBox extends React.Component {
 
         this.handleGreenOpen();
     }
-
+    
     render() {
         return (
         <div>
