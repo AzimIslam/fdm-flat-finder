@@ -13,6 +13,7 @@ import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import AddListingForm from "../../components/AddListingForm";
 import ListingsBox from "../../components/ListingsBox";
 import LLSupportTicket from "../../components/LLSupportTicket";
+import AccountSettings from "../../components/AccountSettings";
 
 export default class Landlord extends React.Component {
     constructor() {
@@ -117,7 +118,8 @@ export default class Landlord extends React.Component {
                             <LLSupportTicket />    
                         </Route>
                         <Route exact path="/landlord/settings">
-                            <h1>Account Settings</h1>    
+                            <h1>Account Settings</h1>  
+                            <AccountSettings/>  
                         </Route>
                     </div>
                 }

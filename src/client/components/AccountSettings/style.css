@@ -1,0 +1,20 @@
+.AccountForm {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  margin: 0 auto;
+  margin-top: 1.5em;
+}
+
+.emailBox {
+  border: 0pt;
+}
+
+#standard-basic {
+  padding: 3%;
+}
+
+#AccountTitle {
+  text-align: center;
+  font-weight: bolder;
+}
