@@ -1,16 +1,29 @@
-#listing-box {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    width: 40%;
-    margin: 0 auto;
-    overflow: auto;
-    background-color: white;
-    border: 1px solid #eee;
-    border-radius: 1em;
-    margin-top: 10px;
-    opacity: 0.9;
-}
-#grid-list {
 
+
+#root {
+    display: 'flex';
+    flex-wrap: 'wrap';
+    justify-content: 'space-around';
+    overflow: 'hidden';
+    background-color: 'white';
+}
+
+#grid-list {
+    width: 10;
+    height: 10;
+    flex-wrap: 'nowrap'; 
+    transform: 'translateZ(0)';
+    
+}
+
+#grid-list-tile {
+    overflow-y: scroll;
+}
+
+#title {
+    color: 'grey';
+}
+
+#title-bar {
+    background: 'white'
 }

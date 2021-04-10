@@ -14,9 +14,7 @@ import AddListingForm from "../../components/AddListingForm";
 import ListingsBox from "../../components/ListingsBox";
 import LLSupportTicket from "../../components/LLSupportTicket";
 import Listing from "../../components/Listing";
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Gallery from "../../components/Gallery";
 
 export default class ListingPage extends React.Component {
     constructor(props) {
@@ -32,16 +30,25 @@ export default class ListingPage extends React.Component {
             listing_data: this.props.location.aboutProps.listing_data,
             mainPage: null,
             
-            thumbnails: [
-                {original: '../src/client/components/Listing/assets/flat1.jpg'}, //should be generalised using a map
-                {original: '../src/client/components/Listing/assets/flat2.jpg'},
-                {original: '../src/client/components/Listing/assets/flat3.jpg'},
-                {original: '../src/client/components/Listing/assets/flat5.jpg'},
-                {original: '../src/client/components/Listing/assets/flat6.jpg'},
-                {original: '../src/client/components/Listing/assets/flat7.jpg'},
-                {original: '../src/client/components/Listing/assets/flat8.jpg'},
-                {original: '../src/client/components/Listing/assets/flat9.jpg'},
-                {original: '../src/client/components/Listing/assets/flat10.jpg'}, 
+            media: [
+                {img: '../src/client/components/Listing/assets/flat1.jpg',
+                title: "test"}, //should be generalised using a map
+                {img: '../src/client/components/Listing/assets/flat2.jpg',
+                title: "test"},
+                {img: '../src/client/components/Listing/assets/flat3.jpg',
+                title: "test"},
+                {img: '../src/client/components/Listing/assets/flat5.jpg',
+                title: "test"},
+                {img: '../src/client/components/Listing/assets/flat6.jpg',
+                title: "test"},
+                {img: '../src/client/components/Listing/assets/flat7.jpg',
+                title: "test"},
+                {img: '../src/client/components/Listing/assets/flat8.jpg',
+                title: "test"},
+                {img: '../src/client/components/Listing/assets/flat9.jpg',
+                title: "test"},
+                {img: '../src/client/components/Listing/assets/flat10.jpg',
+                title: "test"}, 
             ],
             randomIndex: Math.round(Math.random() * 9)  
         }
@@ -90,21 +97,6 @@ export default class ListingPage extends React.Component {
         )
     }
 
-    gallery() { //gallery component used to show images
-
-
-
-        return (
-            <GridList cellHeight={160} className={classes.gridList} cols={3}>
-                {this.state.images.map((images) => (
-                    <GridListTile key={tile.img} cols={5 || 1}>
-                    <img src={img} />
-                    </GridListTile>
-                    ))}
-            </GridList>
-        )
-    }
-
     render() {
         return ( //Rendering the page
              <MuiThemeProvider> 
@@ -128,8 +120,8 @@ export default class ListingPage extends React.Component {
                     
                     {/* here is where the listing stuff actually goes*/}
                     <div id="container">
-                        {this.gallery()}
-                        <Typography style={{fontWeight: "lighter", color: "white"}}variant="h6">
+                        <Gallery imgSrc = {this.state.media}></Gallery>
+                        <Typography style={{fontWeight: "lighter", color: "black"}}variant="h6">
                             PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME PLEASE HELP ME
                         </Typography>
                     </div>
