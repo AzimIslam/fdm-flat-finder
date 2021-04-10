@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
-/*import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper' */
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-
+import Carousel from 'react-material-ui-carousel'
+import {
+  FormLabel,
+  FormControlLabel,
+  Checkbox,
+  Radio,
+  RadioGroup,
+  Paper,
+  Button,
+  Slider,
+  Typography
+} from '@material-ui/core'
 import Container from '@material-ui/core/Container';
 
-import {View, ScrollView} from 'react-native';
 //requires landlord class
 //gets listings from this class -> instance based on session?
-
-
 
 
 export default class Gallery extends React.Component {
@@ -30,69 +24,48 @@ export default class Gallery extends React.Component {
 
         this.state = { //state to be sent for logging in
             // username: ' '
-            
-            
-
-
             //could remove?? and use landlord var
-            //imgSrc = [] //hardcode images
 
         }
-
         //this.ApiHandler = ApiHandlerInstance; //API handler for database handling!
-        
-        }
+      }
 
+    
 
-          SingleLineGridList() {
-   
-          
-            return (
+      render() {
+        return (
+            <div style={{ marginTop: "50px", color: "#494949" }}>
+                <h2>Selected Listing:</h2>
 
-              
-              <div className="root">
-
-                
-
-
-                {/*
-                <Container maxheight={10}>
-                <GridList cellHeight={160} className = "grid-list" cols = {4} >
-
+                <Carousel
+                    className="SecondExample"
+                    autoPlay="false"
+                    animation="slide"
+                    indicators="false"
+                    timeout="300"
+                    navButtonsAlwaysVisible="true"
+                >
                   {this.props.imgSrc.map((record) => (
-                    <GridListTile className= "grid-list-tile" key={record.img} >
-                      <img src={record.img} alt={record.title} />
-                      <GridListTileBar
-                        title={record.title}
-                        classes = {{
-                          root: "title-bar",
-                          title: "title",
-                        }} 
-                        actionIcon={
-                          <IconButton aria-label={`star ${record.title}`}>
-                            <StarBorderIcon className= "title" />
-                          </IconButton>
-                        }
-                      />
-                    </GridListTile>
+                    <Paper 
+                    style={{backgroundColor: "white",
+                    justifyContent: "center",
+                    alignItems: "center"             
+                  }}>
+                  <div style = {{
+                    justifyContent: "center",
+                    alignItems: "center"    
+                  }}>
+                    <h2>Property Images:</h2>
+                    <img src = {record.img}
+                    width = "400"
+                    height = "400">
+                    </img>
+                  </div>
+                  </Paper>
                   ))}
-             
-                      </GridList> 
-                </Container> */}
-              </div> 
-            );
-          }
-
-        render(){
-            return ( 
-                
-                <div> 
-                    {this.SingleLineGridList()}
-                </div>
-                
-            )
-
-            }
- 
-
-}
+                </Carousel>
+              </div>
+        )
+    }
+  }
+    
