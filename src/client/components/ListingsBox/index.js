@@ -38,6 +38,7 @@ export default class ListingsBox extends React.Component {
             landlord: sessionStorage.getItem('user_id'), //this gets updated from database -> instance based on session -> front page should load the user instance based on login info
             listings: [],
             greenBoxOpen: false,
+            redBoxOpen: false,
             modalOpen: false,
             fileName: 'No file selected',
             id: 0,
@@ -56,6 +57,12 @@ export default class ListingsBox extends React.Component {
         this.closeModal = this.closeModal.bind(this);
         this.selectFile = this.selectFile.bind(this);
         this.submitEdit = this.submitEdit.bind(this);
+        this.handleRedClose = this.handleRedClose.bind(this);
+    }
+
+    
+    handleRedClose() {
+        this.setState({redBoxOpen: false})
     }
 
     selectFile(event) {
@@ -140,6 +147,11 @@ export default class ListingsBox extends React.Component {
     }
 
     submitEdit(id) {
+        if (this.state.address1 == '' || this.state.city == '' || this.state.postcode == '' || this.state.country == '' || this.state.rent == '' || this.state.rent <= 0) {
+            this.setState({redBoxOpen: true})
+            return;
+        }
+
         fetch('/api/user/editListing', {
             method: 'POST',
             headers:{
@@ -211,6 +223,11 @@ export default class ListingsBox extends React.Component {
             <Snackbar open={this.state.greenBoxOpen} autoHideDuration={6000} onClose={this.handleGreenClose}>
                     <Alert onClose={this.handleGreenClose} severity="success">
                         {this.state.popupMessage}
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={this.state.redBoxOpen} autoHideDuration={6000} onClose={this.handleRedClose}>
+                    <Alert onClose={this.handleRedClose} severity="error">
+                        Please fill in the required fields or enter correct rent
                     </Alert>
                 </Snackbar>
             <TableContainer component={Paper}>
