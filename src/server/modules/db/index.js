@@ -43,8 +43,8 @@ class Database{
 		return {'success': true}
 	}
 
-	async editListing({ListingID}){
-		await this.instance.run("UPDATE Listings SET (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom ,ImagePath, RentPerMonth) Values (?,?,?,?,?,?,?,?,?,?) WHERE ListingID = ?", address1, address2, city, county, postcode, landlordID, country, isRoom, ImagePath, RentPerMonth, ListingID)
+	async editListing({address1, address2, city, county, postcode, country, RentPerMonth, ListingID}){
+		await this.instance.run("UPDATE Listings SET AddressLine1=?, AddressLine2=?, City=?, County=?, Postcode=?, Country=?, RentPerMonth=? WHERE ListingID = ?", address1, address2, city, county, postcode, country, RentPerMonth, ListingID)
 	}
 
 	async createTicket({title, description, userID}){

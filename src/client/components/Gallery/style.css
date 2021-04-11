@@ -1,0 +1,29 @@
+
+
+#root {
+    display: 'flex';
+    flex-wrap: 'wrap';
+    justify-content: 'space-around';
+    overflow: 'hidden';
+    background-color: 'white';
+}
+
+#grid-list {
+    width: 10;
+    height: 10;
+    flex-wrap: 'nowrap'; 
+    transform: 'translateZ(0)';
+    
+}
+
+#grid-list-tile {
+    overflow-y: scroll;
+}
+
+#title {
+    color: 'grey';
+}
+
+#title-bar {
+    background: 'white'
+}
