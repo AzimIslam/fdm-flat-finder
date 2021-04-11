@@ -13,16 +13,26 @@ export default class LLSupportTicket extends React.Component {
             greenBoxOpen: false,
             title: '',
             description: '',
+            redBoxOpen: false
         }
         this.submitTicket = this.submitTicket.bind(this)
         this.handleGreenClose = this.handleGreenClose.bind(this)
+        this.handleRedClose = this.handleRedClose.bind(this)
     }
 
     handleGreenClose() {
         this.setState({greenBoxOpen: false})
     }
 
+    handleRedClose() {
+        this.setState({redBoxOpen: false})
+    }
+
     submitTicket() {
+        if (this.state.title == '' || this.state.description == '') {
+            this.setState({redBoxOpen: true})
+            return;
+        }
         let req = {
             title: this.state.title,
             description: this.state.description,
@@ -52,6 +62,11 @@ export default class LLSupportTicket extends React.Component {
                     Your support ticket has been submitted to our team!
                 </Alert>
             </Snackbar>
+            <Snackbar open={this.state.redBoxOpen} autoHideDuration={6000} onClose={this.handleRedClose}>
+                    <Alert onClose={this.handleRedClose} severity="error">
+                        Please fill in the fields
+                    </Alert>
+                </Snackbar>
             <Typography id="supportTicketTitle" variant="h4">Create a Support Ticket</Typography>
             <div id="form">
                 <div className="form-item">

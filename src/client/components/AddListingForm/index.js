@@ -72,6 +72,7 @@ export default class AddListingForm extends React.Component {
     handleChange(event) {
         this.setState({radioValue: event.target.value})
     }
+
     render() {
         
         return <form className="listingForm" onSubmit={e=> {console.log(e)}}>
