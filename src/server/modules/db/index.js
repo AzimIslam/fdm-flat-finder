@@ -29,8 +29,9 @@ class Database{
 		return {'message': "User registered", 'success': true}
 	}
 
-	async updateUser({firstname, lastname, password,agencyName,UserID}) {
-		await this.instance.run("UPDATE Users SET (FirstName, LastName, Password, AgencyName ) Values (?,?,?,?) WHERE UserID = ?", firstname,lastname,password,agencyName,UserID)
+	async updateUser({firstName, lastName, newPassword, agencyName, userID}) {
+		await this.instance.run("UPDATE Users SET FirstName=?, LastName=?, Password=?, AgencyName=? WHERE UserID = ?", firstName,lastName,newPassword,agencyName,userID)
+		return {success: 'true'};
 	}
 
 	async createListing({address1,address2,city,county,postcode,landlordID,country,isRoom, rent}){

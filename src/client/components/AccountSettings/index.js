@@ -40,7 +40,9 @@ export default class AddCreateTicketForm extends React.Component {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             newPassword: this.state.newPassword,
+            currentPassword: this.state.currentPassword,
             userID: sessionStorage.getItem('user_id'),
+            email: this.state.email
         }
 
         console.log(req)
