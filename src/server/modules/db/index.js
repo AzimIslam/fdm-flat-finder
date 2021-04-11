@@ -148,6 +148,11 @@ class Database{
 		return result;
 	}
 
+	async getListingForMember(ListingID) {
+		let result = await this.instance.get("SELECT AddressLine1, AddressLine2, City, County, Postcode, Country, RentPerMonth, Email, AgencyName, IsRoom FROM Advertisements WHERE ListingID = ?", [ListingID])
+		return result;
+	}
+
 	//member getters (AKA mostly search)
 	async getAllListingsFromSystem() {
 		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, RentPerMonth, Email, AgencyName FROM Advertisements");

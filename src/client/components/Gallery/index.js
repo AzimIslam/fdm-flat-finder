@@ -22,12 +22,8 @@ export default class Gallery extends React.Component {
 
     constructor(props){
         super(props); //maybe used to take data from front-page, i.e. landlord instance from user var
-
-        this.state = { //state to be sent for logging in
-          address: '123 Sesame Street, London, E1 4NS, United Kingdom',
-
-        }
         //this.ApiHandler = ApiHandlerInstance; //API handler for database handling!
+        console.log(this.props.email)
       }
 
     
@@ -35,7 +31,7 @@ export default class Gallery extends React.Component {
       render() {
         return (
           <div>
-            <Typography variant="h5" style={{textAlign: 'center', paddingTop: "20px"}}>{this.state.address}</Typography>
+            <Typography variant="h5" style={{textAlign: 'center', paddingTop: "20px"}}>{this.props.address1}, {this.props.city}, {this.props.postcode}</Typography>
             <div style={{ paddingTop: "30px", color: "#494949", width: "600px", height: "700px", margin: "0 auto", overflow: "auto" }}>
                 <Carousel
                     className="SecondExample"
@@ -46,16 +42,23 @@ export default class Gallery extends React.Component {
                     navButtonsAlwaysVisible="true"
                 >
                   {this.props.imgSrc.map((record) => (
-                    <Paper>
-                  <div>
-                    <img src = {record.img}
-                    width = "600"
-                    height = "600">
-                    </img>
-                  </div>
+                  <Paper>
+                    <div>
+                      <img src = {record.img}
+                      width = "600"
+                      height = "600">
+                      </img>
+                    </div>
                   </Paper>
                   ))}
                 </Carousel>
+                <div>
+                  <div style={{paddingTop: "10px"}}>
+                    <center>
+                      <Button onClick={() => window.open(`mailto:${this.props.email}`)} variant="contained" color="primary">Enquire about property</Button>
+                    </center>
+                  </div>        
+                </div>
               </div>
             </div>
         )

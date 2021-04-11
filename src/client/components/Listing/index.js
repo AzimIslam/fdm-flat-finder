@@ -54,8 +54,8 @@ export default class Listing extends React.Component { //should use abstraction 
                 </Button>
                 
                     <Button size="small" color="primary">
-                        <Link style={{textDecoration: "none", color: "black"}} to={{
-                            pathname: "/listingpage/",
+                        <Link style={{textDecoration: "none"}} to={{
+                            pathname: `/listingpage?id=${this.props.id}`,
                             aboutProps: {
                                 listing_data: this.props
                             }}}> 
