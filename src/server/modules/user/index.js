@@ -78,6 +78,15 @@ module.exports = class UserService{
 			return res.send(address)
 		});
 
+		this.router.post('/getListingForMember', body(['ListingID']).not().isEmpty(), async(req, res) => {
+			const errors = validationResult(req);
+			if(!errors.isEmpty()) {
+				return res.status(422).json({ errors: errors.array() })
+			}
+			let details = await getDB().getListingForMember(req.body.ListingID);
+			return res.send(details);
+		});
+
 		this.router.post('/editListing', body(['address1', 'address2', 'city', 'county', 'postcode', 'country', 'RentPerMonth', 'ListingID']), async (req, res) => {
 			console.log(req.body)
 			return res.send(await this.editListing(req.body))
@@ -104,11 +113,6 @@ module.exports = class UserService{
 		});
 
 		this.router.post('/createSupportTicket', body(['title', 'description', 'userID']), async (req, res) => {
-			console.log(req.body)
-			const errors = validationResult(req);
-			if (!errors.isEmpty()){
-				return res.status(422).json({ errors: errors.array() })
-			}
 			return res.send(await this.supportTicket(req.body))
 		});
 
@@ -116,16 +120,12 @@ module.exports = class UserService{
 			console.log("GET request recieved")
 			return res.send(await getDB().getAllListingsFromSystem())
 		});
-
-		this.router.get('/getUserDetails', async(req, res) => {
-			console.log("GET request recieved")
-			return res.send(await getDB().getUpdatedUser())
-		});
 	}
 
 
-	async supportTicket(TicketDetails){
-		return await getDB().createTicket(TicketDetails)	
+
+	async supportTicket(ListingDetails){
+		return await getDB().createTicket(ListingDetails)
 	}
 
 	async loginUser(loginDetails) {

@@ -29,7 +29,7 @@ class Database{
 		return {'message': "User registered", 'success': true}
 	}
 
-	async updateUser({firstname, lastname, password,agencyName,UserID}){
+	async updateUser({firstname, lastname, password,agencyName,UserID}) {
 		await this.instance.run("UPDATE Users SET (FirstName, LastName, Password, AgencyName ) Values (?,?,?,?) WHERE UserID = ?", firstname,lastname,password,agencyName,UserID)
 	}
 
@@ -43,19 +43,13 @@ class Database{
 		return {'success': true}
 	}
 
-	async editListing({address1, address2, city, county, postcode, country, RentPerMonth, ListingID}){
+	async editListing({address1, address2, city, county, postcode, country, RentPerMonth, ListingID}) {
 		await this.instance.run("UPDATE Listings SET AddressLine1=?, AddressLine2=?, City=?, County=?, Postcode=?, Country=?, RentPerMonth=? WHERE ListingID = ?", address1, address2, city, county, postcode, country, RentPerMonth, ListingID)
-	}
-
-	async createTicket({title, description, userID}){
-		//this needs to be adjusted to db names
-		await this.instance.run("INSERT into SupportTicket (Title, Description, UserID) Values (?,?,?)", [title, description, userID])
-		return {success: true}
 	}
 
 	// User table getters 
 	async getUpdatedUser(UserID){
-		let result = await this.instance.get("SELECT AgencyName, FirstName, LastName, Email, Password FROM Users WHERE UserID = ?", [UserID])
+		let result = await this.instance.get("SELECT FirstName, LastName, Password, AgencyName FROM Users WHERE UserID = ?", [UserID])
 		return result.UpdatedUser;
 	}
 	async getUserType(UserID) {
@@ -150,6 +144,11 @@ class Database{
 		return result;
 	}
 
+	async getListingForMember(ListingID) {
+		let result = await this.instance.get("SELECT AddressLine1, AddressLine2, City, County, Postcode, Country, RentPerMonth, Email, AgencyName, IsRoom FROM Advertisements WHERE ListingID = ?", [ListingID])
+		return result;
+	}
+
 	//member getters (AKA mostly search)
 	async getAllListingsFromSystem() {
 		let result = await this.instance.all("SELECT ListingID, AddressLine1, AddressLine2, City, County, Postcode, Country, IsRoom, RentPerMonth, Email, AgencyName FROM Advertisements");
@@ -158,7 +157,7 @@ class Database{
 
 	async createTicket({title, description, userID}){
 		//this needs to be adjusted to db names
-		await this.instance.run("INSERT into SupportTickets (Title, Description, UserID) Values (?,?,?)", [title, description, userID])
+		await this.instance.run("INSERT into SupportTicket (Title, Description, UserID) Values (?,?,?)", [title, description, userID])
 		return {success: true}
 	}
 

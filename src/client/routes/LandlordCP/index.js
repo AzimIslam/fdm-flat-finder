@@ -76,7 +76,7 @@ export default class Landlord extends React.Component {
                 </Link>
                 <Link style={{textDecoration: "none", color: "black"}} to="/landlord/settings">
                     <ListItem onClick={() => this.toggleDrawer(false)}>
-                    Account Settings
+                        Account Settings
                     </ListItem>
                 </Link>
             </List>
