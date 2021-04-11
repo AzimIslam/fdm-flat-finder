@@ -54,7 +54,7 @@ export default class ListingPage extends React.Component {
             this.state.mainPage = "/member"
         }
         else if (this.state.userType == "landlord"){
-            this.state.mainPage = "/LandlordCP"
+            this.state.mainPage = "/landlord"
         }
     }
 

@@ -242,7 +242,7 @@ export default class ListingsBox extends React.Component {
                     <TableCell align="left">{row.RentPerMonth}</TableCell>
                     <TableCell align="left" style={{overflow: 'none'}}>
                         <div className="buttons">
-                            <Button variant="contained" color="primary">View</Button>
+                            <Button onClick={() => window.location = `/listingpage?id=${row.ListingID}`} variant="contained" color="primary">View</Button>
                             <Button onClick={() => this.openEditBox(row.ListingID)} style={{marginLeft: "10px"}} variant="contained" color="primary">Edit</Button>
                             <Button onClick={() => this.deleteListing(row.ListingID)} style={{marginLeft: "10px"}} variant="contained" color="primary">Delete</Button>
                         </div>
