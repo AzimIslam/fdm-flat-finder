@@ -29,7 +29,7 @@ class Database{
 		return {'message': "User registered", 'success': true}
 	}
 
-	async updateUser({firstname, lastname, password,agencyName,UserID}){
+	async updateUser({firstname, lastname, password,agencyName,UserID}) {
 		await this.instance.run("UPDATE Users SET (FirstName, LastName, Password, AgencyName ) Values (?,?,?,?) WHERE UserID = ?", firstname,lastname,password,agencyName,UserID)
 	}
 
@@ -43,12 +43,8 @@ class Database{
 		return {'success': true}
 	}
 
-	async editListing({address1, address2, city, county, postcode, country, RentPerMonth, ListingID}){
+	async editListing({address1, address2, city, county, postcode, country, RentPerMonth, ListingID}) {
 		await this.instance.run("UPDATE Listings SET AddressLine1=?, AddressLine2=?, City=?, County=?, Postcode=?, Country=?, RentPerMonth=? WHERE ListingID = ?", address1, address2, city, county, postcode, country, RentPerMonth, ListingID)
-	}
-
-	async createTicket({title, description, UserID}){
-		await this.instance.run("INSERT into Listings (AddressLine1, AddressLine2, City, County, Postcode, LandlordID, Country, isRoom , ImagePath, RentPerMonth) Values (?,?,?,?,?,?,?,?,?,?)", address1, address2, city, county, postcode, landlordID, country,isRoom,ImagePath,RentPerMonth)
 	}
 
 	// User table getters 
@@ -161,7 +157,7 @@ class Database{
 
 	async createTicket({title, description, userID}){
 		//this needs to be adjusted to db names
-		await this.instance.run("INSERT into SupportTickets (Title, Description, UserID) Values (?,?,?)", [title, description, userID])
+		await this.instance.run("INSERT into SupportTicket (Title, Description, UserID) Values (?,?,?)", [title, description, userID])
 		return {success: true}
 	}
 

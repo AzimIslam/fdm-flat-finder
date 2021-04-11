@@ -125,7 +125,7 @@ module.exports = class UserService{
 
 
 	async supportTicket(ListingDetails){
-		return await getDB().createTicket(TicketDetails)
+		return await getDB().createTicket(ListingDetails)
 	}
 
 	async loginUser(loginDetails) {
