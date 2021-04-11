@@ -64,12 +64,14 @@ export default class AddCreateTicketForm extends React.Component {
             headers:{
                 'Content-Type': 'application/json'
             },
-           body: JSON.stringify({userID: id})
+           body: JSON.stringify({userID: this.state.userID})
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             this.setState({agencyName: data['AgencyName'], firstName: data['FirstName'], lastName: data['LastName'], currentPassword: data['Password'], email: data['Email'], modalOpen: true})
         })
+
 
     }
 
@@ -79,6 +81,7 @@ export default class AddCreateTicketForm extends React.Component {
         return( 
             <div>
                 <div id="editForm">
+                <Typography variant="h4">Account Settings</Typography>
                 <TextField value={this.state.agencyName} id="standard-basic" onChange={(e) => this.setState({agencyName: e.target.value})} label="Agency Name"></TextField>
                 <TextField value={this.state.firstName} id="standard-basic" onChange={(e) => this.setState({firstName: e.target.value})} label="First Name"></TextField>
                 <TextField value={this.state.lastName} id="standard-basic" onChange={(e) => this.setState({lastName: e.target.value})} label="Last Name"></TextField>
@@ -86,8 +89,9 @@ export default class AddCreateTicketForm extends React.Component {
                 <TextField value={this.state.currentPassword} id="standard-basic" onChange={(e) => this.setState({currentPassword: e.target.value})} label="Current Password"></TextField>
                 <TextField value={this.state.newPassword} id="standard-basic" onChange={(e) => this.setState({newPassword: e.target.value})} label="New Password"></TextField>
                 </div>
-
-             <Button onClick={() => this.editRequest()} style={{marginLeft: "10px"}} variant="contained" color="primary">Edit</Button>
+            <center>
+             <Button id="editButton" onClick={() => this.editRequest()} style={{marginLeft: "10px"}} variant="contained" color="primary">Edit</Button>
+            </center>
         </div>
         )
       

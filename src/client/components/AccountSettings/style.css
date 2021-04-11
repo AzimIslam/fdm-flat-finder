@@ -1,4 +1,4 @@
-.editForm {
+#editForm {
   display: flex;
   flex-direction: column;
   width: 35%;
@@ -10,8 +10,8 @@
   border: 0pt;
 }
 
-#standard-basic {
-  padding: 3%;
+#editButton {
+  margin-top: 10px;
 }
 
 #AccountTitle {

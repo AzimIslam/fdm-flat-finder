@@ -49,8 +49,8 @@ class Database{
 
 	// User table getters 
 	async getUpdatedUser(UserID){
-		let result = await this.instance.get("SELECT FirstName, LastName, Password, AgencyName FROM Users WHERE UserID = ?", [UserID])
-		return result.UpdatedUser;
+		let result = await this.instance.get("SELECT FirstName, LastName, Email, AgencyName FROM Users WHERE UserID = ?", [UserID])
+		return result;
 	}
 	async getUserType(UserID) {
 		let result = await this.instance.get("SELECT UserType FROM Users WHERE UserID = ?", [UserID])

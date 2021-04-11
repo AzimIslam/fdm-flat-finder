@@ -120,6 +120,10 @@ module.exports = class UserService{
 			console.log("GET request recieved")
 			return res.send(await getDB().getAllListingsFromSystem())
 		});
+
+		this.router.post('/getUserDetails', body(['userID']), async(req, res) => {
+			return res.send(await getDB().getUpdatedUser(req.body.userID))
+		});
 	}
 
 

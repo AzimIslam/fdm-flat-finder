@@ -118,7 +118,6 @@ export default class Landlord extends React.Component {
                             <LLSupportTicket />    
                         </Route>
                         <Route exact path="/landlord/settings">
-                            <h1>Account Settings</h1>  
                             <AccountSettings/>  
                         </Route>
                     </div>
