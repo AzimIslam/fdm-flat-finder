@@ -53,8 +53,8 @@ export default class Listing extends React.Component { //should use abstraction 
                 </Button>
                 
                     <Button size="small" color="primary">
-                        <Link style={{textDecoration: "none"}} to={'/listingpage?id='+this.props.id}> 
-                        View Listing
+                        <Link style={{textDecoration: "none"}} to={'/listingpage?id=' + this.props.id}> 
+                            View Listing
                         </Link>
                     </Button>
               
