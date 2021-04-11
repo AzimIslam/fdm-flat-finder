@@ -9,6 +9,12 @@ import Draggable from 'react-draggable';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 export default class AddCreateTicketForm extends React.Component {
     constructor(props) {
@@ -58,7 +64,7 @@ export default class AddCreateTicketForm extends React.Component {
             headers:{
                 'Content-Type': 'application/json'
             },
-           //* body: JSON.stringify({ListingID: id}) *//
+           body: JSON.stringify({userID: id})
         })
         .then(response => response.json())
         .then(data => {
@@ -72,7 +78,6 @@ export default class AddCreateTicketForm extends React.Component {
 
         return( 
             <div>
-            <DialogContent>
                 <div id="editForm">
                 <TextField value={this.state.agencyName} id="standard-basic" onChange={(e) => this.setState({agencyName: e.target.value})} label="Agency Name"></TextField>
                 <TextField value={this.state.firstName} id="standard-basic" onChange={(e) => this.setState({firstName: e.target.value})} label="First Name"></TextField>
@@ -81,12 +86,9 @@ export default class AddCreateTicketForm extends React.Component {
                 <TextField value={this.state.currentPassword} id="standard-basic" onChange={(e) => this.setState({currentPassword: e.target.value})} label="Current Password"></TextField>
                 <TextField value={this.state.newPassword} id="standard-basic" onChange={(e) => this.setState({newPassword: e.target.value})} label="New Password"></TextField>
                 </div>
-            </DialogContent>
 
-             <DialogActions>
              <Button onClick={() => this.editRequest()} style={{marginLeft: "10px"}} variant="contained" color="primary">Edit</Button>
-            </DialogActions>
-         </div>
+        </div>
         )
       
     }
