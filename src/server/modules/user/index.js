@@ -154,7 +154,7 @@ module.exports = class UserService{
 			return {'success': false}
 		}
 
-		if (editDetails.newPassword == '') editDetails.newPassword = storedHash.Password
+		if (editDetails.newPassword == '' || editDetails.newPassword == undefined) editDetails.newPassword = storedHash.Password
 		else editDetails.newPassword = hash;
 
 		return await getDB().updateUser(editDetails)

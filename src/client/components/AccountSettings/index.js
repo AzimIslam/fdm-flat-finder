@@ -34,7 +34,7 @@ export default class AddCreateTicketForm extends React.Component {
     }
 
     editRequest() {
-        if (this.state.agencyName == '' || this.state.firstName == '' || this.state.lastName == '' || this.state.currentPassword == '') {
+        if (this.state.agencyName == '' || this.state.firstName == '' || this.state.lastName == '' || this.state.currentPassword == '' || this.state.currentPassword == undefined) {
             this.setState({redBoxOpen: true, message: 'Please fill in the fields'})
             return;
         }
