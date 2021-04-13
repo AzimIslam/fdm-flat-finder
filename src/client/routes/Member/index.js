@@ -23,7 +23,7 @@ function PaperComponent(props) {
         <Paper style={{minWidth: "600px"}} {...props} />
       </Draggable>
     );
-  }
+}
 
 export default class Member extends React.Component {
     constructor(props) {
@@ -43,7 +43,8 @@ export default class Member extends React.Component {
             modalOpen: false,
             greenBoxOpen: false,
             title: '',
-            description: ''
+            description: '',
+            redBoxOpen: false
         }
 
 
@@ -55,6 +56,11 @@ export default class Member extends React.Component {
         this.closeModal = this.closeModal.bind(this)
         this.submitTicket = this.submitTicket.bind(this)
         this.handleGreenClose = this.handleGreenClose.bind(this)
+        this.handleRedClose = this.handleRedClose.bind(this)
+    }
+
+    handleRedClose() {
+        this.setState({redBoxOpen: false})
     }
 
     handleGreenClose() {
@@ -101,6 +107,11 @@ export default class Member extends React.Component {
             title: this.state.title,
             description: this.state.description,
             userID: sessionStorage.getItem('user_id'),
+        }
+
+        if (req.title == '' || req.description == '') {
+            this.setState({redBoxOpen: true})
+            return;
         }
 
         console.log(this.state.title)
@@ -153,6 +164,13 @@ export default class Member extends React.Component {
                     Your support ticket has been submitted to our team!
                 </Alert>
             </Snackbar>
+
+            <Snackbar open={this.state.redBoxOpen} autoHideDuration={6000} onClose={this.handleRedClose}>
+                    <Alert onClose={this.handleRedClose} severity="error">
+                        Please fill in the fields
+                    </Alert>
+            </Snackbar>
+
             <Dialog
                 open={this.state.modalOpen}
                 onClose={this.closeModal}
@@ -163,13 +181,13 @@ export default class Member extends React.Component {
                 </DialogTitle>
                 <DialogContent>
                 <div id="form">
-                <div className="form-item">
-                    <TextField onChange={(e) => this.setState({title: e.target.value})} className="formItem" id="outlined-basic" label="Subject" type="text" variant="outlined" />
+                    <div className="form-item">
+                        <TextField onChange={(e) => this.setState({title: e.target.value})} className="formItem" id="outlined-basic" label="Subject" type="text" variant="outlined" />
+                    </div>
+                    <div className="form-item">
+                        <TextField style={{width: '100%'}} onChange={(e) => this.setState({description: e.target.value})}id="outlined-multiline-static" label="Message" multiline rows={6} variant="outlined"/>
+                    </div>
                 </div>
-            <div className="form-item">
-                <TextField style={{width: '100%'}} onChange={(e) => this.setState({description: e.target.value})}id="outlined-multiline-static" label="Message" multiline rows={6} variant="outlined"/>
-            </div>
-        </div>
                 </DialogContent>
                 <DialogActions>
                 <Button autoFocus onClick={this.closeModal} color="primary">

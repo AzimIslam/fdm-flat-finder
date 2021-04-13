@@ -2,19 +2,9 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import './style.css';
 import Typography from "@material-ui/core/Typography";
-import { Button } from "@material-ui/core";
-import Paper from '@material-ui/core/Paper'
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Draggable from 'react-draggable';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import { Button, Snackbar } from "@material-ui/core";
+import Alert from "@material-ui/Lab/Alert";
+
 
 export default class AddCreateTicketForm extends React.Component {
     constructor(props) {
@@ -30,17 +20,32 @@ export default class AddCreateTicketForm extends React.Component {
             email: '',
             newPassword: '',
             userID: sessionStorage.getItem('user_id'),
+            openGreenBox: false,
+            redBoxOpen: false,
+            message: ''
         }
         this.editRequest = this.editRequest.bind(this)
+        this.handleGreenClose = this.handleGreenClose.bind(this);
+        this.handleRedClose = this.handleRedClose.bind(this);
+    }
+
+    handleRedClose() {
+        this.setState({redBoxOpen: false})
     }
 
     editRequest() {
+        if (this.state.agencyName == '' || this.state.firstName == '' || this.state.lastName == '' || this.state.currentPassword == '') {
+            this.setState({redBoxOpen: true, message: 'Please fill in the fields'})
+            return;
+        }
         let req = {
             agencyName: this.state.agencyName,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             newPassword: this.state.newPassword,
+            currentPassword: this.state.currentPassword,
             userID: sessionStorage.getItem('user_id'),
+            email: this.state.email
         }
 
         console.log(req)
@@ -53,8 +58,14 @@ export default class AddCreateTicketForm extends React.Component {
         })
         .then(response => response.json())
         .then(res => {
-            console.log(res)
+            console.log(res['success'])
+            if (res['success']) this.setState({openGreenBox: true})
+            else this.setState({redBoxOpen: true, message: 'Invalid password'})
         })
+    }
+
+    handleGreenClose() {
+        this.setState({openGreenBox: false})
     }
 
 
@@ -80,14 +91,24 @@ export default class AddCreateTicketForm extends React.Component {
 
         return( 
             <div>
+                <Snackbar open={this.state.openGreenBox} autoHideDuration={6000} onClose={this.handleGreenClose}>
+                    <Alert onClose={this.handleGreenClose} severity="success">
+                        Account successfully updated
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={this.state.redBoxOpen} autoHideDuration={6000} onClose={this.handleRedClose}>
+                    <Alert onClose={this.handleRedClose} severity="error">
+                        {this.state.message}
+                    </Alert>
+                </Snackbar>
                 <div id="editForm">
                 <Typography variant="h4">Account Settings</Typography>
                 <TextField value={this.state.agencyName} id="standard-basic" onChange={(e) => this.setState({agencyName: e.target.value})} label="Agency Name"></TextField>
                 <TextField value={this.state.firstName} id="standard-basic" onChange={(e) => this.setState({firstName: e.target.value})} label="First Name"></TextField>
                 <TextField value={this.state.lastName} id="standard-basic" onChange={(e) => this.setState({lastName: e.target.value})} label="Last Name"></TextField>
                 <TextField disabled={true} value={this.state.email} id="standard-basic" onChange={(e) => this.setState({email: e.target.value})} label="Email"></TextField>
-                <TextField value={this.state.currentPassword} id="standard-basic" onChange={(e) => this.setState({currentPassword: e.target.value})} label="Current Password"></TextField>
-                <TextField value={this.state.newPassword} id="standard-basic" onChange={(e) => this.setState({newPassword: e.target.value})} label="New Password"></TextField>
+                <TextField type="password" value={this.state.currentPassword} id="standard-basic" onChange={(e) => this.setState({currentPassword: e.target.value})} label="Current Password"></TextField>
+                <TextField type="password" value={this.state.newPassword} id="standard-basic" onChange={(e) => this.setState({newPassword: e.target.value})} label="New Password"></TextField>
                 </div>
             <center>
              <Button id="editButton" onClick={() => this.editRequest()} style={{marginLeft: "10px"}} variant="contained" color="primary">Edit</Button>

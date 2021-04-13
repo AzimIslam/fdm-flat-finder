@@ -7,7 +7,6 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button'
 import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
-import ListingPage from '../../routes/ListingPage'
 
 export default class Listing extends React.Component { //should use abstraction occurence for different representations of listings
     
@@ -54,12 +53,8 @@ export default class Listing extends React.Component { //should use abstraction 
                 </Button>
                 
                     <Button size="small" color="primary">
-                        <Link style={{textDecoration: "none"}} to={{
-                            pathname: `/listingpage?id=${this.props.id}`,
-                            aboutProps: {
-                                listing_data: this.props
-                            }}}> 
-                        View Listing
+                        <Link style={{textDecoration: "none"}} to={'/listingpage?id=' + this.props.id}> 
+                            View Listing
                         </Link>
                     </Button>
               

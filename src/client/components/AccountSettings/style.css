@@ -1,7 +1,7 @@
 #editForm {
   display: flex;
   flex-direction: column;
-  width: 35%;
+  width: 70%;
   margin: 0 auto;
   margin-top: 1.5em;
 }

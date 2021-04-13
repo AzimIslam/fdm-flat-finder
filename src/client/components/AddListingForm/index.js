@@ -23,12 +23,14 @@ export default class AddListingForm extends React.Component {
             rent: '',
             success: false,
             fileName: 'No file selected',
-            greenBoxOpen: false
+            greenBoxOpen: false,
+            redBoxOpen: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.submitRequest = this.submitRequest.bind(this)
         this.selectFile = this.selectFile.bind(this)
         this.handleGreenClose = this.handleGreenClose.bind(this)
+        this.handleRedClose = this.handleRedClose.bind(this);
     }
 
     selectFile(event) {
@@ -51,6 +53,12 @@ export default class AddListingForm extends React.Component {
 
         req.isFlat = Number(this.state.radioValue)
 
+        if (req.address1 == '' || req.city == '' || req.postcode == '' || req.country == '' || req.rent == '' || req.rent <= 0) {
+            this.setState({redBoxOpen: true})
+            return;
+        }
+
+
         fetch(`/api/user/createListing`, {
             method: 'POST',
             headers:{
@@ -68,13 +76,22 @@ export default class AddListingForm extends React.Component {
         this.setState({greenBoxOpen: false})
     }
 
+    handleRedClose() {
+        this.setState({redBoxOpen: false})
+    }
 
     handleChange(event) {
         this.setState({radioValue: event.target.value})
     }
+
     render() {
         
         return <form className="listingForm" onSubmit={e=> {console.log(e)}}>
+                <Snackbar open={this.state.redBoxOpen} autoHideDuration={6000} onClose={this.handleRedClose}>
+                    <Alert onClose={this.handleRedClose} severity="error">
+                        Please fill in the required fields or enter correct rent
+                    </Alert>
+                </Snackbar>
                 <Snackbar open={this.state.greenBoxOpen} autoHideDuration={6000} onClose={this.handleGreenClose}>
                     <Alert onClose={this.handleGreenClose} severity="success">
                         Listing successfully created

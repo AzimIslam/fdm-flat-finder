@@ -144,9 +144,19 @@ module.exports = class UserService{
 	}
 
 	async editUser(editDetails){
+		var storedHash = await getDB().getUserPasswordHash(editDetails.email);
+		var compareSuccess = bcrypt.compareSync(editDetails.currentPassword, storedHash.Password)
+
 		var salt = bcrypt.genSaltSync(10);
-		var hash = bcrypt.hashSync(editDetails.password, salt);
-		editDetails.password = hash
+		var hash = bcrypt.hashSync(editDetails.newPassword, salt);
+
+		if (!compareSuccess) {
+			return {'success': false}
+		}
+
+		if (editDetails.newPassword == '') editDetails.newPassword = storedHash.Password
+		else editDetails.newPassword = hash;
+
 		return await getDB().updateUser(editDetails)
 	}
 

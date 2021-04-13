@@ -60,6 +60,19 @@ export default class RegisterBox extends React.Component {
     }
 
     createRequest(){
+        if (this.state.firstname == '' || this.state.lastname == '' || this.state.email == '' || this.state.password == '' || this.state.usertype == '') {
+            this.setState({message: 'Please fill in the fields'})
+            this.handleRedOpen()
+            return
+        } else if ((this.state.employeeNum == null && this.state.agencyName == null) || (this.state.employeeNum == '' && this.state.agencyName == null) || (this.state.employeeNum == null && this.state.agencyName == '')) {
+            this.setState({message: 'Please fill in the fields'})
+            this.handleRedOpen()
+            return
+        } else if (!(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.email))) {
+            this.setState({message: 'Please enter a valid e-mail'})
+            this.handleRedOpen()
+            return
+        }
         fetch('/api/user/register', {
             method:"POST",
             headers:{
@@ -82,9 +95,6 @@ export default class RegisterBox extends React.Component {
                 if (this.state.status == 409) {
                   this.setState({message: res['message']})
                   this.handleRedOpen()
-                } else if (this.state.status == 422) {
-                   this.setState({message: 'Please fill in the fields'})  
-                   this.handleRedOpen()
                 } else {
                     this.handleGreenOpen()
                 }
@@ -130,8 +140,8 @@ export default class RegisterBox extends React.Component {
                 </div>
                 <div className="formItem">
                 {
-                        this.state.selectedRadio == 'member' ?  <TextField  style={{width: "60%"}} onChange={(event) => this.setState({employeeNo : event.target.value, agencyName: null})} id="outlined-basic" label="Employee Number" variant="outlined" />:
-                        this.state.selectedRadio == 'landlord' ? <TextField  style={{width: "60%"}} onChange={(event) => this.setState({agencyName : event.target.value, employeeNo: null})} id="outlined-basic" label="Agency Name" variant="outlined" />:
+                        this.state.selectedRadio == 'member' ?  <TextField  style={{width: "60%"}} onChange={(event) => this.setState({employeeNum : event.target.value, agencyName: null})} id="outlined-basic" label="Employee Number" variant="outlined" />:
+                        this.state.selectedRadio == 'landlord' ? <TextField  style={{width: "60%"}} onChange={(event) => this.setState({agencyName : event.target.value, employeeNum: null})} id="outlined-basic" label="Agency Name" variant="outlined" />:
                         false
                 }
                 </div>
